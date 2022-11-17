@@ -1,0 +1,19 @@
+{
+  "name": "bank-api",
+  "version": "1.0.0",
+  "description": "bank application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laminemessaci/BankApi.git"
+  },
+  "author": "lamine messaci",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/laminemessaci/BankApi/issues"
+  },
+  "homepage": "https://github.com/laminemessaci/BankApi#readme"
+}
