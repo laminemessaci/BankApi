@@ -4,7 +4,11 @@
   "description": "bank application",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "doc": "cd front-end && npm run jsdoc && cd..",
+    "server": " cd backend && npm run dev:server && cd ..",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
