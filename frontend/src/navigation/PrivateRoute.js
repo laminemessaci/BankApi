@@ -6,7 +6,7 @@ const PrivateRoute = (props) => {
   if (!false) {
     return <Navigate to="/login" />;
   }
-  return <Outlet />; //restitue les routes enfants
+  return <Outlet />; //Gets the children of the PrivateRoute component
 };
 
 export default PrivateRoute;
