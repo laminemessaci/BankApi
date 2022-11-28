@@ -9,7 +9,7 @@ const Features = () => {
           <div className="w-full h-auto mx-auto p-10 lg:min-w-[270px] lg:flex lg:flex-col lg:justify-center lg:items-center ">
             <div className=" h-40 w-40 mx-auto border-[#00BC77] border-[10px] rounded-full p-3 ">
               <img
-                src={`../assets/${elt.icon}`}
+                src={`/assets/${elt.icon}`}
                 alt={FEAT_DATA.label}
                 className="w-full h-full"
               />
