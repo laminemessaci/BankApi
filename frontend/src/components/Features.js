@@ -1,4 +1,3 @@
-import React from 'react';
 import { FEAT_DATA } from '../constants.js';
 
 const Features = () => {

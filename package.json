@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/laminemessaci/BankApi/issues"
   },
-  "homepage": "https://github.com/laminemessaci/BankApi#readme"
+  "homepage": "https://github.com/laminemessaci/BankApi#readme",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
 }
