@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import { ARGENT_BANK } from '../constants.js';
 import { useNavigate } from 'react-router-dom';
+import EditField from '../components/EditField.js';
 
 function toObject(arr) {
   var rv = {};
@@ -16,7 +17,7 @@ export default function Profil() {
   const navigate = useNavigate();
   useEffect(() => {
     //TODO get token from store
-    if (true) navigate('/profile');
+    navigate('/profile');
   }, []);
   //TODO get user from store
   const firstName = 'john';
@@ -58,6 +59,8 @@ export default function Profil() {
               Edit Name
             </button>
           )}
+
+          {editUser ? <EditField save={edit} /> : ''}
         </div>
         <div className="w-full flex flex-col justify-center items-center mt-4 ">
           {argent[0]?.accounts.map((elt, i) => (

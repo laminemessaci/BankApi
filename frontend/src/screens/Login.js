@@ -17,10 +17,10 @@ export default function Login() {
 
   useEffect(() => {
     //TODO get token from store
-    if (!true) {
+    if (true) {
       navigate('/profile');
     }
-  }, [navigate]);
+  }, []);
 
   return (
     <div className="flex flex-col">
