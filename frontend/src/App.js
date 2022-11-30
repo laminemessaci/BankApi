@@ -1,5 +1,5 @@
-import Header from './components/Header.js'
-import Navigation from './navigation/index.js'
+import Header from './components/Header'
+import Navigation from './navigation'
 
 function App() {
   return (

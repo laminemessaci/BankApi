@@ -16,7 +16,7 @@ export default function Login() {
   const onSubmit = (data) => console.log(data)
 
   useEffect(() => {
-    //TODO get token from store
+    // TODO get token from store
     if (true) {
       navigate('/profile')
     }
@@ -41,7 +41,7 @@ export default function Login() {
                   required: 'Email Address is required',
                   pattern: {
                     value: /^\S+@\S+$/i,
-                    message: "I think I said _valid_, didn't I?",
+                    message: 'I think I said _valid_, didn\'t I?',
                   },
                 })}
                 id='username'

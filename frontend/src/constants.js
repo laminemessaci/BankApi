@@ -1,4 +1,4 @@
-export const BASE_URL = () => 'http://localhost:3001/api/v1/user/';
+export const BASE_URL = () => 'http://localhost:3001/api/v1/user/'
 
 export const FEAT_DATA = [
   {
@@ -19,7 +19,7 @@ export const FEAT_DATA = [
     titre: 'Security you can trust',
     text: 'We use top of the line encryption to make sure your data and money is always safe.',
   },
-];
+]
 
 export const ARGENT_BANK = [
   {
@@ -62,4 +62,4 @@ export const ARGENT_BANK = [
       },
     ],
   },
-];
+]

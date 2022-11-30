@@ -1,8 +1,9 @@
-import { FEAT_DATA } from '../constants.js'
+import React from 'react'
+import { FEAT_DATA } from '../constants'
 
 const Features = () => {
   return (
-    <div className='flex flex-col lg:flex-row lg:justify-center lg:items-center w-full'>
+    <section className='flex flex-col lg:flex-row lg:justify-center lg:items-center w-full'>
       {FEAT_DATA.map((elt, index) => (
         <div key={index} className='lg:w-1/3'>
           <div className='w-full h-auto mx-auto p-10 lg:min-w-[270px] lg:flex lg:flex-col lg:justify-center lg:items-center '>
@@ -14,7 +15,7 @@ const Features = () => {
           </div>
         </div>
       ))}
-    </div>
+    </section>
   )
 }
 

@@ -1,6 +1,6 @@
-import Banner from '../components/Banner.js'
-import Features from '../components/Features.js'
-import Footer from '../components/Footer.js'
+import Banner from '../components/Banner'
+import Features from '../components/Features'
+import Footer from '../components/Footer'
 
 export default function Home() {
   return (

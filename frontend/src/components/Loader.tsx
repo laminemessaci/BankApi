@@ -1,5 +1,5 @@
-import { PropTypes } from 'prop-types'
 import React from 'react'
+import * as PropTypes from 'prop-types'
 import ReactLoading from 'react-loading'
 
 /**
@@ -14,7 +14,7 @@ import ReactLoading from 'react-loading'
  */
 function Loader({ type, color, width, height }) {
   return (
-    <div flex items-center justify-center>
+    <div items-center justify-center>
       <ReactLoading type={type} color={color} width={width} height={height} />
     </div>
   )
