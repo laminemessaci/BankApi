@@ -17,6 +17,7 @@ export type IArgentB ={
   id: string
   accounts: IAccount[]
 }
+
 export const FEAT_DATA : Array<IFeat> = [
   {
     label: 'chat',
