@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Resolver  } from 'react-hook-form'
 import { FaUserCircle } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 
+type FormValues = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+};
+
 export default function Login() {
+
+
   const navigate = useNavigate()
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm()
+  } = useForm<FormValues>({ })
 
   const onSubmit = (data) => console.log(data)
 

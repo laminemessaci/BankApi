@@ -8,8 +8,8 @@ import Header from '../components/Header'
 import { ARGENT_BANK } from '../constants'
 
 function toObject(arr) {
-  var rv = {}
-  for (var i = 0; i < arr.length; ++i) rv[i] = arr[i]
+  const rv = {}
+  for (let i = 0; i < arr.length; ++i) rv[i] = arr[i]
   return rv
 }
 

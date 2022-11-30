@@ -6,7 +6,7 @@ const PrivateRoute = () => {
   if (!true) {
     return <Navigate to='/login' />
   }
-  return <Outlet /> //Gets the children's routes
+  return <Outlet /> // Gets the children's routes
 }
 
 export default PrivateRoute
