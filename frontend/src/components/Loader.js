@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactLoading from 'react-loading';
-import { PropTypes } from 'prop-types';
+import { PropTypes } from 'prop-types'
+import React from 'react'
+import ReactLoading from 'react-loading'
 
 /**
  * Component that displays a Loader
@@ -17,7 +17,7 @@ function Loader({ type, color, width, height }) {
     <div flex items-center justify-center>
       <ReactLoading type={type} color={color} width={width} height={height} />
     </div>
-  );
+  )
 }
 
 Loader.propTypes = {
@@ -25,6 +25,6 @@ Loader.propTypes = {
   color: PropTypes.string.isRequired,
   width: PropTypes.any || 200,
   height: PropTypes.any || 200,
-};
+}
 
-export default Loader;
+export default Loader

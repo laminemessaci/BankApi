@@ -1,5 +1,5 @@
-import Header from './components/Header.js';
-import Navigation from './navigation/index.js';
+import Header from './components/Header.js'
+import Navigation from './navigation/index.js'
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <Header />
       <Navigation />
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
