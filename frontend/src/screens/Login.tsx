@@ -6,10 +6,10 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 
 type FormValues = {
-  email: string
-  firstName: string
-  lastName: string
-  password: string
+  email: string | null
+  firstName: string | null
+  lastName: string | null
+  password: string | null
 };
 
 export default function Login() {
