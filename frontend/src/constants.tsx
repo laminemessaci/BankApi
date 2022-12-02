@@ -1,6 +1,6 @@
 export const BASE_URL = () => 'http://localhost:3001/api/v1/user/'
 
-export type IFeat={
+export type IFeat = {
   label: string
   icon: string
   titre: string
@@ -8,17 +8,25 @@ export type IFeat={
 }
 
 export type IAccount = {
-  check :string
+  check: string
   credit: string
   balance: string
 }
 
-export type IArgentB ={
+export type IArgentB = {
   id: string
   accounts: IAccount[]
 }
 
-export const FEAT_DATA : Array<IFeat> = [
+export type FormValues = {
+  email: string | null
+  firstName: string | null
+  lastName: string | null
+  password: string | null
+  confirmPassword: string | null
+};
+
+export const FEAT_DATA: Array<IFeat> = [
   {
     label: 'chat',
     icon: 'icon-chat.png',
