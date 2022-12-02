@@ -45,8 +45,8 @@ const SingUp: React.FC = () => {
 
             <main className='mt-16 bg-[#12002B] w-full h-screen flex justify-center'>
                 <section className='my-28  p-8 w-auto h-auto bg-white  flex flex-col justify-center p-16'>
-                    <FaUserCircle className='w-12 h-12 mx-auto' />
-                    <h1 className='text-center my-5 text-lg'>Sign In</h1>
+                    <FaUserCircle className='w-8 h-8 mx-auto' />
+                    <h1 className='text-center my-5 text-xl'>Register</h1>
                     {message && <Message variant="danger">{message}</Message>}
 
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,7 +126,7 @@ const SingUp: React.FC = () => {
                             <p className='text-red-600 leading-3 text-xs'>{errors.confirmPassword?.message}</p>
                         </div>
 
-                        <button className=' bg-[#00BC77] p-2 text-white text-xl  '>Register</button>
+                        <button className=' w-full bg-[#00BC77] p-2 text-white text-xl  '>Register</button>
                     </form>
                 </section>
             </main>

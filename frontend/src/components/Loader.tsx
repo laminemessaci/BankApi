@@ -14,7 +14,7 @@ import ReactLoading from 'react-loading'
  */
 function Loader({ type, color, width, height }) {
   return (
-    <div items-center justify-center>
+    <div className=' items-center justify-center'>
       <ReactLoading type={type} color={color} width={width} height={height} />
     </div>
   )
