@@ -44,7 +44,7 @@ const SingUp: React.FC = () => {
         <div className='flex flex-col '>
 
             <main className='mt-16 bg-[#12002B] w-full h-screen flex justify-center'>
-                <section className='my-28  p-8 w-auto h-auto bg-white  flex flex-col justify-center p-16'>
+                <section className='my-auto  p-8 w-auto h-auto bg-white  flex flex-col justify-center p-16'>
                     <FaUserCircle className='w-8 h-8 mx-auto' />
                     <h1 className='text-center my-5 text-xl'>Register</h1>
                     {message && <Message variant="danger">{message}</Message>}

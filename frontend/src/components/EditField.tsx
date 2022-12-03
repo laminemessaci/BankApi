@@ -1,6 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-const EditField = ({ save }) => {
+
+interface IProps {
+  save: () => void
+}
+
+const EditField = ({ save }: IProps) => {
   const [updateFirstName, setUpdateFirstName] = useState('')
   const [updateLastName, setUpdateLastName] = useState('')
   const onSave = (e) => {

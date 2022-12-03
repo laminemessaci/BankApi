@@ -14,13 +14,14 @@ import ReactLoading from 'react-loading'
  */
 function Loader({ type, color, width, height }) {
   return (
-    <div className=' items-center justify-center'>
+    <div className='  items-center justify-center'>
       <ReactLoading type={type} color={color} width={width} height={height} />
     </div>
   )
 }
 
 Loader.propTypes = {
+
   type: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   width: PropTypes.any || 200,

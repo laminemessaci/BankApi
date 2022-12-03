@@ -1,22 +1,31 @@
-import React from 'react'
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../redux/actions/userActions'
 
 const Header = () => {
-  const logout = () => {console.log('clicked')}
-  // console.log('Public :: ', window.location.origin);
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  // console.log(userLogin)
+  const { userInfo } = userLogin
+  const signOut = () => { dispatch(logout()) }
+
   return (
     <div className='w-full h-16 border-b-2 bg-white flex items-center justify-center md:justify-between md:px-10 z-10 absolute'>
       <div className='w-2/3 h-full flex justify-start items-center md:justify-start'>
-        <img src='/assets/argentBankLogo.png' alt='' className='w-44 object-cover' />
+        <Link to={'/'}> <img src='/assets/argentBankLogo.png' alt='' className='w-44 object-cover' /></Link>
       </div>
       <ul>
-        {true ? (
+        {userInfo ? (
           <>
             <div className='flex items-center sm:gap-5 gap-3 mr-3'>
               <FaUserCircle />
-              <span>{'lamine'}</span>
-              <Link to='/' onClick={logout} className='cursor-pointer flex items-center gap-2 hover:underline'>
+              <span>{userInfo?.message}</span>
+              <Link
+                to='/'
+                onClick={signOut}
+                className="cursor-pointer flex items-center gap-2 hover:underline">
                 <FaSignOutAlt />
                 <span className='hidden sm:block'>Sign Out</span>
               </Link>
@@ -34,5 +43,6 @@ const Header = () => {
     </div>
   )
 }
+
 
 export default Header

@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "http://127.0.0.1:3001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,8 +19,12 @@
     "react-hook-form": "^7.40.0",
     "react-icons": "^4.6.0",
     "react-loading": "^2.0.3",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
     "typescript": "^4.9.3",
     "web-vitals": "^2.1.4"
   },
@@ -56,7 +61,7 @@
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
-    "prettier": "2.8.0",
-    "jsdoc": "^3.6.11"
+    "jsdoc": "^3.6.11",
+    "prettier": "2.8.0"
   }
 }
