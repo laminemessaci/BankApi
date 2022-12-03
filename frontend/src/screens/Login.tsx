@@ -7,13 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../redux/actions/userActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { FormValues } from '../constants'
 
-type FormValues = {
-  email: string | null
-  firstName: string | null
-  lastName: string | null
-  password: string | null
-};
+
 
 export default function Login() {
 
@@ -28,8 +24,8 @@ export default function Login() {
     handleSubmit,
   } = useForm<FormValues>({})
 
-  const onSubmit = (data) => {
-    dispatch(login(data.email, data.password))
+  const onSubmit = ({ email, password }: FormValues) => {
+    dispatch(login(email, password))
   }
 
   useEffect(() => {

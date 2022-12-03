@@ -1,7 +1,7 @@
 {
   "root": true,
   "env": {
-    "browser": false,
+    "browser": true,
     "amd": true,
     "node": true,
     "jest": true

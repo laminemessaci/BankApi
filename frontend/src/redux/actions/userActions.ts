@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 import axios from 'axios'
 import {
   USER_DETAILS_FAIL,
@@ -16,8 +16,8 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
 } from '../constants/userConstants.js'
-
-export const login = (email, password) => async (dispatch) => {
+ 
+export const login = (email:string, password:string) => async (dispatch) => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -37,7 +37,7 @@ export const login = (email, password) => async (dispatch) => {
     })
 
     localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error) {
+  } catch (error:string | any) {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload: error.response && error.response.data.message ? error.response.data.message : error.message,

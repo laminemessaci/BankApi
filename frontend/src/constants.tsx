@@ -1,4 +1,4 @@
-export const BASE_URL = () => 'http://localhost:3001/api/v1/user/'
+export const BASE_URL: () => string = () => 'http://localhost:3001/api/v1/user/'
 
 export type IFeat = {
   label: string
@@ -6,6 +6,8 @@ export type IFeat = {
   titre: string
   text: string
 }
+
+
 
 export type IAccount = {
   check: string
