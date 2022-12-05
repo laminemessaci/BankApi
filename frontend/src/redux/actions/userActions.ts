@@ -1,5 +1,6 @@
-
 import axios from 'axios'
+import { ThunkAction } from 'redux-thunk'
+import { Action } from 'redux'
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
@@ -16,34 +17,37 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
 } from '../constants/userConstants.js'
- 
-export const login = (email:string, password:string) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_LOGIN_REQUEST,
-    })
+import { IUserState } from '../userStoreTypes.js'
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+export const login =
+  (email: string, password: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: USER_LOGIN_REQUEST,
+      })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.post('/api/v1/user/login', { email, password }, config)
+
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      })
+
+      localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error: string | any) {
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      })
     }
-
-    const { data } = await axios.post('/api/v1/user/login', { email, password }, config)
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error:string | any) {
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-    })
   }
-}
 
 export const logout = () => async (dispatch) => {
   try {
@@ -58,7 +62,7 @@ export const logout = () => async (dispatch) => {
   }
 }
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (email, firstName, lastName, password) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -70,19 +74,20 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post('/api/v1/user', { name, email, password }, config)
+    const { data } = await axios.post('/api/v1/user/signup', { email, firstName, lastName, password }, config)
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
     })
 
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    })
+    // dispatch({
+    //   type: USER_LOGIN_SUCCESS,
+    //   payload: data,
+    // })
 
     localStorage.setItem('userInfo', JSON.stringify(data))
+    document.location.href = '/profile'
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

@@ -37,8 +37,6 @@ export default function Profil() {
 
   return (
     <div className='flex flex-col w-full h-auto bg-[#12002B]'>
-      <Header />
-
       <main className='mt-24 mb-12 w-full h-auto  flex justify-start items-center flex-col'>
         <div className='flex flex-col items-center mb-4'>
           <h1 className='text-3xl text-center text-white font-bold'>
@@ -62,8 +60,6 @@ export default function Profil() {
           ))}
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

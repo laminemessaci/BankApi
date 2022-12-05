@@ -21,8 +21,9 @@ const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 }
 
-const middleware = [thunk]
+const middleware:any = [thunk]
 
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
+export type AppDispatch = typeof store.dispatch 
 export default store

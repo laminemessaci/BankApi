@@ -4,16 +4,17 @@ import { FaChevronCircleRight, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../redux/actions/userActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { FormValues } from '../constants'
+import { login } from '../redux/actions/userActions'
+import { AppDispatch } from '../store'
 
 
 
 export default function Login() {
 
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
@@ -29,7 +30,7 @@ export default function Login() {
   }
 
   useEffect(() => {
-    // TODO get token from store
+
     if (userInfo) {
       navigate('/profile')
     }
@@ -74,6 +75,7 @@ export default function Login() {
                 className='border-2 p-1 border-black'
                 {...register('password', {
                   required: 'Password is required',
+
                 })}
               />
               <p className='text-red-600 leading-3 text-xs'>{errors.password?.message}</p>
