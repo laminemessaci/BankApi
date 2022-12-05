@@ -11,55 +11,102 @@ import { useSelector, useDispatch } from 'react-redux'
 import { register as create } from './../redux/actions/userActions'
 import Loader from './../components/Loader'
 
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+
 
 const SingUp: React.FC = () => {
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch()
     const userRegister = useSelector((state) => state.userRegister)
     const { loading, error, userInfo } = userRegister
-    const {
-        register,
-        reset,
-        formState: { errors, isSubmitting, isSubmitted, isSubmitSuccessful, isValid },
-        handleSubmit,
-        clearErrors,
-        setError
-    } = useForm<FormValues>({ mode: 'onChange' })
+    // const {
+    //     register,
+    //     reset,
+    //     formState: { errors, isSubmitting, isSubmitted, isSubmitSuccessful, isValid },
+    //     handleSubmit,
+    //     clearErrors,
+    //     setError
+    // } = useForm<FormValues>({ mode: 'onChange' })
 
 
-    const [email, setEmail] = React.useState('')
+    //  const [email, setEmail] = React.useState('')
     // const [firstName, setFirstName] = React.useState('')
     // const [lastName, setLastName] = React.useState('')
     // const [password, setPassword] = React.useState('')
     // const [confirmPassword, setConfirmPassword] = React.useState('')
     const [message, setMessage] = React.useState(null)
 
-    console.log(isSubmitted + '------' + isSubmitSuccessful)
-
-    const onSubmit = (data: FormValues) => {
 
 
-        // console.log(data.confirmPassword)
-        if (data.password !== data.confirmPassword) {
-            // setError('Passwords do not match')
-            setMessage('Passwords do not match')
-            setError('password', { type: 'custom', message: 'do not match***' })
-          
-          
-        }
-        if (error) {
-            setMessage(error)
-            navigate('/sign-up')
-             setMessage(null)
-        }
-        if (isSubmitSuccessful && !error) {
-            dispatch(create(data.email, data.firstName, data.lastName, data.password))
-           
-          
-        }
+    // const onSubmit = (data: FormValues) => {
 
+
+    //     // console.log(data.confirmPassword)
+    //     if (data.password !== data.confirmPassword) {
+    //         // setError('Passwords do not match')
+    //         setMessage('Passwords do not match')
+    //         setError('password', { type: 'custom', message: 'do not match***' })
+
+
+    //     }
+    //     if (error) {
+    //         setMessage(error)
+    //         navigate('/sign-up')
+    //          setMessage(null)
+    //     }
+    //     if (isSubmitSuccessful && !error) {
+    //         dispatch(create(data.email, data.firstName, data.lastName, data.password))
+
+
+    //     }
+
+    // }
+
+
+    const validationSchema = Yup.object().shape({
+        firstName: Yup.string()
+            .min(3, 'too small!')
+            .max(50, 'too long!')
+            .required('This field is required.'),
+        lastName: Yup.string()
+            .min(2, 'too small!')
+            .max(10, 'trop long!')
+            .required('This field is required.'),
+        email: Yup.string()
+            .email('email invalide.')
+            .required('l\'email est obligatoire.'),
+        password: Yup.string()
+            .required('Mot de passe est obligatoire.')
+            .min(5, 'Must be greater than 5 characters.')
+            .max(10, 'Must be smaller than 10 characters.'),
+        confirmPassword: Yup.string()
+            .required('Password confirmation required.')
+            .oneOf(
+                [Yup.ref('password'), null],
+                'password does not match.'
+            ),
+        acceptTerms: Yup.bool().oneOf(
+            [true],
+            'required.'
+        )
+    })
+
+    const initialValues = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        acceptTerms: false
     }
 
+    const handleSubmit = (values) => {
+        const { email, firstName, lastName, password } = values
+        console.log(values)
+        dispatch(create(email, firstName, lastName, password))
+
+    }
 
     React.useEffect(() => {
 
@@ -77,100 +124,130 @@ const SingUp: React.FC = () => {
                     <FaUserCircle className='w-8 h-8 mx-auto' />
                     <h1 className='text-center my-5 text-xl'>Register</h1>
 
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => handleSubmit(values)}
+                    >
+                        {({ resetForm }) => (
+                            <Form>
+                                {error && <Message variant="danger">{error}</Message>}
+                                <div className='input-wrapper mb-4 flex flex-col'>
+                                    <label htmlFor='email font-bold  flex w-full'>Email</label>
+                                    <Field
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder='Email'
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {error && <Message variant="danger">{error}</Message>}
-                        <div className='input-wrapper mb-4 flex flex-col'>
-                            <label htmlFor='email font-bold  flex w-full'>Email</label>
-                            <input
-                                ref={register}
-                                id='email'
-                                name='email'
-                                type='email'
-                                placeholder='Email'
-                                {...register('email', {
-                                    required: 'Email Address is required',
-                                    pattern: {
-                                        value: /^\S+@\S+$/i,
-                                        message: 'Your email is invalid! ',
-                                    },
-                                })}
-                                className='border-2 p-1 border-black'
-                            />
-                            <p className='text-red-600 leading-3 text-xs'>{errors.email?.message}</p>
-                        </div>
+                                        className='border-2 p-1 '
+                                    />
+                                    <ErrorMessage
+                                        name="email"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
 
-                        <div className='input-wrapper mb-4 flex flex-col '>
-                            <label htmlFor='firstname'>First Name</label>
-                            <input
-                                id='firstname'
-                                placeholder='Firstname'
-                                name='firstname'
-                                type='firstName'
-                                className='border-2 p-1 border-black'
-                                {...register('firstName', {
-                                    required: 'First name is required',
-                                    pattern: {
-                                        value: /[A-Za-z]{3}/,
-                                        message: 'Your first-name is invalid! ',
-                                    },
+                                </div>
+
+                                <div className='input-wrapper mb-4 flex flex-col '>
+                                    <label htmlFor='firstName'>First Name</label>
+                                    <Field
+                                        placeholder='Firstname'
+                                        type="text"
+                                        id="firstName"
+                                        name="firstName"
+                                        className='border-2 p-1 '
+                                    />
+                                    <ErrorMessage
+                                        name="firstName"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
+
+                                </div>
+                                <div className='input-wrapper mb-4 flex flex-col '>
+                                    <label htmlFor='lastName'>Last Name</label>
+                                    <Field
+                                        placeholder='Last-name'
+                                        type="text"
+                                        id="lastName"
+                                        name="lastName"
+                                        className='border-2 p-1'
+                                    />
+                                    <ErrorMessage
+                                        name="lastName"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
+
+                                </div>
+                                <div className='input-wrapper mb-4 flex flex-col'>
+                                    <label htmlFor='password'>Password</label>
+                                    <Field
+                                        id='password'
+                                        placeholder='Password'
+                                        name='password'
+                                        type='password'
+                                        className='border-2 p-1 '
+
+                                    />
+                                    <ErrorMessage
+                                        name="password"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
+
+                                </div>
+                                <div className='w-full input-wrapper mb-4 flex flex-col '>
+                                    <label htmlFor='confirmpassword'>Password</label>
+                                    <Field
+                                        id="confirmPassword"
+                                        placeholder='Confirm Password'
+                                        name="confirmPassword"
+                                        type='password'
+                                        className='border-2 p-1 '
+                                    />
+                                    <ErrorMessage
+                                        name="confirmPassword"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
+
+                                </div>
+
+                                <div className="form-group form-check mb-5">
+                                    <Field
+                                        name="acceptTerms"
+                                        type="checkbox"
+                                        className="form-check-input"
+                                    />
+                                    <label htmlFor="acceptTerms" className="form-check-label">
+                                        Agree to the terms
+                                    </label>
+                                    <ErrorMessage
+                                        name="acceptTerms"
+                                        component="small"
+                                        className="text-red-700"
+                                    />
+                                </div>
+
+                                {loading ?
+                                    <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> :
+                                    <div className=' mx-auto flex justify-center mb-2'>
+                                        <button type="submit" className='w-full bg-[#00BC77] p-2 text-white text-xl mb-4 mx-2'>
+                                            Register
+                                        </button>
+                                        <button
+                                            className='w-full bg-[#12002B] p-2 text-white text-xl mb-4 mx-2' type="reset"
+                                            onClick={resetForm} >
+                                            Cancel
+                                        </button>
+                                    </div>}
 
 
-                                })}
-                            />
-                            <p className='text-red-600 leading-3 text-xs'>{errors.firstName?.message}</p>
-                        </div>
-                        <div className='input-wrapper mb-4 flex flex-col '>
-                            <label htmlFor='firstname'>Last Name</label>
-                            <input
-                                id='lastname'
-                                placeholder='Last-name'
-                                name='lastname'
-                                type='lastName'
-                                className='border-2 p-1 border-black'
-                                {...register('lastName', {
-                                    required: 'Last name is required',
-                                    pattern: {
-                                        value: /[A-Za-z]{3}/,
-                                        message: 'Your first-name is invalid! ',
-                                    },
-
-                                })}
-                            />
-                            <p className='text-red-600 leading-3 text-xs'>{errors.lastName?.message}</p>
-                        </div>
-                        <div className='input-wrapper mb-4 flex flex-col'>
-                            <label htmlFor='password'>Password</label>
-                            <input
-                                id='password'
-                                placeholder='Password'
-                                name='password'
-                                type='password'
-                                className='border-2 p-1 border-black'
-                                {...register('password', {
-                                    required: 'Password is required',
-
-                                })}
-                            />
-                            <p className='text-red-600 leading-3 text-xs'>{errors.password?.message}</p>
-                        </div>
-                        <div className='w-full input-wrapper mb-4 flex flex-col '>
-                            <label htmlFor='confirmpassword'>Password</label>
-                            <input
-                                id='confirmpassword'
-                                placeholder='Confirm Password'
-                                name='confirmpassword'
-                                type='password'
-                                className='border-2 p-1 border-black'
-                                {...register('confirmPassword', {
-                                    required: 'Confirm your Password please!',
-                                })}
-                            />
-                            <p className='text-red-600 leading-3 text-xs'>{errors.confirmPassword?.message}</p>
-                        </div>
-
-                        {loading ? <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> : <button className='w-full bg-[#00BC77] p-2 text-white text-xl mb-4'>Login</button>}
-                    </form>
+                            </Form>)}
+                    </Formik>
                 </section>
             </main>
 
