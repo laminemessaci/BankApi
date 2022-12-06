@@ -1,24 +1,22 @@
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
 import { FaUserCircle } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 
-import { FormValues } from '../constants'
-import { AppDispatch } from '../store'
-import { useSelector, useDispatch } from 'react-redux'
-import { register as create } from './../redux/actions/userActions'
+import { useDispatch } from 'react-redux'
+import { AppDispatch, useTypedSelector } from '../store'
 import Loader from './../components/Loader'
+import {  register } from './../redux/actions/userActions'
 
-import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 
-const SingUp: React.FC = () => {
+const SingUp = () => {
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch()
-    const userRegister = useSelector((state) => state.userRegister)
+    const userRegister = useTypedSelector((state) => state.userRegister)
     const { loading, error, userInfo } = userRegister
     // const {
     //     register,
@@ -35,7 +33,7 @@ const SingUp: React.FC = () => {
     // const [lastName, setLastName] = React.useState('')
     // const [password, setPassword] = React.useState('')
     // const [confirmPassword, setConfirmPassword] = React.useState('')
-    const [message, setMessage] = React.useState(null)
+    const [message, setMessage] = useState(null)
 
 
 
@@ -78,7 +76,7 @@ const SingUp: React.FC = () => {
             .required('l\'email est obligatoire.'),
         password: Yup.string()
             .required('Mot de passe est obligatoire.')
-            .min(5, 'Must be greater than 5 characters.')
+            .min(1, 'Must be greater than 5 characters.')
             .max(10, 'Must be smaller than 10 characters.'),
         confirmPassword: Yup.string()
             .required('Password confirmation required.')
@@ -88,7 +86,7 @@ const SingUp: React.FC = () => {
             ),
         acceptTerms: Yup.bool().oneOf(
             [true],
-            'required.'
+            '\n required.'
         )
     })
 
@@ -104,17 +102,13 @@ const SingUp: React.FC = () => {
     const handleSubmit = (values) => {
         const { email, firstName, lastName, password } = values
         console.log(values)
-        dispatch(create(email, firstName, lastName, password))
+        dispatch(register(email, firstName, lastName, password))
 
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
 
-        if (userInfo && !error) {
-            navigate('/profile')
-        }
-
-    }, [navigate, message])
+    }, [userInfo, navigate])
 
     return (
         <div className='flex flex-col '>
@@ -216,7 +210,7 @@ const SingUp: React.FC = () => {
 
                                 </div>
 
-                                <div className="form-group form-check mb-5">
+                                <div className="mb-4 checkbox">
                                     <Field
                                         name="acceptTerms"
                                         type="checkbox"
@@ -235,11 +229,12 @@ const SingUp: React.FC = () => {
                                 {loading ?
                                     <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> :
                                     <div className=' mx-auto flex justify-center mb-2'>
-                                        <button type="submit" className='w-full bg-[#00BC77] p-2 text-white text-xl mb-4 mx-2'>
+                                        <button
+                                            type="submit" className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300 w-full bg-[#00BC77] p-2 text-white text-xl mb-4 mx-2 rounded-sm'>
                                             Register
                                         </button>
                                         <button
-                                            className='w-full bg-[#12002B] p-2 text-white text-xl mb-4 mx-2' type="reset"
+                                            className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300   w-full bg-[#12002B] p-2 text-white text-xl mb-4 mx-2 rounded-sm' type="reset"
                                             onClick={resetForm} >
                                             Cancel
                                         </button>

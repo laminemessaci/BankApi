@@ -27,7 +27,7 @@ export default function Profil() {
   const id = '6362708457c28472fbcb0b94'
 
   const argent = ARGENT_BANK.filter((elt) => elt.id === id)
-  console.log(toObject(argent))
+  // console.log(toObject(argent))
 
   const [editUser, setEditUser] = useState(false)
 

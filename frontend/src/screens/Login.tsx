@@ -3,20 +3,24 @@ import { useForm } from 'react-hook-form'
 import { FaChevronCircleRight, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { FormValues } from '../constants'
 import { login } from '../redux/actions/userActions'
-import { AppDispatch } from '../store'
+import { AppDispatch, useTypedSelector } from '../store'
 
-
+interface IUserLogin {
+  loading: boolean
+  error: string | null
+  userInfo: any
+}
 
 export default function Login() {
 
   const dispatch: AppDispatch = useDispatch()
-  const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const userLogin = useTypedSelector((state) => state.userLogin)
+  const { loading, error, userInfo }: IUserLogin = userLogin
 
   const navigate = useNavigate()
   const {
@@ -32,7 +36,7 @@ export default function Login() {
   useEffect(() => {
 
     if (userInfo) {
-      navigate('/profile')
+       navigate('/profile')
     }
   }, [userInfo, navigate])
 
@@ -86,7 +90,7 @@ export default function Login() {
             </div>
 
 
-            {loading ? <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> : <button className='w-full bg-[#00BC77] p-2 text-white text-xl mb-4'>Login</button>}
+            {loading ? <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> : <button className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300 w-full bg-[#00BC77] p-2 text-white text-xl mb-4 mx-2 rounded-sm'>Login</button>}
             <Link className='text-xs mb-2 flex justify-center' to={'/sign-up'}>New account ?<FaChevronCircleRight color='#00BC77' className='mx-1' /></Link>
           </form>
 
