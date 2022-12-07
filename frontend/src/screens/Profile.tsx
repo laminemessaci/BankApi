@@ -4,19 +4,23 @@ import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { ARGENT_BANK } from '../constants'
-
-
+import { useTypedSelector } from '../store'
+import { IUserLogin } from './Login'
 
 
 export default function Profil() {
+  const userLogin = useTypedSelector((state) => state.userLogin)
+  const { loading, error, userInfo: { user } }: IUserLogin = userLogin
+
+  const { firstName, lastName } = user
+
   const navigate = useNavigate()
   useEffect(() => {
     // TDO get token from store
-   // navigate('/profile')
+    // navigate('/profile')
   }, [])
-  // TODO get user from store
-  const firstName = 'john'
-  const lastName = 'doe'
+
+
 
   // TODO get id from store
   const id = '6362708457c28472fbcb0b94'
@@ -37,15 +41,10 @@ export default function Profil() {
           <h1 className='text-3xl text-center text-white font-bold'>
             Welcome back <br></br> {firstName} {lastName}
           </h1>
-          {editUser ? (
-            <button onClick={edit} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
-              Close
-            </button>
-          ) : (
-            <button onClick={edit} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
-              Edit Name
-            </button>
-          )}
+
+          <button onClick={edit} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
+            {editUser ? ('Close') : ('Edit Profile')}
+          </button>
 
           {editUser ? <EditField save={edit} /> : ''}
         </div>

@@ -147,7 +147,7 @@ export const getUserDetails =
     }
   }
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
+export const updateUserProfile = (firstName: string, lastName: string) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
@@ -163,18 +163,24 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
+    const token = await userInfo.token
 
-    const { data } = await axios.put('/api/v1/user/profile', user, config)
+    const {
+      data: {
+        body: { user },
+      },
+    } = await axios.put('/api/v1/user/profile', { firstName, lastName }, config)
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: data,
+      payload: { user, token },
     })
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data,
+      payload: { user, token },
     })
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
+    document.location.href = '/profile'
   } catch (error: string | any) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message
     if (message === 'Not authorized, token failed') {

@@ -11,7 +11,7 @@ import { login } from '../redux/actions/userActions'
 import { AppDispatch, useTypedSelector } from '../store'
 import { IUserData } from '../redux/userStoreTypes'
 
-interface IUserLogin {
+export interface IUserLogin {
   loading: boolean
   error: string | null
   userInfo: IUserData
