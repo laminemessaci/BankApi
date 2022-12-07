@@ -106,9 +106,7 @@ const SingUp = () => {
 
     }
 
-    useEffect(() => {
 
-    }, [userInfo, navigate])
 
     return (
         <div className='flex flex-col '>
@@ -214,7 +212,7 @@ const SingUp = () => {
                                     <Field
                                         name="acceptTerms"
                                         type="checkbox"
-                                        className="form-check-input"
+                                        className="m-2"
                                     />
                                     <label htmlFor="acceptTerms" className="form-check-label">
                                         Agree to the terms

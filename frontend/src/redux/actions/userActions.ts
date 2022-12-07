@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { ThunkAction } from 'redux-thunk'
 import { Action } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
@@ -33,14 +33,18 @@ export const login =
         },
       }
 
-      const { data } = await axios.post('/api/v1/user/login', { email, password }, config)
+      const {
+        data: {
+          body: { user, token },
+        },
+      } = await axios.post('/api/v1/user/login', { email, password }, config)
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: data,
+        payload: { user, token },
       })
 
-      localStorage.setItem('userInfo', JSON.stringify(data))
+      localStorage.setItem('userInfo', JSON.stringify({ user, token }))
     } catch (error: string | any) {
       dispatch({
         type: USER_LOGIN_FAIL,
@@ -62,73 +66,86 @@ export const logout = () => async (dispatch) => {
   }
 }
 
-export const register = (email, firstName, lastName, password) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_REGISTER_REQUEST,
-    })
+export const register =
+  (
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+  ): ThunkAction<void, IUserState, unknown, Action<string>> =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: USER_REGISTER_REQUEST,
+      })
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const {
+        data: {
+          body: { user, token },
+        },
+      } = await axios.post('/api/v1/user/signup', { email, firstName, lastName, password }, config)
+
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: { user, token },
+      })
+
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: { user, token },
+      })
+
+      localStorage.setItem('userInfo', JSON.stringify({ user, token }))
+      document.location.href = '/profile'
+    } catch (error: string | any) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      })
     }
-
-    const { data } = await axios.post('/api/v1/user/signup', { email, firstName, lastName, password }, config)
-  
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    })
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-    document.location.href = '/profile'
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-    })
   }
-}
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_DETAILS_REQUEST,
-    })
+export const getUserDetails =
+  (id: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_DETAILS_REQUEST,
+      })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo, token },
+      } = getState()
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/api/v1/user/${id}`, config)
+
+      dispatch({
+        type: USER_DETAILS_SUCCESS,
+        payload: data,
+      })
+    } catch (error: string | any) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: USER_DETAILS_FAIL,
+        payload: message,
+      })
     }
-
-    const { data } = await axios.get(`/api/v1/user/${id}`, config)
-
-    dispatch({
-      type: USER_DETAILS_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: USER_DETAILS_FAIL,
-      payload: message,
-    })
   }
-}
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
@@ -158,7 +175,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       payload: data,
     })
     localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error) {
+  } catch (error: string | any) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message
     if (message === 'Not authorized, token failed') {
       dispatch(logout())

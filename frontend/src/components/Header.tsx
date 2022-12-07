@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../redux/actions/userActions'
 import { useTypedSelector } from '../store'
 
@@ -10,6 +9,8 @@ const Header = () => {
   const dispatch = useDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+  console.log(userInfo)
+
   const signOut = () => { dispatch(logout()) }
 
 
@@ -21,9 +22,9 @@ const Header = () => {
       <ul>
         {userInfo ? (
           <>
-            <div className='flex items-center sm:gap-5 gap-3 mr-4'>
-              <FaUserCircle />
-              <span>{userInfo.body?.user?.firstName}</span>
+            <div className='flex items-center sm:gap-5 gap-3 mr-2'>
+              <FaUserCircle className="mx-auto" />
+              <span>{userInfo?.user?.firstName}</span>
               <Link
                 to='/'
                 onClick={signOut}

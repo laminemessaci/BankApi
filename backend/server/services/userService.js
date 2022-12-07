@@ -20,7 +20,13 @@ module.exports.createUser = async (serviceData) => {
 
     let user = await newUser.save();
 
-    return { user };
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.SECRET_KEY || 'default-secret-key',
+      { expiresIn: '1d' }
+    );
+
+    return { user, token };
   } catch (error) {
     console.error('Error in userService.js', error);
     throw new Error(error);

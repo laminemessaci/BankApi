@@ -5,16 +5,19 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
 } from './constants/userConstants'
 
-export interface IUserData {
-  id?: number
+export interface IUser {
+  id?: string
   email: string
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
+}
+export interface IUserData {
   token?: string | null
+  userInfo: IUser
 }
 
 export interface IUserState {
-  authType: string
+  userLogin: IUserData
   loading: boolean
   error: string | null
   user: IUserData | null
