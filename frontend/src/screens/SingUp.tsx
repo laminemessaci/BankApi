@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { FaUserCircle } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
@@ -7,60 +7,17 @@ import Message from '../components/Message'
 import { useDispatch } from 'react-redux'
 import { AppDispatch, useTypedSelector } from '../store'
 import Loader from './../components/Loader'
-import {  register } from './../redux/actions/userActions'
+import { register } from './../redux/actions/userActions'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 
-const SingUp = () => {
+const SingUp: React.FC = () => {
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch()
     const userRegister = useTypedSelector((state) => state.userRegister)
-    const { loading, error, userInfo } = userRegister
-    // const {
-    //     register,
-    //     reset,
-    //     formState: { errors, isSubmitting, isSubmitted, isSubmitSuccessful, isValid },
-    //     handleSubmit,
-    //     clearErrors,
-    //     setError
-    // } = useForm<FormValues>({ mode: 'onChange' })
-
-
-    //  const [email, setEmail] = React.useState('')
-    // const [firstName, setFirstName] = React.useState('')
-    // const [lastName, setLastName] = React.useState('')
-    // const [password, setPassword] = React.useState('')
-    // const [confirmPassword, setConfirmPassword] = React.useState('')
-    const [message, setMessage] = useState(null)
-
-
-
-    // const onSubmit = (data: FormValues) => {
-
-
-    //     // console.log(data.confirmPassword)
-    //     if (data.password !== data.confirmPassword) {
-    //         // setError('Passwords do not match')
-    //         setMessage('Passwords do not match')
-    //         setError('password', { type: 'custom', message: 'do not match***' })
-
-
-    //     }
-    //     if (error) {
-    //         setMessage(error)
-    //         navigate('/sign-up')
-    //          setMessage(null)
-    //     }
-    //     if (isSubmitSuccessful && !error) {
-    //         dispatch(create(data.email, data.firstName, data.lastName, data.password))
-
-
-    //     }
-
-    // }
-
+    const { loading, error } = userRegister
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string()
@@ -75,8 +32,8 @@ const SingUp = () => {
             .email('email invalide.')
             .required('l\'email est obligatoire.'),
         password: Yup.string()
-            .required('Mot de passe est obligatoire.')
-            .min(1, 'Must be greater than 5 characters.')
+            .required('Password is required.')
+            .min(5, 'Must be greater than 5 characters.')
             .max(10, 'Must be smaller than 10 characters.'),
         confirmPassword: Yup.string()
             .required('Password confirmation required.')
@@ -225,7 +182,7 @@ const SingUp = () => {
                                 </div>
 
                                 {loading ?
-                                    <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div> :
+                                    <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={'40'} height={'40'} /> </div> :
                                     <div className=' mx-auto flex justify-center mb-2'>
                                         <button
                                             type="submit" className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300 w-full bg-[#00BC77] p-2 text-white text-xl mb-4 mx-2 rounded-sm'>

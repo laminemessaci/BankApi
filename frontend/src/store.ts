@@ -9,7 +9,7 @@ import {
   userUpdateProfileReducer,
 } from './redux/reducers/userReducers'
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
@@ -18,17 +18,17 @@ const reducer = combineReducers({
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
-const initialState = {
+const initialState: any = {
   userLogin: { userInfo: userInfoFromStorage },
 }
 
 const middleware: any = [thunk]
 
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
+const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
 export type AppDispatch = typeof store.dispatch
 
-export type RootState = ReturnType<typeof reducer>
+export type RootState = ReturnType<typeof reducers>
 
 export default store
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateUserProfile } from '../redux/actions/userActions'
-import { IUserLogin } from '../screens/Login'
+
 import { AppDispatch, useTypedSelector } from '../store'
 import Loader from './Loader'
 import Message from './Message'
@@ -11,18 +11,19 @@ interface IProps {
   save: () => void
 }
 
-const EditField = ({ save }: IProps) => {
+const EditField: React.FC<IProps> = ({ save }: IProps) => {
+
 
   const dispatch: AppDispatch = useDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading, error, userInfo: { user } }: IUserLogin = userLogin
+  const { loading, error, userInfo: { user } } = userLogin
 
   const { firstName, lastName } = user
   const [updateFirstName, setUpdateFirstName] = useState('')
   const [updateLastName, setUpdateLastName] = useState('')
 
-  const onSave = (e) => {
-    e.preventDefault()
+  const onSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
     const userUpdateData = {
       firstName: updateFirstName ? updateFirstName : firstName,
       lastName: updateLastName ? updateLastName : lastName,
@@ -40,7 +41,7 @@ const EditField = ({ save }: IProps) => {
             placeholder={user?.firstName}
             onChange={(e) => setUpdateFirstName(e.target.value)}
           />
-          {loading ? (<div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={40} height={40} /> </div>) : <button onClick={onSave} className='w-20 sm:w-40 bg-[#00BC77] p-2 text-white text-lg font-bold '> Save </button>}
+          {loading ? (<div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={'40'} height={'40'} /> </div>) : <button onClick={onSave} className='w-20 sm:w-40 bg-[#00BC77] p-2 text-white text-lg font-bold '> Save </button>}
         </div>
         <div className='w-1/2 flex flex-col gap-5 justify-center items-center sm:items-start'>
           <input

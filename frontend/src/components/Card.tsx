@@ -6,7 +6,8 @@ interface IAccount {
   balance: string
 }
 
-const Card = ({ check, credit, balance }: IAccount) => {
+const Card: React.FC<IAccount> = (props: IAccount) => {
+  const { check, credit, balance } = props
   return (
     <section className='bg-white p-6 mb-8 w-10/12 sm:w-9/12 flex flex-col  sm:flex-row sm:justify-between sm:items-center'>
       <div className='flex text-black flex-col'>

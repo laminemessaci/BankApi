@@ -13,32 +13,40 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
   USER_UPDATE_PROFILE_SUCCESS,
-} from '../constants/userConstants.js'
+} from '../constants/userConstants'
+import { LoginActions, UserActionType } from '../../redux/actions/userActionsTypes'
+import { UserLoginState } from '../userReducerTypes'
 
-export const userLoginReducer = (state = {}, action) => {
+const initialState: UserLoginState = {
+  loading: false,
+  error: '',
+  userInfo: undefined,
+}
+
+export const userLoginReducer = (state: UserLoginState = initialState, action: LoginActions): UserLoginState => {
   switch (action.type) {
-    case USER_LOGIN_REQUEST:
-      return { loading: true }
+    case UserActionType.USER_LOGIN_REQUEST:
+      return { ...initialState, loading: true, error: null }
 
-    case USER_LOGIN_SUCCESS:
-      return { loading: false, userInfo: action.payload }
-    case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload }
+    case UserActionType.USER_LOGIN_SUCCESS:
+      return { ...initialState, loading: false, userInfo: action.payload }
+    case UserActionType.USER_LOGIN_FAIL:
+      return { ...initialState, loading: false, error: action.payload }
 
     default:
       return state
   }
 }
 
-export const userRegisterReducer = (state = {}, action) => {
+export const userRegisterReducer = (state: UserLoginState = initialState, action: LoginActions): UserLoginState => {
   switch (action.type) {
-    case USER_REGISTER_REQUEST:
-      return { loading: true }
+    case UserActionType.USER_REGISTER_REQUEST:
+      return {...initialState, loading: true, error: null }
 
-    case USER_REGISTER_SUCCESS:
-      return { loading: false, userInfo: action.payload }
-    case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload }
+    case UserActionType.USER_REGISTER_SUCCESS:
+      return {...initialState, loading: false, error: null, userInfo: action.payload }
+    case UserActionType.USER_REGISTER_FAIL:
+      return {...initialState, loading: false, error: action.payload }
 
     default:
       return state

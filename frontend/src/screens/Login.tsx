@@ -9,7 +9,7 @@ import Message from '../components/Message'
 import { FormValues } from '../constants'
 import { login } from '../redux/actions/userActions'
 import { AppDispatch, useTypedSelector } from '../store'
-import { IUserData } from '../redux/userStoreTypes'
+import { IUserData } from '../redux/userReducerTypes'
 
 export interface IUserLogin {
   loading: boolean
@@ -21,7 +21,9 @@ export default function Login() {
 
   const dispatch: AppDispatch = useDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading, error, userInfo }: IUserLogin = userLogin
+  const { loading, error, userInfo } = userLogin
+
+  console.log('userLogin', userLogin)
 
   const navigate = useNavigate()
   const {
