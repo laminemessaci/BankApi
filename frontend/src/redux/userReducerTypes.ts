@@ -1,4 +1,3 @@
-import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from './constants/userConstants'
 
 export interface IUser {
   id?: string
@@ -13,6 +12,7 @@ export interface IUserData {
 
 export interface IUserState {
   userLogin: IUserData
+  userRegister: IUserData
   loading: boolean
   error: string | null
   user: IUserData | null
@@ -23,11 +23,11 @@ export interface UserLoginState {
   error: string | null
   userInfo: UserData
 }
-// export interface UserRegisterState {
-//   loading: boolean
-//   error: string | null
-//   userInfo: UserData
-// }
+export interface UserRegisterState {
+  loading: boolean
+  error: string | null
+  userInfo: UserData
+}
 
 export interface IUser {
   _id: string
@@ -41,3 +41,4 @@ export interface UserData {
   token: string | null
   user: IUser
 }
+

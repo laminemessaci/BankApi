@@ -32,4 +32,4 @@ export type RootState = ReturnType<typeof reducers>
 
 export default store
 
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+// export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector

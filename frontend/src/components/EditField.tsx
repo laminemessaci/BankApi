@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { updateUserProfile } from '../redux/actions/userActions'
-
-import { AppDispatch, useTypedSelector } from '../store'
+import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
 import Loader from './Loader'
 import Message from './Message'
 
@@ -14,7 +12,7 @@ interface IProps {
 const EditField: React.FC<IProps> = ({ save }: IProps) => {
 
 
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { loading, error, userInfo: { user } } = userLogin
 

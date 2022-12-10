@@ -1,8 +1,8 @@
 
-import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router'
 import { ActionFunction, LoaderFunction, ShouldRevalidateFunction } from 'react-router-dom'
-import { useTypedSelector } from '../store'
+import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
+
 
 interface RouteObject {
   path?: string
@@ -20,7 +20,7 @@ interface RouteObject {
 
 const PrivateRoute: React.FC<RouteObject> = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { userInfo } = userLogin
   if (!userInfo) {
     return <Navigate to='/login' />
   }

@@ -1,21 +1,19 @@
 import {
+  LoginActions,
+  RegisterActions,
+  UserLoginActionType,
+  UserRegisterActionType
+} from '../../redux/actions/userActionsTypes'
+import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
-  USER_DETAILS_SUCCESS,
-  USER_LOGIN_FAIL,
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-  USER_UPDATE_PROFILE_FAIL,
+  USER_DETAILS_SUCCESS, USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_SUCCESS
 } from '../constants/userConstants'
-import { LoginActions, UserActionType } from '../../redux/actions/userActionsTypes'
-import { UserLoginState } from '../userReducerTypes'
+import { UserLoginState, UserRegisterState } from '../userReducerTypes'
 
 const initialState: UserLoginState = {
   loading: false,
@@ -25,12 +23,12 @@ const initialState: UserLoginState = {
 
 export const userLoginReducer = (state: UserLoginState = initialState, action: LoginActions): UserLoginState => {
   switch (action.type) {
-    case UserActionType.USER_LOGIN_REQUEST:
+    case UserLoginActionType.USER_LOGIN_REQUEST:
       return { ...initialState, loading: true, error: null }
 
-    case UserActionType.USER_LOGIN_SUCCESS:
+    case UserLoginActionType.USER_LOGIN_SUCCESS:
       return { ...initialState, loading: false, userInfo: action.payload }
-    case UserActionType.USER_LOGIN_FAIL:
+    case UserLoginActionType.USER_LOGIN_FAIL:
       return { ...initialState, loading: false, error: action.payload }
 
     default:
@@ -38,15 +36,15 @@ export const userLoginReducer = (state: UserLoginState = initialState, action: L
   }
 }
 
-export const userRegisterReducer = (state: UserLoginState = initialState, action: LoginActions): UserLoginState => {
+export const userRegisterReducer = (state = initialState, action: RegisterActions): UserRegisterState => {
   switch (action.type) {
-    case UserActionType.USER_REGISTER_REQUEST:
-      return {...initialState, loading: true, error: null }
+    case UserRegisterActionType.USER_REGISTER_REQUEST:
+      return { ...initialState, loading: true, error: null }
 
-    case UserActionType.USER_REGISTER_SUCCESS:
-      return {...initialState, loading: false, error: null, userInfo: action.payload }
-    case UserActionType.USER_REGISTER_FAIL:
-      return {...initialState, loading: false, error: action.payload }
+    case UserRegisterActionType.USER_REGISTER_SUCCESS:
+      return { ...initialState, loading: false, error: null, userInfo: action.payload }
+    case UserRegisterActionType.USER_REGISTER_FAIL:
+      return { ...initialState, loading: false, error: action.payload }
 
     default:
       return state

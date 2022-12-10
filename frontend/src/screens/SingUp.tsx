@@ -1,21 +1,17 @@
-import { useState } from 'react'
 
 import { FaUserCircle } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 
-import { useDispatch } from 'react-redux'
-import { AppDispatch, useTypedSelector } from '../store'
 import Loader from './../components/Loader'
 import { register } from './../redux/actions/userActions'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
 
 const SingUp: React.FC = () => {
-    const navigate = useNavigate()
-    const dispatch: AppDispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const userRegister = useTypedSelector((state) => state.userRegister)
     const { loading, error } = userRegister
 
@@ -78,7 +74,7 @@ const SingUp: React.FC = () => {
                         validationSchema={validationSchema}
                         onSubmit={(values) => handleSubmit(values)}
                     >
-                        {({ resetForm }) => (
+                        {({ resetForm }: any) => (
                             <Form>
                                 {error && <Message variant="danger">{error}</Message>}
                                 <div className='input-wrapper mb-4 flex flex-col'>

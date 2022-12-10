@@ -1,12 +1,12 @@
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout } from '../redux/actions/userActions'
-import { AppDispatch, useTypedSelector } from '../store'
+import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
+
 
 const Header: React.FC = () => {
 
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   console.log(userInfo)

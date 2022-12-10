@@ -7,7 +7,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants'
-import { UserData, UserLoginState } from '../userReducerTypes'
+import { UserData } from '../userReducerTypes'
 
 /* Actions */
 export interface UserLoggingRequestAction {
@@ -39,22 +39,30 @@ export interface UserRegisterFailAction {
   payload: string | null
 }
 
-export type LoginActions =
-  | UserLoggingRequestAction
-  | UserLoggingSuccessAction
-  | UserLoggingFailAction
-  | UserLogOutAction
-  | UserRegisterFailAction
-  | UserRegisterSuccessAction
-  | UserRegisterRequestAction
+export type LoginActions = UserLoggingRequestAction | UserLoggingSuccessAction | UserLoggingFailAction | UserLogOutAction
 
-export enum UserActionType {
+export type RegisterActions = UserRegisterRequestAction | UserRegisterSuccessAction | UserRegisterFailAction
+
+export enum UserLoginActionType {
   USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST',
   USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS',
   USER_LOGIN_FAIL = 'USER_LOGIN_FAIL',
   USER_LOGOUT = 'USER_LOGOUT',
   USER_DETAILS_RESET = 'USER_DETAILS_RESET',
-  USER_REGISTER_SUCCESS = ' USER_REGISTER_SUCCESS',
+  USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS',
   USER_REGISTER_FAIL = 'USER_REGISTER_FAIL',
   USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST',
 }
+
+export enum UserRegisterActionType {
+  USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS',
+  USER_REGISTER_FAIL = 'USER_REGISTER_FAIL',
+  USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST',
+}
+
+// Types and interfaces
+interface ILogoutUserSuccess {
+  type: typeof USER_LOGOUT
+}
+
+export type TDispatchLogoutUser = ILogoutUserSuccess

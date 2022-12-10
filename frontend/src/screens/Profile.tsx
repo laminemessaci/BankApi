@@ -3,19 +3,21 @@ import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { ARGENT_BANK } from '../constants'
-import { useTypedSelector } from '../store'
+import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
+
 
 
 const Profile: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading, error, userInfo: { user } } = userLogin
+  const { userInfo: { user } } = userLogin
 
   const { firstName, lastName } = user
+  console.log('user: ', user)
 
-  const id = '6362708457c28472fbcb0b94'
+  const id = '6391036d1ec7bf53bc12774c'
 
   const argent = ARGENT_BANK.filter((elt) => elt.id === id)
-  // console.log(toObject(argent))
+
 
   const [editUser, setEditUser] = useState(false)
 
