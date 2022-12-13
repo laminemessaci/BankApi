@@ -9,7 +9,8 @@ const Header: React.FC = () => {
   const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  console.log(userInfo)
+
+  console.log('userInfo', userInfo)
 
   const signOut = () => { dispatch(logout()) }
 
@@ -23,8 +24,12 @@ const Header: React.FC = () => {
         {userInfo ? (
           <>
             <div className='flex items-center sm:gap-5 gap-3 mr-2'>
-              <FaUserCircle className="mx-auto" />
-              <span>{userInfo?.user?.firstName}</span>
+              <Link to='/profile'
+
+                className="cursor-pointer flex items-center gap-2 hover:underline">
+                <FaUserCircle className="mx-auto" />
+                <span>{userInfo?.user?.firstName}</span>
+              </Link>
               <Link
                 to='/'
                 onClick={signOut}

@@ -25,7 +25,6 @@ const Navigation: React.FC<RouteObject> = () => {
       <Route path='/' element={<Home />} />
       <Route path='/sign-up' element={<SingUp />} />
       <Route path='/login' element={<Login />} />
-
       <Route element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />}></Route>
       </Route>
