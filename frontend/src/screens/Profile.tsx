@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
-import { ARGENT_BANK } from '../constants'
 import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
 
@@ -12,12 +11,7 @@ const Profile: React.FC = () => {
   const { userInfo: { user } } = userLogin
 
   const { firstName, lastName } = user
-  console.log('user: ', user)
-
-  const id = '6391036d1ec7bf53bc12774c'
-
-  const argent = ARGENT_BANK.filter((elt) => elt.id === id)
-
+  console.log('user: ', user.accounts)
 
   const [editUser, setEditUser] = useState(false)
 
@@ -37,8 +31,9 @@ const Profile: React.FC = () => {
           {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
-          {argent[0]?.accounts.map((elt, i) => (
-            <Card key={uuidv4()} check={elt.check} credit={elt.credit} balance={elt.balance} />
+          {user?.accounts.map((elt, i) => (
+
+            <Card key={uuidv4()} check={elt.name} credit={elt.description} balance={elt.balance} />
           ))}
         </div>
       </main>

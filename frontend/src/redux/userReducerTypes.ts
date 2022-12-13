@@ -1,5 +1,15 @@
-
+export interface IAccount {
+  _id: string
+  accountNumber: string
+  name: string
+  balance: number
+  currency: string
+  description: string
+  updatedAt: Date
+  createdAt: Date
+}
 export interface IUser {
+  accounts: IAccount[]
   id?: string
   email: string
   firstName: string
@@ -41,4 +51,3 @@ export interface UserData {
   token: string | null
   user: IUser
 }
-
