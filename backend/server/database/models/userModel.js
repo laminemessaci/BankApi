@@ -19,13 +19,11 @@ const transactionSchema = mongoose.Schema(
 
     currency: {
       type: String,
-      required: false,
-      default: '$',
+      required: true,
     },
     type: {
       type: String,
       required: true,
-      default: 'Not defined',
     },
     category: {
       type: String,
@@ -34,7 +32,7 @@ const transactionSchema = mongoose.Schema(
     },
     note: {
       type: String,
-      required: false,
+      required: true,
     },
     createdAt: {
       type: Date,
@@ -70,11 +68,13 @@ const accountSchema = mongoose.Schema(
     },
     currency: {
       type: String,
-      required: true,
+      required: false,
+      default: '$',
     },
     description: {
       type: String,
       required: true,
+      default: 'Credit Card',
     },
     transactions: [transactionSchema],
   },
