@@ -1,5 +1,9 @@
 const axios = require('axios');
-const signupApi = 'http://localhost:3001/api/v1/user/signup';
+const {
+  balanceTypeArray,
+  typeTransArray,
+  signupApi,
+} = require('./constants.js');
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
@@ -26,14 +30,6 @@ function generateRandomPrice(max) {
   return Math.floor(Math.random() * max) / 1.2;
 }
 
-const typeTransArray = ['Credit Card', 'Checking', 'Savings'];
-const balanceTypeArray = [
-  ' Current Balance',
-  ' Available Balance',
-  ' Credit Balance',
-  ' Consumer credit',
-];
-
 const generateRandomAccount = (max) => {
   let accountNumber = 'FR76300060000' + randomString(14, '0123456789');
   let name =
@@ -44,7 +40,7 @@ const generateRandomAccount = (max) => {
   let balance = generateRandomPrice(max).toFixed(2);
   let currency = '$';
   let description =
-    typeTransArray[Math.floor(Math.random() * balanceTypeArray.length-1)];
+    typeTransArray[Math.floor(Math.random() * balanceTypeArray.length - 1)];
   let account = {
     accountNumber,
     name,
@@ -69,14 +65,14 @@ const users = [
     lastName: 'Stark',
     email: 'tony@stark.com',
     password: 'password123',
-    accounts: generateSommeAccounts(5, [1000, 10000, 30000]),
+    accounts: generateSommeAccounts(5, [1900, 10980, 39652]),
   },
   {
     firstName: 'Steve',
     lastName: 'Rogers',
     email: 'steve@rogers.com',
     password: 'password456',
-    accounts: generateSommeAccounts(4, [1500, 10900, 30350]),
+    accounts: generateSommeAccounts(4, [1570, 10990, 32350]),
   },
 ];
 
