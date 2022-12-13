@@ -2,8 +2,8 @@
 
 interface IAccount {
   check: string
-  credit: string
-  balance: number
+  credit: number
+  balance: string
 }
 
 const Card: React.FC<IAccount> = (props: IAccount) => {

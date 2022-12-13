@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
           {user?.accounts.map((elt, i) => (
 
-            <Card key={uuidv4()} check={elt.name} credit={elt.description} balance={elt.balance} />
+            <Card key={uuidv4()} check={elt.name} credit={elt.balance} balance={elt.description} />
           ))}
         </div>
       </main>
