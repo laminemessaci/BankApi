@@ -1,5 +1,59 @@
 const mongoose = require('mongoose');
 
+const transactionSchema = mongoose.Schema(
+  {
+    description: {
+      type: String,
+      required: true,
+      default: 'Not defined',
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+
+    date: {
+      type: Date,
+      required: true,
+    },
+
+    currency: {
+      type: String,
+      required: false,
+      default: '$',
+    },
+    type: {
+      type: String,
+      required: true,
+      default: 'Not defined',
+    },
+    category: {
+      type: String,
+      required: true,
+      default: 'Not defined',
+    },
+    note: {
+      type: String,
+      required: false,
+    },
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+
+    updatedAt: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+  },
+
+  {
+    timestamps: true,
+  }
+);
+
 const accountSchema = mongoose.Schema(
   {
     accountNumber: {
@@ -22,6 +76,7 @@ const accountSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    transactions: [transactionSchema],
   },
 
   {
@@ -35,7 +90,7 @@ const userSchema = new mongoose.Schema(
     password: String,
     firstName: String,
     lastName: String,
-    accounts:  [accountSchema] ,
+    accounts: [accountSchema],
   },
   {
     timestamps: true,

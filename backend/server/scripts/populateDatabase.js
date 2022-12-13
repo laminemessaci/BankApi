@@ -1,54 +1,67 @@
 const axios = require('axios');
 const signupApi = 'http://localhost:3001/api/v1/user/signup';
-const profileApi = 'http://localhost:3001/api/v1/user/profile';
 
-const accounts = [
-  {
-    accountNumber: 'FR7630001007941234567890185',
-    name: 'Argent Bank Checking (x8349)',
-    balance: 2082.79,
-    currency: '$',
-    description: 'Available Balance',
-  },
-  {
-    accountNumber: 'FR7630004000031234567890143',
-    name: 'Argent Bank Savings (x6712)',
-    balance: 10928.42,
-    currency: '$',
-    description: 'Available Balance',
-  },
-  {
-    accountNumber: 'FR7630006000011234567890189',
-    name: 'Argent Bank Credit Card (x8349)',
-    balance: 882.99,
-    currency: '$',
-    description: 'Current Balance',
-  },
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive).
+ * The value is no lower than min (or the next integer greater than min
+ * if min isn't an integer) and no greater than max (or the next integer
+ * lower than max if max isn't an integer).
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomString(length, chars) {
+  var result = '';
+  for (let i = length; i > 0; --i)
+    result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
+
+// function generate random price $
+function generateRandomPrice(max) {
+  return Math.floor(Math.random() * max) / 1.2;
+}
+
+const typeTransArray = ['Credit Card', 'Checking', 'Savings'];
+const balanceTypeArray = [
+  ' Current Balance',
+  ' Available Balance',
+  ' Credit Balance',
+  ' Consumer credit',
 ];
 
-const accounts2 = [
-  {
-    accountNumber: 'FR7630001007941234567123456',
-    name: 'Argent Bank Checking (x9856)',
-    balance: 2356.79,
-    currency: '$',
-    description: 'Available Balance',
-  },
-  {
-    accountNumber: 'FR7630004000031234567789654',
-    name: 'Argent Bank Savings (x6576)',
-    balance: 12568.42,
-    currency: '$',
-    description: 'Available Balance',
-  },
-  {
-    accountNumber: 'FR7630006000011234567286437',
-    name: 'Argent Bank Credit Card (x2504)',
-    balance: 8235.99,
-    currency: '$',
-    description: 'Current Balance',
-  },
-];
+const generateRandomAccount = (max) => {
+  let accountNumber = 'FR76300060000' + randomString(14, '0123456789');
+  let name =
+    'Argent Bank' +
+    balanceTypeArray[getRandomInt(0, balanceTypeArray.length - 1)] +
+    '(x' +
+    randomString(4, '0123456789');
+  let balance = generateRandomPrice(max).toFixed(2);
+  let currency = '$';
+  let description =
+    typeTransArray[Math.floor(Math.random() * balanceTypeArray.length-1)];
+  let account = {
+    accountNumber,
+    name,
+    balance,
+    currency,
+    description,
+  };
+  return account;
+};
+
+function generateSommeAccounts(length, arr) {
+  let accounts = [];
+  for (let i = 0; i < length; i++) {
+    accounts.push(generateRandomAccount(arr[getRandomInt(0, arr.length - 1)]));
+  }
+  return accounts;
+}
 
 const users = [
   {
@@ -56,14 +69,14 @@ const users = [
     lastName: 'Stark',
     email: 'tony@stark.com',
     password: 'password123',
-    accounts: accounts,
+    accounts: generateSommeAccounts(5, [1000, 10000, 30000]),
   },
   {
     firstName: 'Steve',
     lastName: 'Rogers',
     email: 'steve@rogers.com',
     password: 'password456',
-    accounts: accounts2,
+    accounts: generateSommeAccounts(4, [1500, 10900, 30350]),
   },
 ];
 
@@ -73,9 +86,3 @@ users.forEach((user) => {
     .then((response) => console.log(response))
     .catch((error) => console.log(error));
 });
-// accounts.forEach((account) => {
-//   axios
-//     .post(profileApi, account)
-//     .then((response) => console.log(response))
-//     .catch((error) => console.log(error));
-// });
