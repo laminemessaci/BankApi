@@ -36,7 +36,8 @@ const generateRandomAccount = (max) => {
     'Argent Bank' +
     balanceTypeArray[getRandomInt(0, balanceTypeArray.length - 1)] +
     '(x' +
-    randomString(4, '0123456789');
+    randomString(4, '0123456789') +
+    ')';
   let balance = generateRandomPrice(max).toFixed(2);
   let currency = '$';
   let description =
@@ -51,13 +52,13 @@ const generateRandomAccount = (max) => {
   return account;
 };
 
-function generateSommeAccounts(length, arr) {
+const generateSommeAccounts = (length, arr) => {
   let accounts = [];
   for (let i = 0; i < length; i++) {
     accounts.push(generateRandomAccount(arr[getRandomInt(0, arr.length - 1)]));
   }
   return accounts;
-}
+};
 
 const users = [
   {
@@ -82,3 +83,5 @@ users.forEach((user) => {
     .then((response) => console.log(response))
     .catch((error) => console.log(error));
 });
+
+module.exports = { generateSommeAccounts };
