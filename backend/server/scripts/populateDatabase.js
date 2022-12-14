@@ -46,16 +46,18 @@ const generateRandomTransactions = (count) => {
   let start = new Date(2022, 12, 1);
   let end = new Date(2022, 12, 30);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  let type = Object.keys(TransactionTypeObject)[
-    getRandomInt(0, Object.keys(TransactionTypeObject).length - 1)
-  ];
-  let category = TransactionTypeObject[type][0];
-  let max = TransactionTypeObject[type][1];
-  let note = TransactionTypeObject[type][2];
-  let description = TransactionTypeObject[type][3];
 
-  let amount = generateRandomPrice(max).toFixed(2);
   for (let i = 0; i < count; i++) {
+    let type = Object.keys(TransactionTypeObject)[
+      getRandomInt(0, Object.keys(TransactionTypeObject).length - 1)
+    ];
+    let category = TransactionTypeObject[type][0];
+    let max = TransactionTypeObject[type][1];
+    let note = TransactionTypeObject[type][2];
+    let description = TransactionTypeObject[type][3];
+
+    let amount = generateRandomPrice(max).toFixed(2);
+
     let transaction = {
       type,
       category,

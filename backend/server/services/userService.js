@@ -1,5 +1,5 @@
 const User = require('../database/models/userModel');
-const {generateSommeAccounts} = require('./../scripts/populateDatabase');
+const { generateSommeAccounts } = require('./../scripts/populateDatabase');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Account } = require('../database/models/accountModel.js');
@@ -12,13 +12,12 @@ module.exports.createUser = async (serviceData) => {
     }
 
     const hashPassword = await bcrypt.hash(serviceData.password, 12);
-    const userAccounts = generateSommeAccounts(3, [1900, 19658, 35289]);
     const newUser = new User({
       email: serviceData.email,
       password: hashPassword,
       firstName: serviceData.firstName,
       lastName: serviceData.lastName,
-      accounts: userAccounts,
+      accounts: generateSommeAccounts(3, [1900, 19658, 35289]),
     });
 
     let user = await newUser.save();
