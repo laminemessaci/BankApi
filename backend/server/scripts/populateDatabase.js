@@ -1,8 +1,11 @@
 const axios = require('axios');
+const moment = require('moment');
 const {
   balanceTypeArray,
-  typeTransArray,
+  accountTypeArray,
   signupApi,
+
+  TransactionTypeObject,
 } = require('./constants.js');
 
 /**
@@ -30,6 +33,44 @@ function generateRandomPrice(max) {
   return Math.floor(Math.random() * max) / 1.2;
 }
 
+// function generate random date between two dates
+function randomDate(start, end) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+}
+
+// function generate random  transactions
+const generateRandomTransactions = (count) => {
+  let transactions = [];
+  let start = new Date(2022, 12, 1);
+  let end = new Date(2022, 12, 30);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  let type = Object.keys(TransactionTypeObject)[
+    getRandomInt(0, Object.keys(TransactionTypeObject).length - 1)
+  ];
+  let category = TransactionTypeObject[type][0];
+  let max = TransactionTypeObject[type][1];
+  let note = TransactionTypeObject[type][2];
+  let description = TransactionTypeObject[type][3];
+
+  let amount = generateRandomPrice(max).toFixed(2);
+  for (let i = 0; i < count; i++) {
+    let transaction = {
+      type,
+      category,
+      description,
+      amount,
+      note,
+      date: randomDate(start, end).toLocaleDateString('en-US', options),
+      currency: '$',
+    };
+    transactions.push(transaction);
+  }
+
+  return transactions;
+};
+
 const generateRandomAccount = (max) => {
   let accountNumber = 'FR76300060000' + randomString(14, '0123456789');
   let name =
@@ -41,13 +82,15 @@ const generateRandomAccount = (max) => {
   let balance = generateRandomPrice(max).toFixed(2);
   let currency = '$';
   let description =
-    typeTransArray[Math.floor(Math.random() * balanceTypeArray.length - 1)];
+    accountTypeArray[Math.floor(Math.random() * balanceTypeArray.length - 1)];
+  let transactions = generateRandomTransactions(getRandomInt(3, 11));
   let account = {
     accountNumber,
     name,
     balance,
     currency,
     description,
+    transactions,
   };
   return account;
 };
