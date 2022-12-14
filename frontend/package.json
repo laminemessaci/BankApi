@@ -38,7 +38,9 @@
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "jsdoc": "jsdoc -c jsdoc.json"
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "clean": "rm -rf build dist docs",
+    "clean:all": "rm -fr node_modules build dist docs package-lock.json"
   },
   "eslintConfig": {
     "extends": [
