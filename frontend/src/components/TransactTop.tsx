@@ -3,15 +3,13 @@ import { useEffect } from 'react'
 import { IAccount } from '../redux/userReducerTypes'
 
 
-const TransactTop: React.FC<IAccount> = ({ name, balance, currency, description }: IAccount) => {
-
-    // eslint-disable-next-line react/prop-types
-    // const { currentAccount: { name, balance, currency, description } } = props
+const TransactTop: React.FC<IAccount> = (props: IAccount) => {
 
 
-    useEffect(() => {
-        // TODO
-    }, [])
+     const { currentAccount: { name, balance, currency, description } } = props
+    console.log(name, balance, currency, description)
+
+
 
     return (
         <section className="mt-16 p-6 bg-[#fff] h-auto text-center justify-center ">
