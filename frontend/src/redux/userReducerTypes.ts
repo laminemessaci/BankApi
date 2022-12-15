@@ -1,3 +1,15 @@
+export interface ITransaction {
+  _id: string
+  amount: number
+  currency: string
+  description: string
+  type: string
+  note: string
+  date: Date
+  updatedAt: Date
+  createdAt: Date
+  category: string
+}
 export interface IAccount {
   _id: string
   accountNumber: string
@@ -5,10 +17,10 @@ export interface IAccount {
   balance: number
   currency: string
   description: string
-  updatedAt: Date
-  createdAt: Date
+  transactions: ITransaction[]
 }
 export interface IUser {
+  [x: string]: any
   accounts: IAccount[]
   id?: string
   email: string

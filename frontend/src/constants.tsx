@@ -12,7 +12,11 @@ export type IFeat = {
 export type IAccount = {
   check: string
   credit: string
-  balance: string
+  name: string
+  balance: number
+  currency: string
+  description: string
+  linkedId: string
 }
 
 export type IArgentB = {

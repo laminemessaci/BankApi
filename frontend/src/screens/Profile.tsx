@@ -11,7 +11,6 @@ const Profile: React.FC = () => {
   const { userInfo: { user } } = userLogin
 
   const { firstName, lastName } = user
-  console.log('user: ', user.accounts)
 
   const [editUser, setEditUser] = useState(false)
 
@@ -33,7 +32,7 @@ const Profile: React.FC = () => {
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
           {user?.accounts.map((elt, i) => (
 
-            <Card key={uuidv4()} check={elt.name} currency={elt.currency} credit={elt.balance} balance={elt.description} />
+            <Card key={uuidv4()} check={elt.name} currency={elt.currency} credit={elt.balance} balance={elt.description} linkedId={elt._id} />
           ))}
         </div>
       </main>
