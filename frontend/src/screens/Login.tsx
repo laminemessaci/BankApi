@@ -17,7 +17,6 @@ export interface IUserLogin {
 }
 
 export default function Login() {
-
   const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -36,7 +35,6 @@ export default function Login() {
   }
 
   useEffect(() => {
-
     if (userInfo) {
       navigate('/profile')
     }
@@ -50,7 +48,7 @@ export default function Login() {
           <h1 className='text-center my-5'>Sign In</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            {error && <Message variant="danger">{error}</Message>}
+            {error && <Message variant='danger'>{error}</Message>}
             {/* {loading && <Loader type="spin" color='blue' width={20} height={20} />} */}
             <div className='input-wrapper mb-4 flex flex-col'>
               <label htmlFor='username font-bold'>Username</label>
@@ -81,7 +79,6 @@ export default function Login() {
                 className='border-2 p-1 border-black'
                 {...register('password', {
                   required: 'Password is required',
-
                 })}
               />
               <p className='text-red-600 leading-3 text-xs'>{errors.password?.message}</p>
@@ -91,11 +88,20 @@ export default function Login() {
               <label htmlFor='remember-me'>Remember me</label>
             </div>
 
-
-            {loading ? <div className=' mx-auto flex justify-center mb-4'> <Loader type="spin" color='#00BC77' width={'40'} height={'40'} /> </div> : <button className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300 w-full bg-[#00BC77] p-2 text-white text-xl mb-4  rounded-sm'>Sign In</button>}
-            <Link className='text-xs mb-2 flex justify-center' to={'/sign-up'}>New account ?<FaChevronCircleRight color='#00BC77' className='mx-1' /></Link>
+            {!loading ? (
+              <div className=' mx-auto flex justify-center mb-4'>
+                {' '}
+                <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
+              </div>
+            ) : (
+              <button className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300 w-full bg-[#00BC77] p-2 text-white text-xl mb-4  rounded-sm'>
+                Sign In
+              </button>
+            )}
+            <Link className='text-xs mb-2 flex justify-center' to={'/sign-up'}>
+              New account ?<FaChevronCircleRight color='#00BC77' className='mx-1' />
+            </Link>
           </form>
-
         </section>
       </main>
     </div>

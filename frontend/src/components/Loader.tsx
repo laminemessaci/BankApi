@@ -15,8 +15,8 @@ import ReactLoading, { LoadingType } from 'react-loading'
 interface ILoader {
   type: LoadingType
   color: string
-  width: string
-  height: string
+  width?: string | number
+  height?: string | number
 }
 const Loader: React.FC<ILoader> =({ type, color, width, height }: ILoader) =>{
   return (

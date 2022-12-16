@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom'
 
 interface ICardAccount {
@@ -15,7 +14,9 @@ const Card: React.FC<ICardAccount> = (props: ICardAccount) => {
     <section className='bg-white p-6 mb-8 w-10/12 sm:w-9/12 flex flex-col  sm:flex-row sm:justify-between sm:items-center'>
       <div className='flex text-black flex-col'>
         <p>{check}</p>
-        <h2 className='text-4xl font-bold'>{currency} {credit}</h2>
+        <h2 className='text-4xl font-bold'>
+          {currency} {credit}
+        </h2>
         <p>{balance}</p>
       </div>
       <Link to={`/transactions/${linkedId}`}>

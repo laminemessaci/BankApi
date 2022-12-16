@@ -1,4 +1,3 @@
-
 const Banner: React.FC = () => {
   return (
     <div className='w-full h-[300px] sm-h-[300px] lg:h-[450px]  flex items-center justify-center  mb-10 	'>

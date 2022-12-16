@@ -7,8 +7,6 @@ export type IFeat = {
   text: string
 }
 
-
-
 export type IAccount = {
   check: string
   credit: string
@@ -30,7 +28,7 @@ export type FormValues = {
   lastName: string | null
   password: string | null
   confirmPassword: string | null
-};
+}
 
 export const FEAT_DATA: Array<IFeat> = [
   {

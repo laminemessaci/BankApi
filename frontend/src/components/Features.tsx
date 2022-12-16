@@ -1,7 +1,7 @@
 import React from 'react'
 import { FEAT_DATA } from '../constants'
 
-const Features: React.FC= () => {
+const Features: React.FC = () => {
   return (
     <section className='flex flex-col lg:flex-row lg:justify-center lg:items-center w-full'>
       {FEAT_DATA.map((elt, index) => (

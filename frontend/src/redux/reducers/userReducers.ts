@@ -2,16 +2,17 @@ import {
   LoginActions,
   RegisterActions,
   UserLoginActionType,
-  UserRegisterActionType
+  UserRegisterActionType,
 } from '../../redux/actions/userActionsTypes'
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
-  USER_DETAILS_SUCCESS, USER_UPDATE_PROFILE_FAIL,
+  USER_DETAILS_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS
+  USER_UPDATE_PROFILE_SUCCESS,
 } from '../constants/userConstants'
 import { UserLoginState, UserRegisterState } from '../userReducerTypes'
 

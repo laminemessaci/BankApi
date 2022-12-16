@@ -5,7 +5,7 @@ import { IAccount } from '../redux/userReducerTypes'
 const TransactTop: React.FC<IAccount> = (props: IAccount) => {
 
 
-     const  { name, balance, currency, description }  = props
+    const { name, balance, currency, description } = props
     console.log(name, balance, currency, description)
 
 
