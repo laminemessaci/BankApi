@@ -1,4 +1,6 @@
 const axios = require('axios');
+const colors = require('colors');
+const User = require('../database/models/userModel.js');
 const {
   balanceTypeArray,
   accountTypeArray,
@@ -122,11 +124,52 @@ const users = [
   },
 ];
 
-users.forEach((user) => {
-  axios
-    .post(signupApi, user)
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
-});
+const createUsers = async () => {
+  try {
+    await User.deleteMany();
+    console.log('Users removed');
+
+    users.forEach((user) => {
+      axios
+        .post(signupApi, user)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    });
+  } catch (error) {
+    console.error(`${error}`.red.inverse);
+    process.exit(1);
+  }
+};
+const destroyData = async () => {
+  try {
+    await User.deleteMany();
+    console.log('Data Destroyed!'.red.inverse);
+    process.exit();
+  } catch (error) {
+    console.error(`${error}`.red.inverse);
+    process.exit(1);
+  }
+};
+
+if (process.argv[2] === '-d') {
+  destroyData();
+} else {
+  createUsers();
+}
+
+// try {
+//   await User.deleteMany();
+//   console.log('Users removed');
+
+//   users.forEach((user) => {
+//     axios
+//       .post(signupApi, user)
+//       .then((response) => console.log(response))
+//       .catch((error) => console.log(error));
+//   });
+// } catch (error) {
+//   console.error(`${error}`.red.inverse);
+//   process.exit(1);
+// }
 
 module.exports = { generateSommeAccounts };

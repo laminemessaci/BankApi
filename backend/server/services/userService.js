@@ -37,7 +37,7 @@ module.exports.createUser = async (serviceData) => {
 
 module.exports.getUserProfile = async (serviceData) => {
   try {
-    const accounts = await Account.find({ user: req.user._id });
+    // const accounts = await Account.find({ user: req.user._id });
     const jwtToken = serviceData.headers.authorization
       .split('Bearer')[1]
       .trim();
@@ -47,8 +47,8 @@ module.exports.getUserProfile = async (serviceData) => {
     if (!user) {
       throw new Error('User not found!');
     }
-    user.toObject();
-    return { user, accounts };
+
+    return user.toObject();
   } catch (error) {
     console.error('Error in userService.js', error);
     throw new Error(error);

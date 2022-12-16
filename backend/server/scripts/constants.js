@@ -21,7 +21,7 @@ const TransactionTypeObject = {
   Home: ['Kitchen accessory', 250, 'Change of covers and cups', 'Kitchen'],
   Restaurant: ['Food', 80, 'Diner', 'Lucciola Restaurant'],
   Transport: ['Bus ticket', 50, 'monthly subscription', 'Metro'],
-  Other: ['Hairdresser, Barber ... ', 30, 'Amazon orders', 'Various purchases'],
+  Other: ['Hairdresser, Barber ... ', 30, 'Lifestyle', 'Various purchases'],
 };
 
 const signupApi = 'http://localhost:3001/api/v1/user/signup';
