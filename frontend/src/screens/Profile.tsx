@@ -1,69 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import { ARGENT_BANK } from '../constants'
+import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
-function toObject(arr) {
-  const rv = {}
-  for (let i = 0; i < arr.length; ++i) rv[i] = arr[i]
-  return rv
-}
 
-export default function Profil() {
-  const navigate = useNavigate()
-  useEffect(() => {
-    // TDO get token from store
-    navigate('/profile')
-  }, [])
-  // TODO get user from store
-  const firstName = 'john'
-  const lastName = 'doe'
 
-  // TODO get id from store
-  const id = '6362708457c28472fbcb0b94'
+const Profile: React.FC = () => {
+  const userLogin = useTypedSelector((state) => state.userLogin)
+  const { userInfo: { user } } = userLogin
 
-  const argent = ARGENT_BANK.filter((elt) => elt.id === id)
-  console.log(toObject(argent))
+  const { firstName, lastName } = user
 
   const [editUser, setEditUser] = useState(false)
 
-  const edit = () => {
-    setEditUser(!editUser)
-  }
 
   return (
     <div className='flex flex-col w-full h-auto bg-[#12002B]'>
-      <Header />
-
-      <main className='mt-24 mb-12 w-full h-auto  flex justify-start items-center flex-col'>
+      <main className='mt-24 mb-24 w-full h-auto  flex justify-start items-center flex-col'>
         <div className='flex flex-col items-center mb-4'>
           <h1 className='text-3xl text-center text-white font-bold'>
             Welcome back <br></br> {firstName} {lastName}
           </h1>
-          {editUser ? (
-            <button onClick={edit} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
-              Close
-            </button>
-          ) : (
-            <button onClick={edit} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
-              Edit Name
-            </button>
-          )}
 
-          {editUser ? <EditField save={edit} /> : ''}
+          <button onClick={() => setEditUser(!editUser)} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
+            {editUser ? ('Close') : ('Edit Profile')}
+          </button>
+
+          {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
-          {argent[0]?.accounts.map((elt, i) => (
-            <Card key={uuidv4()} check={elt.check} credit={elt.credit} balance={elt.balance} />
+          {user?.accounts.map((elt, i) => (
+
+            <Card key={uuidv4()} check={elt.name} currency={elt.currency} credit={elt.balance} balance={elt.description} linkedId={elt._id} />
           ))}
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }
+
+export default Profile

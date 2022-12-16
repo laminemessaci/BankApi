@@ -1,6 +1,5 @@
 import React from 'react'
-import * as PropTypes from 'prop-types'
-import ReactLoading from 'react-loading'
+import ReactLoading, { LoadingType } from 'react-loading'
 
 /**
  * Component that displays a Loader
@@ -12,19 +11,19 @@ import ReactLoading from 'react-loading'
  *
  * @return {JSX.Element}
  */
-function Loader({ type, color, width, height }) {
+
+interface ILoader {
+  type: LoadingType
+  color: string
+  width: string
+  height: string
+}
+const Loader: React.FC<ILoader> =({ type, color, width, height }: ILoader) =>{
   return (
-    <div className=' items-center justify-center'>
+    <div className='  items-center justify-center'>
       <ReactLoading type={type} color={color} width={width} height={height} />
     </div>
   )
-}
-
-Loader.propTypes = {
-  type: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  width: PropTypes.any || 200,
-  height: PropTypes.any || 200,
 }
 
 export default Loader

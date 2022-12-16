@@ -1,9 +1,8 @@
 {
   "name": "bank-api",
-  "proxy": "http://127.0.0.1:3001",
   "version": "1.0.0",
   "description": "bank application",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "test",
     "doc": "cd front-end && npm run jsdoc && cd..",

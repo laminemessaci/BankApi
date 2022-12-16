@@ -1,8 +1,13 @@
 {
   "name": "frontend",
+  "proxy": "http://127.0.0.1:3001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,15 +18,22 @@
     "axios": "^1.2.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "formik": "^2.2.9",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
     "react-icons": "^4.6.0",
     "react-loading": "^2.0.3",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
     "typescript": "^4.9.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,7 +43,9 @@
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "jsdoc": "jsdoc -c jsdoc.json"
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "clean": "rm -rf build dist docs",
+    "clean:all": "rm -fr node_modules build dist docs package-lock.json"
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +70,7 @@
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
-    "prettier": "2.8.0",
-    "jsdoc": "^3.6.11"
+    "jsdoc": "^3.6.11",
+    "prettier": "2.8.0"
   }
 }

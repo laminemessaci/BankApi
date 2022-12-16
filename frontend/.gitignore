@@ -5,7 +5,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.docs
+/docs
 # testing
 /coverage
 
