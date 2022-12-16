@@ -37,7 +37,6 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
                         aria-label="expand row"
                         size="small"
                         onClick={() => setOpen(!open)}
-
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
@@ -45,20 +44,20 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
                 <TableCell component="th" scope="row" align="center">
                     {moment(row.date).format('MMMM Do, YYYY')}
                 </TableCell>
-                <TableCell align="center">{row.description}</TableCell>
-                <TableCell align="center">{row.amount}</TableCell>
-                <TableCell align="center">{row.balance}</TableCell>
+                <TableCell align="center"><span className='font-normal'>{row.description}</span></TableCell>
+                <TableCell align="center"><span className='font-semibold'>{row.currency} {row.amount}</span></TableCell>
+                <TableCell align="center"><span className='font-semibold'>{row.currency} {row.balance}</span></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
-                            <div>Transaction type: {row.type}</div>
+                            <div><span className='font-semibold'>Transaction type:</span> {row.type}</div>
                             <div>
-                                Category : {row.category} <EditIcon style={{ cursor: 'pointer' }} />
+                                <span className='font-semibold'>Category</span> : {row.category} <EditIcon style={{ cursor: 'pointer' }} />
                             </div>
                             <div>
-                                Notes : {row.note} <EditIcon style={{ cursor: 'pointer' }} />
+                                <span className='font-semibold'>Notes</span> : {row.note} <EditIcon style={{ cursor: 'pointer' }} />
                             </div>
                         </Box>
                     </Collapse>
