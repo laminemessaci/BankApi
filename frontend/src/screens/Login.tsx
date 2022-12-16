@@ -88,7 +88,7 @@ export default function Login() {
               <label htmlFor='remember-me'>Remember me</label>
             </div>
 
-            {!loading ? (
+            {loading ? (
               <div className=' mx-auto flex justify-center mb-4'>
                 {' '}
                 <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}

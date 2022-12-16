@@ -98,7 +98,7 @@ const SingUp: React.FC = () => {
                   <ErrorMessage name='acceptTerms' component='small' className='text-red-700' />
                 </div>
 
-                {!loading ? (
+                {loading ? (
                   <div className=' mx-auto flex justify-center mb-4'>
                     {' '}
                     <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
