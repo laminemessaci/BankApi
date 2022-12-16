@@ -28,7 +28,7 @@ const Navigation: React.FC<RouteObject> = () => {
       <Route path='/login' element={<Login />} />
       <Route element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />}></Route>
-        <Route path="/transactions/:id" element={<Transaction />} />
+        <Route path='/transactions/:id' element={<Transaction />} />
       </Route>
     </Routes>
   )

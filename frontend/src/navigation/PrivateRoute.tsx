@@ -1,8 +1,6 @@
-
 import { Navigate, Outlet } from 'react-router'
 import { ActionFunction, LoaderFunction, ShouldRevalidateFunction } from 'react-router-dom'
 import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
-
 
 interface RouteObject {
   path?: string

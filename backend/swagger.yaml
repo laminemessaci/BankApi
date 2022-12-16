@@ -70,11 +70,12 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -93,6 +94,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: body
           name: body
           description: Update user profile attributes
@@ -103,11 +105,331 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile/userAccounts:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Find user accounts
+      description: Return a list of the user accounts.
+      operationId: getUserAccounts
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected User Payload
+          required: true
+          schema:
+            $ref: '#/definitions/UserID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User accounts retrieved successfully
+          schema:
+            $ref: '#/definitions/UserAccountsResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/account:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account
+      summary: Find the provided account
+      description: Return information of the selected account.
+      operationId: findAccount
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected Account Payload
+          required: true
+          schema:
+            $ref: '#/definitions/AccountID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Selected account retrieved successfully
+          schema:
+            $ref: '#/definitions/Account'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/addAccount:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account
+      summary: Create a new Account
+      description: Create a new Account with provided information
+      operationId: createAccount
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Account Information Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Account'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account created successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/updateAccount:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Account
+      summary: Update Account
+      description: Update an account with provided information
+      operationId: updateAccount
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Account Informations Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Account'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/deleteAccount:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Account
+      summary: Delete Account
+      description: Delete an account with provided information
+      operationId: deleteAccount
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected Account Payload
+          required: true
+          schema:
+            $ref: '#/definitions/AccountID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account deleted successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/monthTransactions:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Find transactions of the provided month
+      description: Return all transactions created in the provided month.
+      operationId: findTransactionsByMonth
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Month Transactions List Payload
+          required: true
+          schema:
+            $ref: '#/definitions/MonthTransactions'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Current transactions retrieved successfully
+          schema:
+            $ref: '#/definitions/MonthTransactionsResponse'
+        '400':
+          description: Invalid ID or month
+        '500':
+          description: Internal Server Error
+  /user/profile/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Find the provided transaction
+      description: Return information of the selected transaction.
+      operationId: findTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected Transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Selected transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/addTransaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Create a new transaction
+      description: Create a new transaction with provided information
+      operationId: createTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction Information Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction created successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/updateTransaction:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Update transaction
+      description: Update a transaction with provided information
+      operationId: updateTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction Information Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
+        '500':
+          description: Internal Server Error
+  /user/profile/deleteTransaction:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: Delete transaction
+      description: Delete a transaction with provided information
+      operationId: deleteTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected Transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction deleted successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid ID
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -138,6 +460,124 @@ definitions:
       password:
         type: string
         description: user password
+  UserID:
+    properties:
+      id:
+        type: number
+        description: User id
+  UserAccountsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+        description: Query status
+      message:
+        type: string
+        example: Ok | Successfully
+        description: Query message
+      body:
+        type: array
+        items:
+          $ref: '#/definitions/Account'
+  AccountID:
+    properties:
+      id:
+        type: number
+        description: User id
+  Account:
+    type: object
+    properties:
+        id:
+          type: number
+          description: Account ID
+        userId:
+          type: number
+          description: User ID
+        name:
+          type: string
+          example: Argent Bank Checking (x5913)
+          description: Account name
+        balance:
+          type: number
+          format: int64
+          example: 5365.59
+          description: Account available balance
+        currency:
+          type: string
+          example: $
+          description: Account currency
+  TransactionID:
+    properties:
+      id:
+        type: number
+        description: Transaction ID
+  MonthTransactions:
+    properties:
+      id:
+        type: number
+        description: Account ID
+      month:
+        type: string
+        example: 2022-11
+        description: Selected month (date String))
+  MonthTransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+        description: Query status
+      message:
+        type: string
+        example: OK | Successfully
+        description: Query message
+      body:
+        type: array
+        items:
+          $ref: '#/definitions/Transaction'
+  Transaction:
+    type: object
+    properties:
+        id:
+          type: number
+          description: Transaction ID
+        accountId:
+          type: number
+          description: Account ID
+        description:
+          type: string
+          example: Fly Paris -> Alger
+          description: Transaction description
+        amount:
+          type: number
+          format: int64
+          example: 35.99
+          description: Transaction amount
+        currency:
+          type: string
+          example: $
+          description: Transaction currency
+        type:
+          type: string
+          example: Shopping
+          description: Transaction type
+        category:
+          type: string
+          example: Travel
+          description: Transaction category
+        note:
+          type: string
+          example: Diner
+          description: Transaction note
+        createdAt:
+          type: string
+          example: 2023-12-13T12:00:00Z
+          description: creation date
+        updatedAt:
+          type: string
+          example: 2023-12-13T12:00:00Z
+          description: last update date
   ApiResponse:
     type: object
     properties:

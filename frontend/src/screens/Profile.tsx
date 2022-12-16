@@ -4,16 +4,15 @@ import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
-
-
 const Profile: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { userInfo: { user } } = userLogin
+  const {
+    userInfo: { user },
+  } = userLogin
 
   const { firstName, lastName } = user
 
   const [editUser, setEditUser] = useState(false)
-
 
   return (
     <div className='flex flex-col w-full h-auto bg-[#12002B]'>
@@ -24,15 +23,21 @@ const Profile: React.FC = () => {
           </h1>
 
           <button onClick={() => setEditUser(!editUser)} className='bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 '>
-            {editUser ? ('Close') : ('Edit Profile')}
+            {editUser ? 'Close' : 'Edit Profile'}
           </button>
 
           {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
           {user?.accounts.map((elt, i) => (
-
-            <Card key={uuidv4()} check={elt.name} currency={elt.currency} credit={elt.balance} balance={elt.description} linkedId={elt._id} />
+            <Card
+              key={uuidv4()}
+              check={elt.name}
+              currency={elt.currency}
+              credit={elt.balance}
+              balance={elt.description}
+              linkedId={elt._id}
+            />
           ))}
         </div>
       </main>
