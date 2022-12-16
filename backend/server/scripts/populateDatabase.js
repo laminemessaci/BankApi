@@ -1,5 +1,4 @@
 const axios = require('axios');
-const moment = require('moment');
 const {
   balanceTypeArray,
   accountTypeArray,
@@ -41,7 +40,7 @@ function randomDate(start, end) {
 }
 
 // function generate random  transactions
-const generateRandomTransactions = (count) => {
+const generateRandomTransactions = (count, bal) => {
   let transactions = [];
   let start = new Date(2022, 12, 1);
   let end = new Date(2022, 12, 30);
@@ -55,8 +54,8 @@ const generateRandomTransactions = (count) => {
     let max = TransactionTypeObject[type][1];
     let note = TransactionTypeObject[type][2];
     let description = TransactionTypeObject[type][3];
-
     let amount = generateRandomPrice(max).toFixed(2);
+    let balance = bal - amount;
 
     let transaction = {
       type,
@@ -66,6 +65,7 @@ const generateRandomTransactions = (count) => {
       note,
       date: randomDate(start, end).toLocaleDateString('en-US', options),
       currency: '$',
+      balance: balance.toFixed(2),
     };
     transactions.push(transaction);
   }
@@ -85,7 +85,7 @@ const generateRandomAccount = (max) => {
   let currency = '$';
   let description =
     accountTypeArray[Math.floor(Math.random() * balanceTypeArray.length - 1)];
-  let transactions = generateRandomTransactions(getRandomInt(3, 11));
+  let transactions = generateRandomTransactions(getRandomInt(3, 11), balance);
   let account = {
     accountNumber,
     name,

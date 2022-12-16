@@ -10,6 +10,7 @@ import { Box } from '@mui/system'
 import EditIcon from '@mui/icons-material/Edit'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import moment from 'moment'
 
 
 interface IRow {
@@ -22,6 +23,8 @@ interface IRow {
     balance: number
 }
 const Row: React.FC<IRow[]> = (props: IRow[]) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { row } = props
 
     const [open, setOpen] = useState(false)
@@ -40,7 +43,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row" align="center">
-                    {row.date}
+                    {moment(row.date).format('MMMM Do, YYYY')}
                 </TableCell>
                 <TableCell align="center">{row.description}</TableCell>
                 <TableCell align="center">{row.amount}</TableCell>

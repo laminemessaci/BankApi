@@ -12,9 +12,10 @@ import Row from './../components/Row'
 export const tableHeaders = [{ name: 'date' }, { name: 'description' }, { name: 'amount' }, { name: 'balance' }]
 
 const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
-
-  const { transactions } = props
-  console.log('transa',transactions)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { transactions }: ITransaction = props
+  console.log('transa', transactions)
 
   // TODO ADD Generique balance in table 
 
@@ -35,7 +36,9 @@ const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {transactions?.map((row , key) => (
+            {transactions?.map((row: ITransaction, key: string) => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <Row key={key} row={row} />
             ))}
           </TableBody>

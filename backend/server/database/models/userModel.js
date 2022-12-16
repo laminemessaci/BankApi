@@ -16,7 +16,10 @@ const transactionSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
-
+    balance: {
+      type: Number,
+      required: true,
+    },
     currency: {
       type: String,
       required: true,

@@ -1,12 +1,11 @@
 
-import { useEffect } from 'react'
 import { IAccount } from '../redux/userReducerTypes'
 
 
 const TransactTop: React.FC<IAccount> = (props: IAccount) => {
 
 
-     const { currentAccount: { name, balance, currency, description } } = props
+     const  { name, balance, currency, description }  = props
     console.log(name, balance, currency, description)
 
 
