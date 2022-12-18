@@ -225,7 +225,7 @@ paths:
           type: string
         - in: body
           name: body
-          description: Account Informations Payload
+          description: Account Information Payload
           required: true
           schema:
             $ref: '#/definitions/Account'
@@ -233,7 +233,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: Transaction updated successfully
+          description: Account updated successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -277,7 +277,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - Transaction
+        - Transaction Module
       summary: Find transactions of the provided month
       description: Return all transactions created in the provided month.
       operationId: findTransactionsByMonth
@@ -309,7 +309,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - Transaction
+        - Transaction Module
       summary: Find the provided transaction
       description: Return information of the selected transaction.
       operationId: findTransaction

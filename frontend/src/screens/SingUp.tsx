@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaUserCircle } from 'react-icons/fa'
 import Message from '../components/Message'
 
@@ -5,9 +6,18 @@ import Loader from './../components/Loader'
 import { register } from './../redux/actions/userActions'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import React from 'react'
 import * as Yup from 'yup'
 import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
+interface Values {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+  acceptTerms: boolean
+}
 const SingUp: React.FC = () => {
   const dispatch = useAppDispatch()
   const userRegister = useTypedSelector((state) => state.userRegister)
@@ -16,7 +26,7 @@ const SingUp: React.FC = () => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(3, 'too small!').max(50, 'too long!').required('This field is required.'),
     lastName: Yup.string().min(2, 'too small!').max(10, 'trop long!').required('This field is required.'),
-    email: Yup.string().email('email invalide.').required('email is required!.'),
+    email: Yup.string().email('email invalid.').required('email is required!.'),
     password: Yup.string()
       .required('Password is required.')
       .min(5, 'Must be greater than 5 characters.')
@@ -27,7 +37,7 @@ const SingUp: React.FC = () => {
     acceptTerms: Yup.bool().oneOf([true], '\n required.'),
   })
 
-  const initialValues = {
+  const initialValues : Values = {
     firstName: '',
     lastName: '',
     email: '',
@@ -36,7 +46,7 @@ const SingUp: React.FC = () => {
     acceptTerms: false,
   }
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: Values) => {
     const { email, firstName, lastName, password } = values
     console.log(values)
     dispatch(register(email, firstName, lastName, password))
@@ -45,7 +55,7 @@ const SingUp: React.FC = () => {
   return (
     <div className='flex flex-col '>
       <main className='mt-16 bg-[#12002B] w-full h-screen flex justify-center'>
-        <section className='my-auto  p-8 w-auto h-auto bg-white  flex flex-col justify-center p-16'>
+        <section className='my-auto  p-16 w-auto h-auto bg-white  flex flex-col justify-center'>
           <FaUserCircle className='w-8 h-8 mx-auto' />
           <h1 className='text-center my-5 text-xl'>Register</h1>
 
@@ -65,7 +75,7 @@ const SingUp: React.FC = () => {
 
                 <div className='input-wrapper mb-4 flex flex-col '>
                   <label htmlFor='firstName'>First Name</label>
-                  <Field placeholder='Firstname' type='text' id='firstName' name='firstName' className='border-2 p-1 ' />
+                  <Field placeholder='First-name' type='text' id='firstName' name='firstName' className='border-2 p-1 ' />
                   <ErrorMessage name='firstName' component='small' className='text-red-700' />
                 </div>
                 <div className='input-wrapper mb-4 flex flex-col '>
@@ -79,7 +89,7 @@ const SingUp: React.FC = () => {
                   <ErrorMessage name='password' component='small' className='text-red-700' />
                 </div>
                 <div className='w-full input-wrapper mb-4 flex flex-col '>
-                  <label htmlFor='confirmpassword'>Password</label>
+                  <label htmlFor='confirmPassword'>Password</label>
                   <Field
                     id='confirmPassword'
                     placeholder='Confirm Password'

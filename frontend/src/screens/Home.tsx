@@ -1,7 +1,8 @@
+import React from 'react'
 import Banner from '../components/Banner'
 import Features from '../components/Features'
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
       <Banner />
@@ -9,3 +10,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home

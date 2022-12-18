@@ -176,7 +176,7 @@ export const getUserDetails =
         type: USER_DETAILS_SUCCESS,
         payload: data,
       })
-    } catch (error: string | any) {
+    } catch (error: string | null | any ) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message
       if (message === 'Not authorized, token failed') {
         dispatch(logout())

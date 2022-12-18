@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
           {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
-          {user?.accounts.map((elt, i) => (
+          {user?.accounts.map((elt) => (
             <Card
               key={uuidv4()}
               check={elt.name}

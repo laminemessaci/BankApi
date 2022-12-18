@@ -20,7 +20,7 @@ export interface IAccount {
   transactions: ITransaction[]
 }
 export interface IUser {
-  [x: string]: any
+  [x: string]: unknown
   accounts: IAccount[]
   id?: string
   email: string
