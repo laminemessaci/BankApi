@@ -15,8 +15,6 @@ const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
   // @ts-ignore
   const { transactions }: ITransaction = props
 
-  // TODO ADD Generique balance in table
-
   return (
     <div className='  place-content-center mt-auto p-16 mx-36 rounded-md '>
       <TableContainer component={Paper} className=' '>

@@ -5,6 +5,7 @@ import Profile from '../screens/Profile'
 import SingUp from '../screens/SingUp'
 import Transaction from '../screens/Transaction'
 import PrivateRoute from './PrivateRoute'
+import ErrorPage from './../screens/ErrorPage'
 
 interface RouteObject {
   path?: string
@@ -30,6 +31,7 @@ const Navigation: React.FC<RouteObject> = () => {
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/transactions/:id' element={<Transaction />} />
       </Route>
+      <Route path='*' element={<ErrorPage />} />
     </Routes>
   )
 }

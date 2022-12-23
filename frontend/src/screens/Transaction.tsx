@@ -14,7 +14,8 @@ const Transaction: React.FC = () => {
   const currentAccount = accounts.find((account: { _id: string }) => account._id === id)
 
   return (
-    <div className='min-w-1/2 bg-[#12002B] w-full h-auto flex flex-col text-center justify-center'>
+    <main className='min-w-1/3 bg-[#12002B] w-full h-auto flex flex-col text-center justify-center'>
+    
       {currentAccount && (
         <TransactTop
           _id={currentAccount._id}
@@ -26,13 +27,12 @@ const Transaction: React.FC = () => {
           transactions={currentAccount.transactions}
         />
       )}
-
       {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         currentAccount && <TransTable transactions={currentAccount?.transactions} />
       }
-    </div>
+    </main>
   )
 }
 
