@@ -277,7 +277,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
+        - Month Transactions  
       summary: Find transactions of the provided month
       description: Return all transactions created in the provided month.
       operationId: findTransactionsByMonth
@@ -309,7 +309,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
+        - Transaction
       summary: Find the provided transaction
       description: Return information of the selected transaction.
       operationId: findTransaction
@@ -335,7 +335,7 @@ paths:
         '400':
           description: Invalid ID
         '500':
-          description: Internal Server Error
+          description: Internal Server Error        
   /user/profile/addTransaction:
     post:
       security:
@@ -598,7 +598,7 @@ definitions:
         updatedAt:
           type: string
           example: 2023-12-13T12:00:00Z
-          description: last update date
+          description: last update date        
   ApiResponse:
     type: object
     properties:
