@@ -15,7 +15,7 @@ const Profile: React.FC = () => {
   const [editUser, setEditUser] = useState(false)
 
   return (
-    <div className='flex flex-col w-full h-auto bg-[#12002B]'>
+    <div className='flex flex-col w-full h-auto bg-[#9995a2]'>
       <main className='mt-24 mb-24 w-full h-auto  flex justify-start items-center flex-col'>
         <div className='flex flex-col items-center mb-4'>
           <h1 className='text-3xl text-center text-white font-bold'>

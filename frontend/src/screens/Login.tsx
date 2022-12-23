@@ -43,7 +43,7 @@ export default function Login() {
 
   return (
     <div className='flex flex-col'>
-      <main className='mt-16 bg-[#12002B] w-full h-screen flex justify-center'>
+      <main className='mt-16 bg-[#9995a2] w-full h-screen flex justify-center'>
         <section className='my-auto m-12 p-12 h-auto bg-white  flex flex-col justify-center'>
           <FaUserCircle className='w-8 h-8 mx-auto' />
           <h1 className='text-center my-5'>Sign In</h1>

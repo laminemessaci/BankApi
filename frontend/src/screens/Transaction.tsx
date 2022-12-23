@@ -1,11 +1,12 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import TransTable from '../components/Table'
 import TransactTop from '../components/TransactTop'
 import { useTypedSelector } from './../redux/redux-hook/useTypedStore'
 
 const Transaction: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
+  const navigate = useNavigate()
   const {
     userInfo: { user },
   } = userLogin
@@ -13,9 +14,14 @@ const Transaction: React.FC = () => {
   const { id } = useParams()
   const currentAccount = accounts.find((account: { _id: string }) => account._id === id)
 
+  useEffect(() => {
+    if (!currentAccount) {
+      navigate('/ErrorPage')
+    }
+  }, [navigate, currentAccount])
+
   return (
-    <main className='min-w-1/3 bg-[#12002B] w-full h-auto flex flex-col text-center justify-center'>
-    
+    <main className='min-w-1/3 bg-[#9995a2] w-full h-auto flex flex-col text-center justify-center'>
       {currentAccount && (
         <TransactTop
           _id={currentAccount._id}
