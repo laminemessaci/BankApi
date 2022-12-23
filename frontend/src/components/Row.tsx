@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import moment from 'moment'
+import { Field } from 'formik'
 
 interface IRow {
   type: string
@@ -27,6 +28,12 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   const { row } = props
 
   const [open, setOpen] = useState(false)
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    console.log('submit', e.target.category.value)
+    console.log('submit', e.target.note.value)
+  }
 
   return (
     <>
@@ -57,15 +64,39 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <div>
-                <span className='font-semibold'>Transaction type:</span> {row.type}
-              </div>
-              <div>
-                <span className='font-semibold'>Category</span> : {row.category} <EditIcon style={{ cursor: 'pointer' }} />
-              </div>
-              <div>
-                <span className='font-semibold'>Notes</span> : {row.note} <EditIcon style={{ cursor: 'pointer' }} />
-              </div>
+              <form onSubmit={submitHandler}>
+                <div>
+                  <span className='font-semibold'>Transaction type:</span> {row.type}
+                </div>
+                <div>
+                  <span className='font-semibold'>Category</span> :
+                  <input
+                    type='text'
+                    id='category'
+                    name='category'
+                    placeholder={row.category}
+                    className='border-0 p-1  md:placeholder-gray-900'
+                  />
+                  <button type='submit'>
+                    {' '}
+                    <EditIcon style={{ cursor: 'pointer' }} />
+                  </button>
+                </div>
+                <div>
+                  <span className='font-semibold'>Notes</span> :
+                  <input
+                    type='text'
+                    id='note'
+                    name='note'
+                    placeholder={row.note}
+                    className='border-0 p-1  md:placeholder-gray-900'
+                  />
+                  <button type='submit'>
+                    {' '}
+                    <EditIcon style={{ cursor: 'pointer' }} />
+                  </button>
+                </div>
+              </form>
             </Box>
           </Collapse>
         </TableCell>
