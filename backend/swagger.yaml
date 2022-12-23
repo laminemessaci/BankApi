@@ -388,7 +388,7 @@ paths:
           description: Transaction Information Payload
           required: true
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionToUpdate'
       produces:
         - application/json
       responses:
@@ -574,6 +574,27 @@ definitions:
           type: string
           example: 2023-12-13T12:00:00Z
           description: creation date
+        updatedAt:
+          type: string
+          example: 2023-12-13T12:00:00Z
+          description: last update date
+  TransactionToUpdate:
+    type: object
+    properties:
+        id:
+          type: number
+          description: Transaction ID
+        accountId:
+          type: number
+          description: Account ID
+        category:
+          type: string
+          example: Travel
+          description: Transaction category
+        note:
+          type: string
+          example: Diner
+          description: Transaction note
         updatedAt:
           type: string
           example: 2023-12-13T12:00:00Z
