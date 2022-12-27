@@ -14,6 +14,9 @@ const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { transactions }: ITransaction = props
+  transactions?.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  })
 
   return (
     <div className='  place-content-center mt-auto p-16 mx-36 rounded-md '>

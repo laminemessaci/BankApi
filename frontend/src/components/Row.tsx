@@ -50,16 +50,16 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // console.log('submit', e.nativeEvent.target[0].id)
+
     const oneTrans = {
       _id: e.nativeEvent.target[0].id,
       amount: row.amount,
       balance: row.balance,
-      category: e.target.category.value.trim(),
+      category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
       currency: row.currency,
       date: row.date,
       description: row.description,
-      note: e.target.note.value.trim(),
+      note: e.target.note.value.trim() === '' ? row.note : e.target.note.value.trim(),
       type: row.type,
       updatedAt: new Date(),
       createdAt: row.createdAt,
@@ -84,7 +84,6 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
     const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
     console.log('updatedAccounts :', updatedAccounts)
     dispatch(updateUserTransaction(updatedAccounts))
-    // navigate(`/transactions/${transId}`)
   }
 
   return (
