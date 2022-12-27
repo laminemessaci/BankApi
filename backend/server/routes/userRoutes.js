@@ -19,5 +19,10 @@ router.put(
   tokenValidation.validateToken,
   userController.updateUserProfile
 )
+router.put(
+  '/profile/accounts',
+  tokenValidation.validateToken,
+  userController.updateUserTransaction
+);
 
 module.exports = router

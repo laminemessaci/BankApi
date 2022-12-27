@@ -2,7 +2,6 @@ const User = require('../database/models/userModel');
 const { generateSommeAccounts } = require('./../scripts/populateDatabase');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { Account } = require('../database/models/accountModel.js');
 
 module.exports.createUser = async (serviceData) => {
   try {
@@ -88,11 +87,40 @@ module.exports.updateUserProfile = async (serviceData) => {
       .split('Bearer')[1]
       .trim();
     const decodedJwtToken = jwt.decode(jwtToken);
+    const updatedUser = await User.findOne({ _id: decodedJwtToken.id });
+
     const user = await User.findOneAndUpdate(
       { _id: decodedJwtToken.id },
       {
         firstName: serviceData.body.firstName,
         lastName: serviceData.body.lastName,
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new Error('User not found!');
+    }
+
+    return { user };
+  } catch (error) {
+    console.error('Error in userService.js', error);
+    throw new Error(error);
+  }
+};
+
+module.exports.updateUserTransaction = async (serviceData) => {
+  console.log('serviceData============', serviceData.body);
+  try {
+    const jwtToken = serviceData.headers.authorization
+      .split('Bearer')[1]
+      .trim();
+    const decodedJwtToken = jwt.decode(jwtToken);
+
+    const user = await User.findOneAndUpdate(
+      { _id: decodedJwtToken.id },
+      {
+        accounts: serviceData.body.accounts,
       },
       { new: true }
     );

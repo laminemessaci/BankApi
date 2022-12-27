@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
           {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
-          {user?.accounts.map((elt) => (
+          {user?.accounts?.map((elt) => (
             <Card
               key={uuidv4()}
               check={elt.name}

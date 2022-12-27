@@ -10,9 +10,12 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_TRANSACTION_FAIL,
+  USER_UPDATE_TRANSACTION_REQUEST,
 } from '../constants/userConstants'
 import { IUserState } from '../userReducerTypes'
 import { UserLoginActionType, UserRegisterActionType } from './userActionsTypes'
+import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
 
 export const login =
   (email: string, password: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
@@ -176,7 +179,7 @@ export const getUserDetails =
         type: USER_DETAILS_SUCCESS,
         payload: data,
       })
-    } catch (error: string | null | any ) {
+    } catch (error: string | null | any) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message
       if (message === 'Not authorized, token failed') {
         dispatch(logout())
@@ -187,3 +190,49 @@ export const getUserDetails =
       })
     }
   }
+
+export const updateUserTransaction = (accounts) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_TRANSACTION_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const token = await userInfo.token
+
+    const {
+      data: {
+        body: { user },
+      },
+    } = await axios.put('/api/v1/user/profile/accounts', { accounts }, config)
+
+    dispatch({
+      type: USER_UPDATE_TRANSACTION_SUCCESS,
+      payload: { user, token },
+    })
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: { user, token },
+    })
+    await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
+    // document.location.href = '/profile'
+  } catch (error: string | any) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_UPDATE_TRANSACTION_FAIL,
+      payload: message,
+    })
+  }
+}

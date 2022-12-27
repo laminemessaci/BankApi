@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const transactionSchema = mongoose.Schema(
+const transactionSchema = new mongoose.Schema(
   {
     description: {
       type: String,
@@ -39,13 +39,13 @@ const transactionSchema = mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      required: true,
+      required: false,
       default: Date.now,
     },
 
     updatedAt: {
       type: Date,
-      required: true,
+      required: false,
       default: Date.now,
     },
   },
@@ -55,7 +55,7 @@ const transactionSchema = mongoose.Schema(
   }
 );
 
-const accountSchema = mongoose.Schema(
+const accountSchema = new mongoose.Schema(
   {
     accountNumber: {
       type: String,
@@ -78,6 +78,11 @@ const accountSchema = mongoose.Schema(
       type: String,
       required: true,
       default: 'Credit Card',
+    },
+    updatedAt: {
+      type: Date,
+      required: false,
+      default: Date.now,
     },
     transactions: [transactionSchema],
   },

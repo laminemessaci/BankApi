@@ -36,7 +36,7 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
     }
     const hasNotUpdated = _.isEqual(previewsUser, userUpdateData)
     if (hasNotUpdated) {
-      setMessage('You have not updated anything')
+      setMessage('You have not updated anything!')
       return
     }
     dispatch(updateUserProfile(userUpdateData.firstName, userUpdateData.lastName))

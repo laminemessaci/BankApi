@@ -12,6 +12,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import moment from 'moment'
 import { Field } from 'formik'
+import { useAppDispatch } from '../redux/redux-hook/useTypedStore'
+import { useTypedSelector } from './../redux/redux-hook/useTypedStore'
+import { useNavigate, useParams } from 'react-router-dom'
+import { updateUserTransaction } from '../redux/actions/userActions'
 
 interface IRow {
   type: string
@@ -26,13 +30,61 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { row } = props
+  const { id } = useParams()
+
+  const [uptTransaction, setUptTransaction] = useState({})
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const userLogin = useTypedSelector((state) => state.userLogin)
+  const {
+    userInfo: {
+      user: { accounts },
+    },
+  } = userLogin
+  const updatedAccount = accounts.filter((ac) => ac._id === id)
+  const { transactions } = updatedAccount[0]
+  const transaction = transactions.filter((trans) => trans._id === row._id)
 
   const [open, setOpen] = useState(false)
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log('submit', e.target.category.value)
-    console.log('submit', e.target.note.value)
+    // console.log('submit', e.nativeEvent.target[0].id)
+    const oneTrans = {
+      _id: e.nativeEvent.target[0].id,
+      amount: row.amount,
+      balance: row.balance,
+      category: e.target.category.value.trim(),
+      currency: row.currency,
+      date: row.date,
+      description: row.description,
+      note: e.target.note.value.trim(),
+      type: row.type,
+      updatedAt: new Date(),
+      createdAt: row.createdAt,
+    }
+
+    const updtedAccounts = accounts.filter((ac) => ac._id !== id)
+
+    const transId = e.nativeEvent.target[0].id
+    const updatedTrans = transactions.filter((trans) => trans._id !== transId)
+
+    const transactionUpdts = [...updatedTrans, { ...oneTrans }]
+    const oneAccount = {
+      _id: id,
+      accountName: updatedAccount[0].accountNumber,
+      description: updatedAccount[0].description,
+      balance: updatedAccount[0].balance,
+      currency: updatedAccount[0].currency,
+      transactions: transactionUpdts,
+      updatedAt: new Date(),
+    }
+
+    const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
+    console.log('updatedAccounts :', updatedAccounts)
+    dispatch(updateUserTransaction(updatedAccounts))
+    // navigate(`/transactions/${transId}`)
   }
 
   return (
@@ -72,7 +124,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
                   <span className='font-semibold'>Category</span> :
                   <input
                     type='text'
-                    id='category'
+                    id={row._id}
                     name='category'
                     placeholder={row.category}
                     className='border-0 p-1  md:placeholder-gray-900'
