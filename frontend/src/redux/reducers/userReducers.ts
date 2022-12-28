@@ -3,6 +3,8 @@ import {
   RegisterActions,
   UserLoginActionType,
   UserRegisterActionType,
+  UserTransactionActionType,
+  UserUpdateActionType,
 } from '../../redux/actions/userActionsTypes'
 import {
   USER_DETAILS_FAIL,
@@ -71,14 +73,13 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
 }
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_UPDATE_TRANSACTION_FAIL:
+    case UserUpdateActionType.USER_UPDATE_PROFILE_REQUEST:
       return { loading: true }
-    case USER_UPDATE_PROFILE_SUCCESS:
+    case UserUpdateActionType.USER_UPDATE_PROFILE_SUCCESS:
       return { loading: false, success: true, userInfo: action.payload }
-    case USER_UPDATE_PROFILE_FAIL:
+    case UserUpdateActionType.USER_UPDATE_PROFILE_FAIL:
       return { loading: false, error: action.payload }
-    case USER_UPDATE_PROFILE_RESET:
-      return {}
+
     default:
       return state
   }
@@ -86,11 +87,11 @@ export const userUpdateProfileReducer = (state = {}, action) => {
 
 export const userUpdateTransactionReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_UPDATE_TRANSACTION_REQUEST:
+    case UserTransactionActionType.USER_UPDATE_TRANSACTION_REQUEST:
       return { loading: true }
-    case USER_UPDATE_TRANSACTION_SUCCESS:
+    case UserTransactionActionType.USER_UPDATE_TRANSACTION_SUCCESS:
       return { loading: false, success: true, userInfo: action.payload }
-    case USER_UPDATE_TRANSACTION_FAIL:
+    case UserTransactionActionType.USER_UPDATE_TRANSACTION_FAIL:
       return { loading: false, error: action.payload }
 
     default:

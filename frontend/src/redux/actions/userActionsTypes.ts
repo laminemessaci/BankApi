@@ -1,4 +1,3 @@
-
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -57,8 +56,6 @@ export interface UserTransactionFailAction {
   payload: string | null
 }
 
-
-
 export type LoginActions = UserLoggingRequestAction | UserLoggingSuccessAction | UserLoggingFailAction | UserLogOutAction
 
 export type RegisterActions = UserRegisterRequestAction | UserRegisterSuccessAction | UserRegisterFailAction
@@ -80,6 +77,12 @@ export enum UserRegisterActionType {
   USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS',
   USER_REGISTER_FAIL = 'USER_REGISTER_FAIL',
   USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST',
+}
+
+export enum UserUpdateActionType {
+  USER_UPDATE_PROFILE_SUCCESS = 'USER_UPDATE_PROFILE_SUCCESS',
+  USER_UPDATE_PROFILE_FAIL = 'USER_UPDATE_PROFILE_FAIL',
+  USER_UPDATE_PROFILE_REQUEST = 'USER_UPDATE_PROFILE_REQUEST',
 }
 
 export enum UserTransactionActionType {
