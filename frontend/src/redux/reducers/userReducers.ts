@@ -17,7 +17,7 @@ import {
   USER_UPDATE_TRANSACTION_REQUEST,
 } from '../constants/userConstants'
 import { UserLoginState, UserRegisterState } from '../userReducerTypes'
-import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants';
+import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
 
 const initialState: UserLoginState = {
   loading: false,
@@ -84,7 +84,6 @@ export const userUpdateProfileReducer = (state = {}, action) => {
   }
 }
 
-
 export const userUpdateTransactionReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_TRANSACTION_REQUEST:
@@ -93,7 +92,7 @@ export const userUpdateTransactionReducer = (state = {}, action) => {
       return { loading: false, success: true, userInfo: action.payload }
     case USER_UPDATE_TRANSACTION_FAIL:
       return { loading: false, error: action.payload }
-    
+
     default:
       return state
   }

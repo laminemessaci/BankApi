@@ -4,18 +4,17 @@ import { TableRow } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import TableCell from '@mui/material/TableCell'
 
-import { useState } from 'react'
+import EditIcon from '@mui/icons-material/Edit'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import Collapse from '@mui/material/Collapse'
 import { Box } from '@mui/system'
-import EditIcon from '@mui/icons-material/Edit'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import moment from 'moment'
-import { Field } from 'formik'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { updateUserTransaction } from '../redux/actions/userActions'
 import { useAppDispatch } from '../redux/redux-hook/useTypedStore'
 import { useTypedSelector } from './../redux/redux-hook/useTypedStore'
-import { useNavigate, useParams } from 'react-router-dom'
-import { updateUserTransaction } from '../redux/actions/userActions'
 
 interface IRow {
   type: string
@@ -35,7 +34,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   const [uptTransaction, setUptTransaction] = useState({})
 
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+
   const userLogin = useTypedSelector((state) => state.userLogin)
   const {
     userInfo: {
@@ -44,15 +43,15 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   } = userLogin
   const updatedAccount = accounts.filter((ac) => ac._id === id)
   const { transactions } = updatedAccount[0]
-  const transaction = transactions.filter((trans) => trans._id === row._id)
+  // const transaction = transactions.filter((trans) => trans._id === row._id)
 
   const [open, setOpen] = useState(false)
 
   const submitHandler = (e) => {
     e.preventDefault()
-
+    console.log(e)
     const oneTrans = {
-      _id: e.nativeEvent.target[0].id,
+      _id: e.nativeEvent.target[0].id ===undefined ?  e.nativeEvent.target.id : e.nativeEvent.target[0].id,
       amount: row.amount,
       balance: row.balance,
       category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
@@ -130,21 +129,21 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
                   />
                   <button type='submit'>
                     {' '}
-                    <EditIcon style={{ cursor: 'pointer' }} />
+                    <EditIcon id={row._id} style={{ cursor: 'pointer' }} onClick={submitHandler} />
                   </button>
                 </div>
                 <div>
                   <span className='font-semibold'>Notes</span> :
                   <input
                     type='text'
-                    id='note'
+                    id={row._id}
                     name='note'
                     placeholder={row.note}
                     className='border-0 p-1  md:placeholder-gray-900'
                   />
                   <button type='submit'>
                     {' '}
-                    <EditIcon style={{ cursor: 'pointer' }} />
+                    <EditIcon id={row._id} style={{ cursor: 'pointer' }} onClick={submitHandler} />
                   </button>
                 </div>
               </form>
