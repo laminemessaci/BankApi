@@ -13,7 +13,7 @@ import {
   USER_UPDATE_TRANSACTION_FAIL,
   USER_UPDATE_TRANSACTION_REQUEST,
 } from '../constants/userConstants'
-import { IUserState } from '../userReducerTypes'
+import { IAccount, IUserState } from '../userReducerTypes'
 import { UserLoginActionType, UserRegisterActionType } from './userActionsTypes'
 import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
 
@@ -109,55 +109,59 @@ export const register =
     }
   }
 
-export const updateUserProfile = (firstName: string, lastName: string) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_UPDATE_PROFILE_REQUEST,
-    })
+export const updateUserProfile =
+  (firstName: string, lastName: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
+  async (dispatch: Dispatch<Action>, getState) => {
+    try {
+      dispatch({
+        type: USER_UPDATE_PROFILE_REQUEST,
+      })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const token = await userInfo.token
+
+      const {
+        data: {
+          body: { user },
+        },
+      } = await axios.put('/api/v1/user/profile', { firstName, lastName }, config)
+
+      dispatch({
+        type: USER_UPDATE_PROFILE_SUCCESS,
+        payload: { user, token },
+      })
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: { user, token },
+      })
+      await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
+      document.location.href = '/profile'
+    } catch (error: string | any) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message
+      if (message === 'Not authorized, token failed') {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        dispatch(logout())
+      }
+      dispatch({
+        type: USER_UPDATE_PROFILE_FAIL,
+        payload: message,
+      })
     }
-    const token = await userInfo.token
-
-    const {
-      data: {
-        body: { user },
-      },
-    } = await axios.put('/api/v1/user/profile', { firstName, lastName }, config)
-
-    dispatch({
-      type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: { user, token },
-    })
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: { user, token },
-    })
-    await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
-    document.location.href = '/profile'
-  } catch (error: string | any) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: USER_UPDATE_PROFILE_FAIL,
-      payload: message,
-    })
   }
-}
 
 export const getUserDetails =
   (id: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
-  async (dispatch, getState) => {
+  async (dispatch: Dispatch<Action>, getState) => {
     try {
       dispatch({
         type: USER_DETAILS_REQUEST,
@@ -182,6 +186,8 @@ export const getUserDetails =
     } catch (error: string | null | any) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message
       if (message === 'Not authorized, token failed') {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dispatch(logout())
       }
       dispatch({
@@ -191,48 +197,52 @@ export const getUserDetails =
     }
   }
 
-export const updateUserTransaction = (accounts) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_UPDATE_TRANSACTION_REQUEST,
-    })
+export const updateUserTransaction =
+  (accounts): ThunkAction<void, IUserState, unknown, Action<string>> =>
+  async (dispatch: Dispatch<Action>, getState) => {
+    try {
+      dispatch({
+        type: USER_UPDATE_TRANSACTION_REQUEST,
+      })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const token = await userInfo.token
+
+      const {
+        data: {
+          body: { user },
+        },
+      } = await axios.put('/api/v1/user/profile/accounts', { accounts }, config)
+
+      dispatch({
+        type: USER_UPDATE_TRANSACTION_SUCCESS,
+        payload: { user, token },
+      })
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: { user, token },
+      })
+      await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
+      // document.location.href = '/profile'
+    } catch (error: string | any) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message
+      if (message === 'Not authorized, token failed') {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        dispatch(logout())
+      }
+      dispatch({
+        type: USER_UPDATE_TRANSACTION_FAIL,
+        payload: message,
+      })
     }
-    const token = await userInfo.token
-
-    const {
-      data: {
-        body: { user },
-      },
-    } = await axios.put('/api/v1/user/profile/accounts', { accounts }, config)
-
-    dispatch({
-      type: USER_UPDATE_TRANSACTION_SUCCESS,
-      payload: { user, token },
-    })
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: { user, token },
-    })
-    await localStorage.setItem('userInfo', JSON.stringify({ user, token }))
-    // document.location.href = '/profile'
-  } catch (error: string | any) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: USER_UPDATE_TRANSACTION_FAIL,
-      payload: message,
-    })
   }
-}
