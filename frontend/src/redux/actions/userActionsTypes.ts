@@ -8,7 +8,7 @@ import {
   USER_REGISTER_SUCCESS,
   USER_UPDATE_TRANSACTION_FAIL,
   USER_UPDATE_TRANSACTION_REQUEST,
-  USER_UPDATE_TRANSACTION_SUCCESS,
+  USER_UPDATE_TRANSACTION_SUCCESS
 } from '../constants/userConstants'
 import { IAccount, UserData } from '../userReducerTypes'
 

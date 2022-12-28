@@ -11,15 +11,8 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
   USER_DETAILS_SUCCESS,
-  USER_UPDATE_PROFILE_FAIL,
-  USER_UPDATE_PROFILE_REQUEST,
-  USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_TRANSACTION_FAIL,
-  USER_UPDATE_TRANSACTION_REQUEST,
 } from '../constants/userConstants'
 import { UserLoginState, UserRegisterState } from '../userReducerTypes'
-import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
 
 const initialState: UserLoginState = {
   loading: false,

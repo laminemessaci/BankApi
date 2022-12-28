@@ -11,11 +11,11 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_TRANSACTION_FAIL,
-  USER_UPDATE_TRANSACTION_REQUEST,
+  USER_UPDATE_TRANSACTION_REQUEST
 } from '../constants/userConstants'
-import { IAccount, IUserState } from '../userReducerTypes'
-import { UserLoginActionType, UserRegisterActionType } from './userActionsTypes'
+import { IUserState } from '../userReducerTypes'
 import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
+import { UserLoginActionType, UserRegisterActionType } from './userActionsTypes'
 
 export const login =
   (email: string, password: string): ThunkAction<void, IUserState, unknown, Action<string>> =>

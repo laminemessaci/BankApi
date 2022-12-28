@@ -6,7 +6,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
-  userUpdateTransactionReducer,
+  userUpdateTransactionReducer
 } from './redux/reducers/userReducers'
 
 const reducers = combineReducers({
