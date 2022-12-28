@@ -31,8 +31,6 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   const { row } = props
   const { id } = useParams()
 
-  const [uptTransaction, setUptTransaction] = useState({})
-
   const dispatch = useAppDispatch()
 
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -51,7 +49,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
     e.preventDefault()
     console.log(e)
     const oneTrans = {
-      _id: e.nativeEvent.target[0].id ===undefined ?  e.nativeEvent.target.id : e.nativeEvent.target[0].id,
+      _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
       amount: row.amount,
       balance: row.balance,
       category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
@@ -72,6 +70,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
     const transactionUpdts = [...updatedTrans, { ...oneTrans }]
     const oneAccount = {
       _id: id,
+      name: updatedAccount[0].name,
       accountName: updatedAccount[0].accountNumber,
       description: updatedAccount[0].description,
       balance: updatedAccount[0].balance,
