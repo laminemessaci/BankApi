@@ -1,17 +1,23 @@
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { logout } from '../redux/actions/userActions'
-import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useTypedSelector } from '../features/hooksType'
+import { Cookies } from 'react-cookie'
+import { getLocalToken } from '../utils/localDatas'
+import { setToken } from '../features/auth.slice'
 
 const Header: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const userLogin = useTypedSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const dispatch = useAppDispatch(),
+    navigate = useNavigate(),
+    cookie = new Cookies(),
+    { userName } = useTypedSelector((state) => state.auth),
+    token = getLocalToken()
 
-  console.log('userInfo', userInfo)
-
-  const signOut = () => {
-    dispatch(logout())
+  console.log('UserName: ', userName)
+  // Logout function
+  const logout = () => {
+    dispatch(setToken({ token: null }))
+    cookie.remove('token', { path: '/' })
+    navigate('/')
   }
 
   return (
@@ -23,14 +29,14 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <ul>
-        {userInfo ? (
+        {token ? (
           <>
             <div className='flex items-center sm:gap-5 gap-3 mr-2'>
               <Link to='/profile' className='cursor-pointer flex items-center gap-2 hover:underline'>
                 <FaUserCircle className='mx-auto' />
-                <span>{userInfo?.user?.firstName}</span>
+                <span>{userName?.firstName}</span>
               </Link>
-              <Link to='/' onClick={signOut} className='cursor-pointer flex items-center gap-2 hover:underline'>
+              <Link to='/' onClick={logout} className='cursor-pointer flex items-center gap-2 hover:underline'>
                 <FaSignOutAlt />
                 <span className='hidden sm:block'>Sign Out</span>
               </Link>

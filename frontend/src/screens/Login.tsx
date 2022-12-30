@@ -1,30 +1,26 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaChevronCircleRight, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 
 import Loader from '../components/Loader'
-import Message from '../components/Message'
 import { FormValues } from '../constants'
-import { login } from '../redux/actions/userActions'
-import { IUserData } from '../redux/userReducerTypes'
-import { useAppDispatch, useTypedSelector } from './../redux/redux-hook/useTypedStore'
+import { useLoginMutation } from '../features/auth.service'
+import { useAppDispatch } from '../features/hooksType'
 
-export interface IUserLogin {
-  loading: boolean
-  error: string | null
-  userInfo: IUserData
-}
+import { setToken } from '../features/auth.slice'
+import { getLocalToken, setLocalToken } from '../utils/localDatas'
 
 export default function Login() {
   const dispatch = useAppDispatch()
-  const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
-
-  console.log('userLogin', userLogin)
-
+  const checkbox = useRef(null)
   const navigate = useNavigate()
+  const token = getLocalToken()
+
+  const [login, { data, status, error, isSuccess, isError, isLoading }] = useLoginMutation()
+  console.log(useLoginMutation())
+
   const {
     register,
     formState: { errors },
@@ -32,14 +28,23 @@ export default function Login() {
   } = useForm<FormValues>({})
 
   const onSubmit = ({ email, password }: FormValues) => {
-    dispatch(login(email, password))
+    login({ email, password })
   }
 
   useEffect(() => {
-    if (userInfo) {
+    // If connected, navigate to the profile page
+    if (token) navigate('/profile')
+    if (isSuccess) {
+      const tokenResponse = data['body']['token']
+      dispatch(setToken({ token: tokenResponse }))
+      setLocalToken(tokenResponse, checkbox.current.checked)
+
       navigate('/profile')
+    } else if (isError) {
+      console.log(status)
+      console.log(error)
     }
-  }, [userInfo, navigate])
+  }, [navigate, isSuccess, isError, dispatch, token, data, status, error])
 
   return (
     <div className='flex flex-col'>
@@ -49,7 +54,7 @@ export default function Login() {
           <h1 className='text-center my-5'>Sign In</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            {error && <Message variant='danger'>{error}</Message>}
+            {/* {error && <Message variant='danger'>{error}</Message>} */}
             {/* {loading && <Loader type="spin" color='blue' width={20} height={20} />} */}
             <div className='input-wrapper mb-4 flex flex-col'>
               <label htmlFor='username font-bold'>Username</label>
@@ -85,11 +90,11 @@ export default function Login() {
               <p className='text-red-600 leading-3 text-xs'>{errors.password?.message}</p>
             </div>
             <div className='input-wrapper mb-4'>
-              <input type='checkbox' id='remember-me' className='mr-2 ' />
+              <input ref={checkbox} type='checkbox' id='remember-me' className='mr-2 ' />
               <label htmlFor='remember-me'>Remember me</label>
             </div>
 
-            {loading ? (
+            {isLoading ? (
               <div className=' mx-auto flex justify-center mb-4'>
                 {' '}
                 <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}

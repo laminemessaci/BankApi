@@ -19,6 +19,7 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
   let response = {};
+  console.log('req.body======', req.body);
 
   try {
     const responseFromService = await userService.loginUser(req.body);

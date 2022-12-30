@@ -5,12 +5,11 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { ITransaction } from '../redux/userReducerTypes'
 import Row from './../components/Row'
 
 export const tableHeaders = [{ name: 'date' }, { name: 'description' }, { name: 'amount' }, { name: 'balance' }]
 
-const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
+const TransTable: React.FC<any[]> = (props: any[]) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { transactions }: ITransaction = props
@@ -38,13 +37,13 @@ const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
               })}
             </TableRow>
           </TableHead>
-          <TableBody>
+          {/* <TableBody>
             {transactions?.map((row: ITransaction, key: string) => (
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               <Row key={key} row={row} />
             ))}
-          </TableBody>
+          </TableBody> */}
         </Table>
       </TableContainer>
     </div>

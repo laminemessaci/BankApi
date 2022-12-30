@@ -3,12 +3,10 @@ import { FaUserCircle } from 'react-icons/fa'
 import Message from '../components/Message'
 
 import Loader from './../components/Loader'
-import { register } from './../redux/actions/userActions'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
-import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
 interface Values {
   firstName: string
@@ -19,9 +17,9 @@ interface Values {
   acceptTerms: boolean
 }
 const SingUp: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const userRegister = useTypedSelector((state) => state.userRegister)
-  const { loading, error } = userRegister
+  // const dispatch = useAppDispatch()
+  // const userRegister = useTypedSelector((state) => state.userRegister)
+  // const { loading, error } = userRegister
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(3, 'too small!').max(50, 'too long!').required('This field is required.'),
@@ -37,7 +35,7 @@ const SingUp: React.FC = () => {
     acceptTerms: Yup.bool().oneOf([true], '\n required.'),
   })
 
-  const initialValues : Values = {
+  const initialValues: Values = {
     firstName: '',
     lastName: '',
     email: '',
@@ -49,7 +47,7 @@ const SingUp: React.FC = () => {
   const handleSubmit = (values: Values) => {
     const { email, firstName, lastName, password } = values
     console.log(values)
-    dispatch(register(email, firstName, lastName, password))
+    // dispatch(register(email, firstName, lastName, password))
   }
 
   return (
@@ -66,7 +64,7 @@ const SingUp: React.FC = () => {
           >
             {({ resetForm }: any) => (
               <Form>
-                {error && <Message variant='danger'>{error}</Message>}
+                {/* {error && <Message variant='danger'>{error}</Message>} */}
                 <div className='input-wrapper mb-4 flex flex-col'>
                   <label htmlFor='email font-bold  flex w-full'>Email</label>
                   <Field type='email' id='email' name='email' placeholder='Email' className='border-2 p-1 ' />
@@ -108,7 +106,7 @@ const SingUp: React.FC = () => {
                   <ErrorMessage name='acceptTerms' component='small' className='text-red-700' />
                 </div>
 
-                {loading ? (
+                {true ? (
                   <div className=' mx-auto flex justify-center mb-4'>
                     {' '}
                     <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
