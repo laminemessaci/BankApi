@@ -30,7 +30,7 @@ const Profile: React.FC = () => {
       }
       console.log(error)
     }
-  }, [profile, userName])
+  }, [profile])
 
   return (
     <div className='flex flex-col w-full h-auto bg-[#9995a2]'>

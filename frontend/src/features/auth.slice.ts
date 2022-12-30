@@ -26,6 +26,7 @@ const authSlice = createSlice({
       state.token = action.payload.token
     },
     setUserName: (state, action: PayloadAction<{ userName: INames }>) => {
+      console.log('action====', action.payload.userName)
       state.userName = action.payload.userName
     },
     setNamesForm: (state, action: PayloadAction<{ namesForm: IProfileNames }>) => {

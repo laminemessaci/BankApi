@@ -6,6 +6,7 @@ import { useAppDispatch } from '../features/hooksType'
 import Loader from './Loader'
 import Message from './Message'
 import { useTypedSelector } from './../features/hooksType'
+import { setUserName } from '../features/auth.slice'
 
 interface IProps {
   save: () => void
@@ -18,6 +19,14 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
     navigate = useNavigate(),
     dispatch = useAppDispatch()
 
+  console.log('userName', userName)
+
+  const firstName = userName.firstName
+  const lastName = userName.lastName
+  const [updateFirstName, setUpdateFirstName] = useState('')
+  const [updateLastName, setUpdateLastName] = useState('')
+  const [message, setMessage] = useState('')
+
   useEffect(() => {
     // If success navigate to profile page
     if (isSuccess) navigate('/profile')
@@ -29,17 +38,11 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
       }
       console.log(error)
     }
-  }, [isSuccess, isError, navigate, status, error])
-
-  const firstName = userName.firstName
-  const lastName = userName.lastName
-  const [updateFirstName, setUpdateFirstName] = useState('')
-  const [updateLastName, setUpdateLastName] = useState('')
-  const [message, setMessage] = useState('')
+  }, [isSuccess, isError, dispatch, status, error, message])
 
   const onSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-
+    setMessage('')
     const previewsUser = {
       firstName: firstName,
       lastName: lastName,
@@ -54,9 +57,10 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
       return
     }
     // dispatch(updateUserProfile(userUpdateData.firstName, userUpdateData.lastName))
+    dispatch(setUserName({ userName: { firstName: userUpdateData.firstName, lastName: userUpdateData.lastName } }))
+    updateProfile(userUpdateData)
+    save()
   }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  useEffect(() => {}, [message, updateFirstName, updateLastName])
 
   return (
     <>
