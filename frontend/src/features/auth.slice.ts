@@ -5,9 +5,6 @@ import { INames, IProfileCredentials, IProfileNames } from './auth.service'
 const initialValues: IAuth = {
   token: null,
   userName: { firstName: '', lastName: '' },
-  namesForm: { firstName: '', lastName: '' },
-  credentialsForm: { email: '', password: '' },
-  accountId: 0,
 }
 
 // User Slices
@@ -15,12 +12,6 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: initialValues,
 
-  /* 
-  },
-  extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action: PayloadAction<{ token: string }>) => {
-      state.token = action.payload.token
-    }) */
   reducers: {
     setToken: (state, action: PayloadAction<{ token: string }>) => {
       state.token = action.payload.token
@@ -29,15 +20,15 @@ const authSlice = createSlice({
       console.log('action====', action.payload.userName)
       state.userName = action.payload.userName
     },
-    setNamesForm: (state, action: PayloadAction<{ namesForm: IProfileNames }>) => {
-      state.namesForm = action.payload.namesForm
-    },
-    setCredentialsForm: (state, action: PayloadAction<{ credentialsForm: IProfileCredentials }>) => {
-      state.credentialsForm = action.payload.credentialsForm
-    },
-    setActiveAccount: (state, action: PayloadAction<{ id: number }>) => {
-      state.accountId = action.payload.id
-    },
+    // setNamesForm: (state, action: PayloadAction<{ namesForm: IProfileNames }>) => {
+    //   state.namesForm = action.payload.namesForm
+    // },
+    // setCredentialsForm: (state, action: PayloadAction<{ credentialsForm: IProfileCredentials }>) => {
+    //   state.credentialsForm = action.payload.credentialsForm
+    // },
+    // setActiveAccount: (state, action: PayloadAction<{ id: number }>) => {
+    //   state.accountId = action.payload.id
+    // },
     defaultState: (state) => {
       state = initialValues
     },
@@ -48,11 +39,8 @@ const authSlice = createSlice({
 interface IAuth {
   token: string | null
   userName: INames | null
-  namesForm: IProfileNames | null
-  credentialsForm: IProfileCredentials | null
-  accountId: number | null
 }
 
 // export const setToken = (state: RootState) => state.auth.token // slice.actions
-export const { setToken, setUserName, setNamesForm, setCredentialsForm, setActiveAccount } = authSlice.actions
+export const { setToken, setUserName } = authSlice.actions
 export default authSlice.reducer

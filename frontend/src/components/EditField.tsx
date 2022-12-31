@@ -38,7 +38,7 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
       }
       console.log(error)
     }
-  }, [isSuccess, isError, dispatch, status, error, message])
+  }, [isSuccess, isError, dispatch, status, error, message, navigate])
 
   const onSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()

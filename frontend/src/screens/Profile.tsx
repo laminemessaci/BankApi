@@ -5,22 +5,53 @@ import EditField from '../components/EditField'
 import { useProfileMutation } from '../features/auth.service'
 import { setUserName } from '../features/auth.slice'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
+import { useNavigate } from 'react-router'
+
+interface IUserData {
+  firstName: string
+  lastName: string
+  accounts: {
+    _id: string
+    name: string
+    balance: number
+    currency: string
+    description: string
+  }[]
+  updatedAt: Date
+}
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [editUser, setEditUser] = useState(false)
+  const [userInfos, setUserInfos] = useState<IUserData>()
   // Get User Names
-  const { userName } = useTypedSelector((state) => state.auth),
-    // Get Profile Info
-    [profile, { data, status, error, isSuccess, isError }] = useProfileMutation()
-  console.log('body', data)
+  const { userName } = useTypedSelector((state) => state.auth)
 
+  // Get Profile Info
+  const [profile, { data, status, error, isSuccess, isError }] = useProfileMutation()
+
+  // Get User Infos
+  const getUserInfos = async (): Promise<IUserData> => {
+    const user = await profile()
+      .then((data) => {
+        // console.log(data['data']['body'])
+        return data['data']['body']
+      })
+      // eslint-disable-next-line quotes
+      .catch((error) => console.log("Error getting user's Data:  ", error))
+    setUserInfos(user)
+    return user
+  }
+
+  console.log('userInfos: ', userInfos)
   useEffect(() => {
-    profile()
+    const user = getUserInfos()
+    console.log(user)
     if (isSuccess) {
       // If success get data
-      const { firstName, lastName } = data['body']
-    
+      const { firstName, lastName, accounts } = data['body']
+
       dispatch(setUserName({ userName: { firstName: firstName, lastName: lastName } }))
     } else if (isError) {
       // Else show error message in console
@@ -30,7 +61,7 @@ const Profile: React.FC = () => {
       }
       console.log(error)
     }
-  }, [profile])
+  }, [])
 
   return (
     <div className='flex flex-col w-full h-auto bg-[#9995a2]'>
@@ -47,16 +78,18 @@ const Profile: React.FC = () => {
           {editUser ? <EditField save={() => setEditUser(!editUser)} /> : ''}
         </div>
         <div className='w-full flex flex-col justify-center items-center mt-4 '>
-          {/* {user?.accounts?.map((elt) => (
-            <Card
-              key={uuidv4()}
-              check={elt.name}
-              currency={elt.currency}
-              credit={elt.balance}
-              balance={elt.description}
-              linkedId={elt._id}
-            />
-          ))} */}
+          {userInfos
+            ? userInfos?.accounts?.map((elt) => (
+                <Card
+                  key={uuidv4()}
+                  check={elt.name}
+                  currency={elt.currency}
+                  credit={elt.balance}
+                  balance={elt.description}
+                  linkedId={elt._id}
+                />
+              ))
+            : null}
         </div>
       </main>
     </div>
