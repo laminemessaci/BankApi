@@ -1,9 +1,10 @@
+import React, { useEffect } from 'react'
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
 import { Cookies } from 'react-cookie'
 import { getLocalToken } from '../utils/localDatas'
-import { setToken } from '../features/auth.slice'
+import { setToken, setUserInfos } from '../features/auth.slice'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch(),
@@ -12,13 +13,16 @@ const Header: React.FC = () => {
     { userName } = useTypedSelector((state) => state.auth),
     token = getLocalToken()
 
-  console.log('UserName: ', userName)
   // Logout function
   const logout = () => {
     dispatch(setToken({ token: null }))
+    dispatch(setUserInfos({ userInfos: null }))
     cookie.remove('token', { path: '/' })
     navigate('/')
   }
+  useEffect(() => {
+    console.log('UserName: ', userName)
+  }, [token])
 
   return (
     <div className='w-full h-16 border-b-2 bg-white flex items-center justify-center md:justify-between md:px-10 z-10 absolute'>

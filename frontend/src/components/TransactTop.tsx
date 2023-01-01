@@ -1,4 +1,6 @@
-const TransactTop: React.FC<any> = (props: any) => {
+import { IAccounts } from '../screens/Transaction'
+
+const TransactTop: React.FC<IAccounts> = (props: IAccounts) => {
   const { name, balance, currency, description } = props
   console.log(name, balance, currency, description)
 

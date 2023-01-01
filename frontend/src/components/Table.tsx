@@ -6,15 +6,26 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Row from './../components/Row'
+import { useEffect } from 'react'
 
 export const tableHeaders = [{ name: 'date' }, { name: 'description' }, { name: 'amount' }, { name: 'balance' }]
 
-const TransTable: React.FC<any[]> = (props: any[]) => {
+export interface ITransactions {
+  _id: string
+  amount: number
+  currency: string
+  description: string
+  date: Date
+  type: string
+  category: string
+}
+
+const TransTable: React.FC<ITransactions[]> = (props: ITransactions[]) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { transactions }: ITransaction = props
-  transactions?.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  const { transactions }: ITransactions[] = props
+  const ordredTrans = [...transactions].sort((a, b) => {
+    return new Date(b.date)?.getTime() - new Date(a.date)?.getTime()
   })
 
   return (
@@ -37,13 +48,13 @@ const TransTable: React.FC<any[]> = (props: any[]) => {
               })}
             </TableRow>
           </TableHead>
-          {/* <TableBody>
-            {transactions?.map((row: ITransaction, key: string) => (
+          <TableBody>
+            {ordredTrans?.map((row, key) => {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              <Row key={key} row={row} />
-            ))}
-          </TableBody> */}
+              return <Row key={key} row={row} />
+            })}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>

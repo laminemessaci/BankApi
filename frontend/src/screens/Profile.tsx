@@ -3,14 +3,25 @@ import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { useProfileMutation } from '../features/auth.service'
-import { setUserName } from '../features/auth.slice'
+import { setUserInfos, setUserName } from '../features/auth.slice'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
 import { useNavigate } from 'react-router'
 
-interface IUserData {
+export interface IUserData {
   firstName: string
   lastName: string
   accounts: {
+    accountNumber: number
+    transactions: {
+      _id: string
+      amount: number
+      currency: string
+      description: string
+      date: Date
+      type: string
+      category: string
+    }[]
+    updatedAt: Date
     _id: string
     name: string
     balance: number
@@ -24,35 +35,31 @@ const Profile: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [editUser, setEditUser] = useState(false)
-  const [userInfos, setUserInfos] = useState<IUserData>()
+  const [user, setUser] = useState<IUserData>()
   // Get User Names
   const { userName } = useTypedSelector((state) => state.auth)
-
+  const { userInfos } = useTypedSelector((state) => state.auth)
   // Get Profile Info
   const [profile, { data, status, error, isSuccess, isError }] = useProfileMutation()
-
+  // const { userInfos } = useTypedSelector((state) => state.auth)
   // Get User Infos
-  const getUserInfos = async (): Promise<IUserData> => {
-    const user = await profile()
-      .then((data) => {
-        // console.log(data['data']['body'])
-        return data['data']['body']
-      })
-      // eslint-disable-next-line quotes
-      .catch((error) => console.log("Error getting user's Data:  ", error))
-    setUserInfos(user)
-    return user
-  }
+  // const getUserInfos = async () => {
+  //   const user = await profile()
+  //     .then((data) => {
+  //       setUser(data['data']['body'])
+  //     })
+  //     // eslint-disable-next-line quotes
+  //     .catch((error) => console.log("Error getting user's Data:  ", error))
+  // }
 
-  console.log('userInfos: ', userInfos)
   useEffect(() => {
-    const user = getUserInfos()
-    console.log(user)
-    if (isSuccess) {
-      // If success get data
-      const { firstName, lastName, accounts } = data['body']
+    // getUserInfos()
 
+    if (isSuccess) {
+      // If success, set user name in redux store
+      const { firstName, lastName } = data['body']
       dispatch(setUserName({ userName: { firstName: firstName, lastName: lastName } }))
+      // dispatch(setUserInfos({ userInfos: data['body'] }))
     } else if (isError) {
       // Else show error message in console
       console.log(status)

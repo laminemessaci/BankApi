@@ -12,6 +12,7 @@ import { Box } from '@mui/system'
 import moment from 'moment'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useAppDispatch } from '../features/hooksType'
 
 
 interface IRow {
@@ -29,7 +30,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   const { row } = props
   const { id } = useParams()
 
-  // const dispatch = useAppDispatch()
+   const dispatch = useAppDispatch()
 
   // const userLogin = useTypedSelector((state) => state.userLogin)
   // const {
@@ -43,22 +44,22 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
 
   const [open, setOpen] = useState(false)
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   console.log(e)
-  //   const oneTrans = {
-  //     _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
-  //     amount: row.amount,
-  //     balance: row.balance,
-  //     category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
-  //     currency: row.currency,
-  //     date: row.date,
-  //     description: row.description,
-  //     note: e.target.note.value.trim() === '' ? row.note : e.target.note.value.trim(),
-  //     type: row.type,
-  //     updatedAt: new Date(),
-  //     createdAt: row.createdAt,
-  //   }
+  const submitHandler = (e) => {
+    e.preventDefault()
+    console.log(e)
+    // const oneTrans = {
+    //   _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
+    //   amount: row.amount,
+    //   balance: row.balance,
+    //   category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
+    //   currency: row.currency,
+    //   date: row.date,
+    //   description: row.description,
+    //   note: e.target.note.value.trim() === '' ? row.note : e.target.note.value.trim(),
+    //   type: row.type,
+    //   updatedAt: new Date(),
+    //   createdAt: row.createdAt,
+    // }
 
   //   const updtedAccounts = accounts.filter((ac) => ac._id !== id)
 
@@ -80,11 +81,11 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   //   const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
   //   console.log('updatedAccounts :', updatedAccounts)
   //   dispatch(updateUserTransaction(updatedAccounts))
-  // }
+   }
 
   return (
     <>
-      {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton aria-label='expand row' size='small' onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -147,7 +148,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
             </Box>
           </Collapse>
         </TableCell>
-      </TableRow> */}
+      </TableRow>
     </>
   )
 }

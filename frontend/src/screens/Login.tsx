@@ -9,7 +9,7 @@ import { FormValues } from '../constants'
 import { useLoginMutation } from '../features/auth.service'
 import { useAppDispatch } from '../features/hooksType'
 
-import { setToken } from '../features/auth.slice'
+import { setToken, setUserInfos } from '../features/auth.slice'
 import { getLocalToken, setLocalToken } from '../utils/localDatas'
 
 export default function Login() {
@@ -36,8 +36,10 @@ export default function Login() {
     if (token) navigate('/profile')
     if (isSuccess) {
       const tokenResponse = data['body']['token']
+      const userInfosResponse = data['body']['user']
       dispatch(setToken({ token: tokenResponse }))
       setLocalToken(tokenResponse, checkbox.current.checked)
+      dispatch(setUserInfos({ userInfos: userInfosResponse }))
 
       navigate('/profile')
     } else if (isError) {

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-string-refs */
+
 import { ActionFunction, LoaderFunction, Route, Routes, ShouldRevalidateFunction } from 'react-router-dom'
 import Home from '../screens/Home'
 import Login from '../screens/Login'
