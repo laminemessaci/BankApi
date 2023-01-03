@@ -13,7 +13,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useUpdateTransactionMutation } from '../features/auth.service'
-import { setUserAccount, setUserInfos } from '../features/auth.slice'
+import { setUserInfos } from '../features/auth.slice'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
 
 interface IRow {
@@ -78,7 +78,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
     }
 
     const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
-    console.log(updatedAccounts)
+    
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

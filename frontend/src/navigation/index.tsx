@@ -6,8 +6,8 @@ import Login from '../screens/Login'
 import Profile from '../screens/Profile'
 import SingUp from '../screens/SingUp'
 import Transaction from '../screens/Transaction'
-import PrivateRoute from './PrivateRoute'
 import ErrorPage from './../screens/ErrorPage'
+import PrivateRoute from './PrivateRoute'
 
 interface RouteObject {
   path?: string

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
+import { Cookies } from 'react-cookie'
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppDispatch, useTypedSelector } from '../features/hooksType'
-import { Cookies } from 'react-cookie'
-import { getLocalToken } from '../utils/localDatas'
 import { setToken, setUserAccount, setUserInfos, setUserName } from '../features/auth.slice'
+import { useAppDispatch, useTypedSelector } from '../features/hooksType'
+import { getLocalToken } from '../utils/localDatas'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch(),
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   }
   useEffect(() => {
     console.log('UserName: ', userName)
-  }, [token])
+  }, [token, dispatch])
 
   return (
     <div className='w-full h-16 border-b-2 bg-white flex items-center justify-center md:justify-between md:px-10 z-10 absolute'>

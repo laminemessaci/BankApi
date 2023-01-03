@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Cookies } from 'react-cookie'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { ActionFunction, LoaderFunction, ShouldRevalidateFunction } from 'react-router-dom'
-import { setToken } from '../features/auth.slice'
+import { setToken, setUserInfos } from '../features/auth.slice'
 import { useAppDispatch } from '../features/hooksType'
 import { getLocalToken } from '../utils/localDatas'
 
@@ -38,6 +38,7 @@ const PrivateRoute: React.FC<RouteObject> = () => {
         // If no token then logout
         if (!token) {
           dispatch(setToken({ token: null }))
+          dispatch(setUserInfos({ userInfos: null }))
           cookie.remove('token', { path: '/' })
           navigate('/login')
         }

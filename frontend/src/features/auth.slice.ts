@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserData } from '../screens/Profile'
-import { INames, IProfileCredentials, IProfileNames } from './auth.service'
 import { IAccounts } from './../screens/Transaction'
+import { INames } from './auth.service'
 
 // Initiate all state values
 const initialValues: IAuth = {

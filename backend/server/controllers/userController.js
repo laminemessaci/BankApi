@@ -70,7 +70,7 @@ module.exports.updateUserProfile = async (req, res) => {
 
 module.exports.updateUserTransaction = async (req, res) => {
   let response = {};
-  console.log('Transaction == ', req.body);
+
   try {
     const responseFromService = await userService.updateUserTransaction(req);
     response.status = 200;
