@@ -56,7 +56,7 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
       setMessage('You have not updated anything!')
       return
     }
-    // dispatch(updateUserProfile(userUpdateData.firstName, userUpdateData.lastName))
+
     dispatch(setUserName({ userName: { firstName: userUpdateData.firstName, lastName: userUpdateData.lastName } }))
     updateProfile(userUpdateData)
     save()
@@ -67,7 +67,7 @@ const EditField: React.FC<IProps> = ({ save }: IProps) => {
       <div className='w-auto mt-1 flex justify-center'>{message && <Message variant='danger'>{message}</Message>}</div>
       <div className='w-full mt-4 flex justify-center'>
         <form className='w-11/12 flex gap-5 sm:gap-10 '>
-          {error && <Message variant='danger'>{error as string}</Message>}
+          {isError && <Message variant='danger'>{error as string}</Message>}
 
           <div className='w-1/2 flex flex-col gap-5 justify-center items-center sm:items-end'>
             <input

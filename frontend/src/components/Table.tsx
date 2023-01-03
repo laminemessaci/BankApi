@@ -18,6 +18,12 @@ export interface ITransactions {
   date: Date
   type: string
   category: string
+  note: string
+  balance: number
+  createdAt: Date
+  updatedAt: Date
+  __v: number
+  
 }
 
 const TransTable: React.FC<ITransactions[]> = (props: ITransactions[]) => {

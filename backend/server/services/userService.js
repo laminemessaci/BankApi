@@ -110,17 +110,22 @@ module.exports.updateUserProfile = async (serviceData) => {
 };
 
 module.exports.updateUserTransaction = async (serviceData) => {
-  console.log('serviceData============', serviceData.body);
+  console.log('serviceData===', serviceData.body);
   try {
     const jwtToken = serviceData.headers.authorization
       .split('Bearer')[1]
       .trim();
     const decodedJwtToken = jwt.decode(jwtToken);
 
+    const currentUser = await User.findOne({ _id: decodedJwtToken.id });
+    const currentAccounts = currentUser.accounts;
+    console.log('currentAccounts===', currentAccounts);
+    const updtAccounts = serviceData.body;
+
     const user = await User.findOneAndUpdate(
       { _id: decodedJwtToken.id },
       {
-        accounts: serviceData.body.accounts,
+        accounts: updtAccounts,
       },
       { new: true }
     );

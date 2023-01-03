@@ -9,17 +9,17 @@ import { FormValues } from '../constants'
 import { useLoginMutation } from '../features/auth.service'
 import { useAppDispatch } from '../features/hooksType'
 
-import { setToken, setUserInfos } from '../features/auth.slice'
+import { setToken, setUserAccount, setUserInfos, setUserName } from '../features/auth.slice'
 import { getLocalToken, setLocalToken } from '../utils/localDatas'
+import Message from '../components/Message'
 
-export default function Login() {
+const Login: React.FC = () => {
   const dispatch = useAppDispatch()
   const checkbox = useRef(null)
   const navigate = useNavigate()
   const token = getLocalToken()
 
   const [login, { data, status, error, isSuccess, isError, isLoading }] = useLoginMutation()
-  console.log(useLoginMutation())
 
   const {
     register,
@@ -39,12 +39,14 @@ export default function Login() {
       const userInfosResponse = data['body']['user']
       dispatch(setToken({ token: tokenResponse }))
       setLocalToken(tokenResponse, checkbox.current.checked)
+      dispatch(setUserName({ userName: { firstName: userInfosResponse.firstName, lastName: userInfosResponse.lastName } }))
       dispatch(setUserInfos({ userInfos: userInfosResponse }))
+      dispatch(setUserAccount({ accounts: userInfosResponse.accounts }))
 
       navigate('/profile')
     } else if (isError) {
       console.log(status)
-      console.log(error)
+      console.log(error['data'].message)
     }
   }, [navigate, isSuccess, isError, dispatch, token, data, status, error])
 
@@ -56,8 +58,8 @@ export default function Login() {
           <h1 className='text-center my-5'>Sign In</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* {error && <Message variant='danger'>{error}</Message>} */}
-            {/* {loading && <Loader type="spin" color='blue' width={20} height={20} />} */}
+            {isError && <Message variant='danger'>{error['data'].message}</Message>}
+            {isLoading && <Loader type='spin' color='blue' width={20} height={20} />}
             <div className='input-wrapper mb-4 flex flex-col'>
               <label htmlFor='username font-bold'>Username</label>
               <input
@@ -115,3 +117,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login

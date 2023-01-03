@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
 import { Cookies } from 'react-cookie'
 import { getLocalToken } from '../utils/localDatas'
-import { setToken, setUserInfos } from '../features/auth.slice'
+import { setToken, setUserAccount, setUserInfos, setUserName } from '../features/auth.slice'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch(),
@@ -16,7 +16,9 @@ const Header: React.FC = () => {
   // Logout function
   const logout = () => {
     dispatch(setToken({ token: null }))
+    dispatch(setUserName({ userName: { firstName: '', lastName: '' } }))
     dispatch(setUserInfos({ userInfos: null }))
+    dispatch(setUserAccount({ accounts: null }))
     cookie.remove('token', { path: '/' })
     navigate('/')
   }

@@ -29,11 +29,11 @@ const Transaction: React.FC = () => {
   const navigate = useNavigate()
 
   const { userInfos } = useTypedSelector((state) => state.auth)
-  console.log('userInfos: ', userInfos)
+
 
   const { id } = useParams()
   const currentAccount = userInfos?.accounts.find((account) => {
-    console.log('account', account.transactions)
+   
     return account._id === id
   })
 

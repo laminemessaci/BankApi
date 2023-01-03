@@ -15,6 +15,7 @@ export type IAccount = {
   currency: string
   description: string
   linkedId: string
+  accountNumber: number
 }
 
 export type IArgentB = {

@@ -5,8 +5,13 @@ import Message from '../components/Message'
 import Loader from './../components/Loader'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
+import { useSignupMutation } from '../features/auth.service'
+import { setToken, setUserAccount, setUserInfos, setUserName } from '../features/auth.slice'
+import { useAppDispatch } from '../features/hooksType'
+import { setLocalToken } from '../utils/localDatas'
 
 interface Values {
   firstName: string
@@ -17,9 +22,11 @@ interface Values {
   acceptTerms: boolean
 }
 const SingUp: React.FC = () => {
-  // const dispatch = useAppDispatch()
-  // const userRegister = useTypedSelector((state) => state.userRegister)
-  // const { loading, error } = userRegister
+  const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
+
+  const [signup, { data, status, error, isSuccess, isError, isLoading }] = useSignupMutation()
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(3, 'too small!').max(50, 'too long!').required('This field is required.'),
@@ -46,9 +53,25 @@ const SingUp: React.FC = () => {
 
   const handleSubmit = (values: Values) => {
     const { email, firstName, lastName, password } = values
-    console.log(values)
-    // dispatch(register(email, firstName, lastName, password))
+    signup({ email, firstName, lastName, password })
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      const tokenResponse = data['body']['token']
+      const userInfosResponse = data['body']['user']
+      dispatch(setToken({ token: tokenResponse }))
+      setLocalToken(tokenResponse, false)
+      dispatch(setUserName({ userName: { firstName: userInfosResponse.firstName, lastName: userInfosResponse.lastName } }))
+      dispatch(setUserInfos({ userInfos: userInfosResponse }))
+      dispatch(setUserAccount({ accounts: userInfosResponse.accounts }))
+
+      navigate('/profile')
+    } else if (isError) {
+      console.log(status)
+      console.log(error['data'].message)
+    }
+  }, [navigate, isSuccess, isError, dispatch, data, status, error])
 
   return (
     <div className='flex flex-col '>
@@ -64,7 +87,7 @@ const SingUp: React.FC = () => {
           >
             {({ resetForm }: any) => (
               <Form>
-                {/* {error && <Message variant='danger'>{error}</Message>} */}
+                {isError && <Message variant='danger'>{error['data'].message}</Message>}
                 <div className='input-wrapper mb-4 flex flex-col'>
                   <label htmlFor='email font-bold  flex w-full'>Email</label>
                   <Field type='email' id='email' name='email' placeholder='Email' className='border-2 p-1 ' />
@@ -106,7 +129,7 @@ const SingUp: React.FC = () => {
                   <ErrorMessage name='acceptTerms' component='small' className='text-red-700' />
                 </div>
 
-                {true ? (
+                {isLoading ? (
                   <div className=' mx-auto flex justify-center mb-4'>
                     {' '}
                     <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
@@ -122,7 +145,10 @@ const SingUp: React.FC = () => {
                     <button
                       className='transform motion-reduce:transform-none hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300   w-full bg-[#12002B] p-2 text-white text-xl mb-4 mx-2 rounded-sm'
                       type='reset'
-                      onClick={resetForm}
+                      onClick={() => {
+                        resetForm
+                        navigate('/login')
+                      }}
                     >
                       Cancel
                     </button>

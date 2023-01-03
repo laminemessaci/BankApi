@@ -19,7 +19,6 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
   let response = {};
-  console.log('req.body======', req.body);
 
   try {
     const responseFromService = await userService.loginUser(req.body);
@@ -71,7 +70,7 @@ module.exports.updateUserProfile = async (req, res) => {
 
 module.exports.updateUserTransaction = async (req, res) => {
   let response = {};
-  console.log('=====', req.body);
+  console.log('Transaction == ', req.body);
   try {
     const responseFromService = await userService.updateUserTransaction(req);
     response.status = 200;

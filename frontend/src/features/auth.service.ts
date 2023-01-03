@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { ITransactions } from '../components/Table'
 import { getLocalToken } from '../utils/localDatas'
 
 // Auth User API
@@ -52,6 +53,16 @@ export const authApi = createApi({
         }
       },
     }),
+    // updateAccount--> Update transaction
+    updateTransaction: builder.mutation<void, ITransactions>({
+      query: (updatedAccount) => {
+        return {
+          url: 'profile/accounts',
+          method: 'PUT',
+          body: updatedAccount,
+        }
+      },
+    }),
   }),
 })
 
@@ -94,4 +105,10 @@ export interface ISignupResponse {
 
 // console.log('authApi', authApi)
 
-export const { useLoginMutation, useProfileMutation, useUpdateProfileMutation, useSignupMutation } = authApi
+export const {
+  useLoginMutation,
+  useProfileMutation,
+  useUpdateProfileMutation,
+  useSignupMutation,
+  useUpdateTransactionMutation,
+} = authApi

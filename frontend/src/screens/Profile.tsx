@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
 import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { useProfileMutation } from '../features/auth.service'
-import { setUserInfos, setUserName } from '../features/auth.slice'
+import { setUserName } from '../features/auth.slice'
 import { useAppDispatch, useTypedSelector } from '../features/hooksType'
-import { useNavigate } from 'react-router'
 
 export interface IUserData {
   firstName: string
@@ -41,20 +41,8 @@ const Profile: React.FC = () => {
   const { userInfos } = useTypedSelector((state) => state.auth)
   // Get Profile Info
   const [profile, { data, status, error, isSuccess, isError }] = useProfileMutation()
-  // const { userInfos } = useTypedSelector((state) => state.auth)
-  // Get User Infos
-  // const getUserInfos = async () => {
-  //   const user = await profile()
-  //     .then((data) => {
-  //       setUser(data['data']['body'])
-  //     })
-  //     // eslint-disable-next-line quotes
-  //     .catch((error) => console.log("Error getting user's Data:  ", error))
-  // }
 
   useEffect(() => {
-    // getUserInfos()
-
     if (isSuccess) {
       // If success, set user name in redux store
       const { firstName, lastName } = data['body']

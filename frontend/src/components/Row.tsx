@@ -12,8 +12,9 @@ import { Box } from '@mui/system'
 import moment from 'moment'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useAppDispatch } from '../features/hooksType'
-
+import { useUpdateTransactionMutation } from '../features/auth.service'
+import { setUserAccount, setUserInfos } from '../features/auth.slice'
+import { useAppDispatch, useTypedSelector } from '../features/hooksType'
 
 interface IRow {
   type: string
@@ -30,58 +31,63 @@ const Row: React.FC<IRow[]> = (props: IRow[]) => {
   const { row } = props
   const { id } = useParams()
 
-   const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-  // const userLogin = useTypedSelector((state) => state.userLogin)
-  // const {
-  //   userInfo: {
-  //     user: { accounts },
-  //   },
-  // } = userLogin
-  // const updatedAccount = accounts.filter((ac) => ac._id === id)
-  // const { transactions } = updatedAccount[0]
-  // const transaction = transactions.filter((trans) => trans._id === row._id)
+  const userInfos = useTypedSelector((state) => state.auth.userInfos)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [updateUserTransaction, { status, error, isSuccess, isError, isLoading }] = useUpdateTransactionMutation()
+  const { accounts } = userInfos
+  const updatedAccount = accounts.filter((ac) => ac._id === id)
+  const { transactions } = updatedAccount[0]
+  const transaction = transactions.filter((trans) => trans._id === row._id)
 
   const [open, setOpen] = useState(false)
 
   const submitHandler = (e) => {
     e.preventDefault()
     console.log(e)
-    // const oneTrans = {
-    //   _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
-    //   amount: row.amount,
-    //   balance: row.balance,
-    //   category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
-    //   currency: row.currency,
-    //   date: row.date,
-    //   description: row.description,
-    //   note: e.target.note.value.trim() === '' ? row.note : e.target.note.value.trim(),
-    //   type: row.type,
-    //   updatedAt: new Date(),
-    //   createdAt: row.createdAt,
-    // }
+    const oneTrans = {
+      _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
+      amount: row.amount,
+      balance: row.balance,
+      category: e.target.category.value.trim() === '' ? row.category : e.target.category.value.trim(),
+      currency: row.currency,
+      date: row.date,
+      description: row.description,
+      note: e.target.note.value.trim() === '' ? row.note : e.target.note.value.trim(),
+      type: row.type,
+      updatedAt: new Date().getUTCDate(),
+      createdAt: row.createdAt,
+    }
 
-  //   const updtedAccounts = accounts.filter((ac) => ac._id !== id)
+    const updtedAccounts = accounts.filter((ac) => ac._id !== id)
 
-  //   const transId = e.nativeEvent.target[0].id
-  //   const updatedTrans = transactions.filter((trans) => trans._id !== transId)
+    const transId = e.nativeEvent.target[0].id
+    const updatedTrans = transactions.filter((trans) => trans._id !== transId)
 
-  //   const transactionUpdts = [...updatedTrans, { ...oneTrans }]
-  //   const oneAccount = {
-  //     _id: id,
-  //     name: updatedAccount[0].name,
-  //     accountName: updatedAccount[0].accountNumber,
-  //     description: updatedAccount[0].description,
-  //     balance: updatedAccount[0].balance,
-  //     currency: updatedAccount[0].currency,
-  //     transactions: transactionUpdts,
-  //     updatedAt: new Date(),
-  //   }
+    const transactionUpdts = [...updatedTrans, { ...oneTrans }]
+    const oneAccount = {
+      _id: id,
+      name: updatedAccount[0].name,
+      accountName: updatedAccount[0].accountNumber,
+      description: updatedAccount[0].description,
+      balance: updatedAccount[0].balance,
+      currency: updatedAccount[0].currency,
+      transactions: transactionUpdts,
+      updatedAt: new Date(),
+    }
 
-  //   const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
-  //   console.log('updatedAccounts :', updatedAccounts)
-  //   dispatch(updateUserTransaction(updatedAccounts))
-   }
+    const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
+    console.log(updatedAccounts)
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    updateUserTransaction(updatedAccounts)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    dispatch(setUserInfos({ userInfos: { ...userInfos, accounts: updatedAccounts } }))
+    // dispatch(setUserAccount({ accounts: updatedAccount }))
+  }
 
   return (
     <>
