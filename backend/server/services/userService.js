@@ -89,7 +89,7 @@ module.exports.updateUserProfile = async (serviceData) => {
     const decodedJwtToken = jwt.decode(jwtToken);
     const updatedUser = await User.findOne({ _id: decodedJwtToken.id });
 
-    const user = await User.findOneAndUpdate(
+    const user = await User.useFindAndModify(
       { _id: decodedJwtToken.id },
       {
         firstName: serviceData.body.firstName,
