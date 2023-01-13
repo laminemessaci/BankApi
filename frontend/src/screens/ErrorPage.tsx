@@ -1,7 +1,11 @@
 import { FaBackward } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const ErrorPage: React.FC = () => {
+/**
+ * *Error Page
+ * @returns {JSX.Element}
+ */
+const ErrorPage: React.FC = (): JSX.Element => {
   return (
     <main className=' bg-[#2b1853] w-full h-screen flex justify-center flex-col'>
       <p className='text-9xl text-white font-extrabold flex justify-center'>404</p>

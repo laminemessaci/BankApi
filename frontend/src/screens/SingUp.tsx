@@ -18,7 +18,12 @@ interface Values {
   confirmPassword: string
   acceptTerms: boolean
 }
-const SingUp: React.FC = () => {
+
+/**
+ * * User Register Page
+ * @returns {JSX.Element}
+ */
+const SingUp: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const userRegister = useTypedSelector((state) => state.userRegister)
   const { loading, error } = userRegister

@@ -18,7 +18,16 @@ interface ILoader {
   width?: string | number
   height?: string | number
 }
-const Loader: React.FC<ILoader> =({ type, color, width, height }: ILoader) =>{
+
+/**
+ ** Loader components
+ * @param  {LoadingType}
+ * @param  {string}
+ * @param { string|number}
+ * @param {string| number}
+ * @returns {JSX.Element}
+ */
+const Loader: React.FC<ILoader> = ({ type, color, width, height }: ILoader): JSX.Element => {
   return (
     <div className='  items-center justify-center'>
       <ReactLoading type={type} color={color} width={width} height={height} />

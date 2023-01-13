@@ -25,7 +25,13 @@ interface IRow {
   amount: number
   balance: number
 }
-const Row: React.FC<IRow[]> = (props: IRow[]) => {
+
+/**
+ * Row Component
+ * @param {IRow} 
+ * @returns {JSX.Element}
+ */
+const Row: React.FC<IRow[]> = (props: IRow[]): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { row } = props

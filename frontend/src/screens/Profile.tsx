@@ -4,7 +4,11 @@ import Card from '../components/Card'
 import EditField from '../components/EditField'
 import { useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
-const Profile: React.FC = () => {
+/**
+ * * Profile Page
+ * @returns {JSX.Element}
+ */
+const Profile: React.FC = (): JSX.Element => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const {
     userInfo: { user },

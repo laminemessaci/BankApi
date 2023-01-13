@@ -1,4 +1,8 @@
-const Banner: React.FC = () => {
+/**
+ **Banner component
+ * @return {JSX.Element}
+ */
+const Banner: React.FC = (): JSX.Element => {
   return (
     <div className='w-full h-[300px] sm-h-[300px] lg:h-[450px]  flex items-center justify-center  mb-10 	'>
       <div

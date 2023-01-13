@@ -8,7 +8,12 @@ interface ICardAccount {
   currency: string
 }
 
-const Card: React.FC<ICardAccount> = (props: ICardAccount) => {
+/**
+ ** Card Component
+ * @param props
+ * @returns {JSX.Element}
+ */
+const Card: React.FC<ICardAccount> = (props: ICardAccount): JSX.Element => {
   const { check, credit, balance, currency, linkedId } = props
   return (
     <section className='bg-white p-6 mb-8 w-10/12 sm:w-9/12 flex flex-col  sm:flex-row sm:justify-between sm:items-center'>

@@ -20,6 +20,7 @@ const initialState: UserLoginState = {
   userInfo: undefined,
 }
 
+// User login Reducer
 export const userLoginReducer = (state: UserLoginState = initialState, action: LoginActions): UserLoginState => {
   switch (action.type) {
     case UserLoginActionType.USER_LOGIN_REQUEST:
@@ -35,6 +36,7 @@ export const userLoginReducer = (state: UserLoginState = initialState, action: L
   }
 }
 
+// User Register Reducer
 export const userRegisterReducer = (state = initialState, action: RegisterActions): UserRegisterState => {
   switch (action.type) {
     case UserRegisterActionType.USER_REGISTER_REQUEST:
@@ -50,7 +52,8 @@ export const userRegisterReducer = (state = initialState, action: RegisterAction
   }
 }
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
+// User details Reducer
+export const userDetailsReducer = (state = { user: {} }, action: { type: any; payload: any }) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true }
@@ -64,6 +67,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       return state
   }
 }
+// Update User Details Reducer
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case UserUpdateActionType.USER_UPDATE_PROFILE_REQUEST:
@@ -77,6 +81,8 @@ export const userUpdateProfileReducer = (state = {}, action) => {
       return state
   }
 }
+
+// Update User Transaction Reducer
 
 export const userUpdateTransactionReducer = (state = {}, action) => {
   switch (action.type) {

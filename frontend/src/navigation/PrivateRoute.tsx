@@ -16,7 +16,11 @@ interface RouteObject {
   shouldRevalidate?: ShouldRevalidateFunction
 }
 
-const PrivateRoute: React.FC<RouteObject> = () => {
+/**
+ * * Private Route
+ * @returns {JSX.Element}
+ */
+const PrivateRoute: React.FC<RouteObject> = (): JSX.Element => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   if (!userInfo) {

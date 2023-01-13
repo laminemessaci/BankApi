@@ -20,8 +20,12 @@ interface RouteObject {
 
   shouldRevalidate?: ShouldRevalidateFunction
 }
+/**
+ * * Router
+ * @returns {JSX.Element}
+ */
 
-const Navigation: React.FC<RouteObject> = () => {
+const Navigation: React.FC<RouteObject> = (): JSX.Element => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />

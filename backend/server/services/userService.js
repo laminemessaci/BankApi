@@ -110,7 +110,6 @@ module.exports.updateUserProfile = async (serviceData) => {
 };
 
 module.exports.updateUserTransaction = async (serviceData) => {
-  console.log('serviceData============', serviceData.body);
   try {
     const jwtToken = serviceData.headers.authorization
       .split('Bearer')[1]

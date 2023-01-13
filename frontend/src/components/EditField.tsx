@@ -9,7 +9,12 @@ interface IProps {
   save: () => void
 }
 
-const EditField: React.FC<IProps> = ({ save }: IProps) => {
+/**
+ **EditField Component for editing Username
+ * @param param0: onSave function
+ * @returns {JSX.Element}
+ */
+const EditField: React.FC<IProps> = ({ save }: IProps): JSX.Element => {
   const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const {

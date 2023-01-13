@@ -9,6 +9,11 @@ import {
   userUpdateTransactionReducer,
 } from './redux/reducers/userReducers'
 
+/**
+ * Reducers
+ *
+ * @return  {[state]} 
+ */
 const reducers = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

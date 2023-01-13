@@ -3,7 +3,11 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Navigation from './navigation'
 
-const App: React.FC = () => {
+/**
+ * App Page
+ * @returns {JSX.Element}
+ */
+const App: React.FC = (): JSX.Element => {
   return (
     <main>
       <Header />

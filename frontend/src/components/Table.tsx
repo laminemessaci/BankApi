@@ -10,11 +10,16 @@ import Row from './../components/Row'
 
 export const tableHeaders = [{ name: 'date' }, { name: 'description' }, { name: 'amount' }, { name: 'balance' }]
 
-const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]) => {
+/**
+ ** Transaction Table Component
+ * @param {ITransaction[]}
+ * @returns {JSX.Element}
+ */
+const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { transactions }: ITransaction = props
-  transactions?.sort((a, b) => {
+  transactions?.sort((a: ITransaction, b: ITransaction) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
 

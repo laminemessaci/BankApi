@@ -17,7 +17,12 @@ export interface IUserLogin {
   userInfo: IUserData
 }
 
-export default function Login() {
+
+/**
+ * * Login Page 
+ * @returns {JSX.Element}
+ */
+const Login: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -108,3 +113,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login

@@ -11,12 +11,13 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_TRANSACTION_FAIL,
-  USER_UPDATE_TRANSACTION_REQUEST
+  USER_UPDATE_TRANSACTION_REQUEST,
 } from '../constants/userConstants'
 import { IUserState } from '../userReducerTypes'
 import { USER_UPDATE_TRANSACTION_SUCCESS } from './../constants/userConstants'
 import { UserLoginActionType, UserRegisterActionType } from './userActionsTypes'
 
+// Login Action
 export const login =
   (email: string, password: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
   async (dispatch: Dispatch<Action>) => {
@@ -51,6 +52,8 @@ export const login =
     }
   }
 
+// logout Action
+
 export const logout = () => async (dispatch: Dispatch<Action>) => {
   try {
     localStorage.removeItem('userInfo')
@@ -64,6 +67,7 @@ export const logout = () => async (dispatch: Dispatch<Action>) => {
   }
 }
 
+// Register Action
 export const register =
   (
     email: string,
@@ -109,6 +113,7 @@ export const register =
     }
   }
 
+// Update User Details Action
 export const updateUserProfile =
   (firstName: string, lastName: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
   async (dispatch: Dispatch<Action>, getState) => {
@@ -159,6 +164,7 @@ export const updateUserProfile =
     }
   }
 
+// Get User Details Action
 export const getUserDetails =
   (id: string): ThunkAction<void, IUserState, unknown, Action<string>> =>
   async (dispatch: Dispatch<Action>, getState) => {
@@ -197,6 +203,7 @@ export const getUserDetails =
     }
   }
 
+// Update User Transaction Action
 export const updateUserTransaction =
   (accounts): ThunkAction<void, IUserState, unknown, Action<string>> =>
   async (dispatch: Dispatch<Action>, getState) => {

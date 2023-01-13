@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { logout } from '../redux/actions/userActions'
 import { useAppDispatch, useTypedSelector } from '../redux/redux-hook/useTypedStore'
 
-const Header: React.FC = () => {
+/**
+ **Header Component
+ * @returns {JSX.Element}
+ */
+const Header: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  console.log('userInfo', userInfo)
-
   const signOut = () => {
     dispatch(logout())
   }

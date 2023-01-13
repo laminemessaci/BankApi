@@ -2,7 +2,11 @@ import React from 'react'
 import Banner from '../components/Banner'
 import Features from '../components/Features'
 
-const Home: React.FC = () => {
+/**
+ * * Home Page 
+ * @returns {JSX.Element}
+ */
+const Home: React.FC = (): JSX.Element => {
   return (
     <>
       <Banner />

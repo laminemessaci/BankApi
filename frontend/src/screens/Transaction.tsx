@@ -4,7 +4,11 @@ import TransTable from '../components/Table'
 import TransactTop from '../components/TransactTop'
 import { useTypedSelector } from './../redux/redux-hook/useTypedStore'
 
-const Transaction: React.FC = () => {
+/**
+ * * User Transactions Page
+ * @returns {JSX.Element}
+ */
+const Transaction: React.FC = (): JSX.Element => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const navigate = useNavigate()
   const {
