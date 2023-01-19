@@ -1,17 +1,24 @@
 {
+  "tags": {
+    "allowUnknownTags": false,
+    "dictionaries": ["jsdoc"]
+  },
   "source": {
     "include": ["src"],
-    "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs/|public)"
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
   },
   "plugins": ["plugins/markdown"],
   "templates": {
-    "cleverLinks": true,
-    "monospaceLinks": true
+    "cleverLinks": false,
+    "monospaceLinks": false
   },
   "opts": {
     "recurse": true,
+    "verbose": true,
     "encoding": "utf8",
-    "destination": "./docs/"
+    "destination": "./docs/",
+    "template": "node_modules/docdash",
+    "readme": "./readme.md"
   }
 }

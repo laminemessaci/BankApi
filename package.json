@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "doc": "cd front-end && npm run jsdoc && cd..",
+    "doc": "cd frontend && npm run jsdoc && cd..",
     "server": " cd backend && npm run dev:server && cd ..",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
