@@ -112,6 +112,7 @@ module.exports.updateUserProfile = async (serviceData) => {
 
 module.exports.updateUserTransaction = async (serviceData) => {
   try {
+    const accounts = [...serviceData.body.accounts];
     const jwtToken = serviceData.headers.authorization
       .split('Bearer')[1]
       .trim();
@@ -120,7 +121,7 @@ module.exports.updateUserTransaction = async (serviceData) => {
     const user = await User.findOneAndUpdate(
       { _id: decodedJwtToken.id },
       {
-        accounts: serviceData.body.accounts,
+        accounts,
       },
       { new: true }
     );
