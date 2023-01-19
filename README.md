@@ -1,7 +1,7 @@
 # BankApi
 # Project #13- Argent Bank API
 
-This codebase contains the code needed to run the backend for Argent Bank.
+This codebase contains the code needed to run the backend and frontend concurrently for Argent Bank.
 
 ## Getting Started
 
