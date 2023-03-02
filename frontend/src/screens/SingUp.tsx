@@ -42,7 +42,7 @@ const SingUp: React.FC = (): JSX.Element => {
     acceptTerms: Yup.bool().oneOf([true], '\n required.'),
   })
 
-  const initialValues : Values = {
+  const initialValues: Values = {
     firstName: '',
     lastName: '',
     email: '',
@@ -59,7 +59,7 @@ const SingUp: React.FC = (): JSX.Element => {
 
   return (
     <div className='flex flex-col '>
-      <main className='mt-16 bg-[#9995a2] w-full h-screen flex justify-center'>
+      <main className='mt-16 bg-[#12002b] w-full h-screen flex justify-center'>
         <section className='my-auto  p-16 w-auto h-auto bg-white  flex flex-col justify-center'>
           <FaUserCircle className='w-8 h-8 mx-auto' />
           <h1 className='text-center my-5 text-xl'>Register</h1>
