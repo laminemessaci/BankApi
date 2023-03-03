@@ -28,7 +28,7 @@ interface IRow {
 
 /**
  * Row Component
- * @param {IRow} 
+ * @param {IRow}
  * @returns {JSX.Element}
  */
 const Row: React.FC<IRow[]> = (props: IRow[]): JSX.Element => {
@@ -53,7 +53,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]): JSX.Element => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(e)
+
     const oneTrans = {
       _id: e.nativeEvent.target[0].id === undefined ? e.nativeEvent.target.id : e.nativeEvent.target[0].id,
       amount: row.amount,
@@ -86,7 +86,7 @@ const Row: React.FC<IRow[]> = (props: IRow[]): JSX.Element => {
     }
 
     const updatedAccounts = [...updtedAccounts, { ...oneAccount }]
-    console.log('updatedAccounts :', updatedAccounts)
+    // console.log('updatedAccounts :', updatedAccounts)
     dispatch(updateUserTransaction(updatedAccounts))
   }
 

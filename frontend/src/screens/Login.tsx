@@ -26,8 +26,6 @@ const Login: React.FC = (): JSX.Element => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  console.log('userLogin', userLogin)
-
   const navigate = useNavigate()
   const {
     register,
@@ -54,7 +52,7 @@ const Login: React.FC = (): JSX.Element => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             {error && <Message variant='danger'>{error}</Message>}
-            {/* {loading && <Loader type="spin" color='blue' width={20} height={20} />} */}
+            {/* {loading && <Loader type='spin' color='blue' width={20} height={20} />} */}
             <div className='input-wrapper mb-4 flex flex-col'>
               <label htmlFor='username font-bold'>Username</label>
               <input
@@ -93,9 +91,8 @@ const Login: React.FC = (): JSX.Element => {
               <label htmlFor='remember-me'>Remember me</label>
             </div>
 
-            {loading ? (
+            {!loading ? (
               <div className=' mx-auto flex justify-center mb-4'>
-                {' '}
                 <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
               </div>
             ) : (

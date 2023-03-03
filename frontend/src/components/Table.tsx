@@ -18,7 +18,7 @@ export const tableHeaders = [{ name: 'date' }, { name: 'description' }, { name: 
 const TransTable: React.FC<ITransaction[]> = (props: ITransaction[]): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { transactions }: ITransaction = props
+  const { transactions }: { transactions: ITransaction } = props
   transactions?.sort((a: ITransaction, b: ITransaction) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })

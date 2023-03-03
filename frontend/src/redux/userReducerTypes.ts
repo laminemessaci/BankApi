@@ -1,4 +1,5 @@
 export interface ITransaction {
+  [x: string]: any
   _id: string
   amount: number
   currency: string
