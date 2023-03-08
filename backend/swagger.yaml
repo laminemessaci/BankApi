@@ -610,9 +610,44 @@ definitions:
         type: object
         properties:
           id:
+            type: number
+            description: Transaction ID
+          accountId:
+            type: number
+            description: Account ID
+          description:
             type: string
-          email:
+            example: Fly Paris -> Alger
+            description: Transaction description
+          amount:
+            type: number
+            format: int64
+            example: 35.99
+            description: Transaction amount
+          currency:
             type: string
+            example: $
+            description: Transaction currency
+          type:
+            type: string
+            example: Shopping
+            description: Transaction type
+          category:
+            type: string
+            example: Travel
+            description: Transaction category
+          note:
+            type: string
+            example: Diner
+            description: Transaction note
+          createdAt:
+            type: string
+            example: 2023-12-13T12:00:00Z
+            description: creation date
+          updatedAt:
+            type: string
+            example: 2023-12-13T12:00:00Z
+            description: last update date
   LoginResponse:
     type: object
     properties:
