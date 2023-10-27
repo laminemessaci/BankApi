@@ -1,13 +1,13 @@
-const axios = require('axios');
-const colors = require('colors');
-const User = require('../database/models/userModel.js');
+const axios = require("axios");
+const colors = require("colors");
+const User = require("../database/models/userModel.js");
 const {
   balanceTypeArray,
   accountTypeArray,
   signupApi,
 
   TransactionTypeObject,
-} = require('./constants.js');
+} = require("./constants.js");
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
@@ -23,7 +23,7 @@ function getRandomInt(min, max) {
 }
 
 function randomString(length, chars) {
-  var result = '';
+  var result = "";
   for (let i = length; i > 0; --i)
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
@@ -46,7 +46,7 @@ const generateRandomTransactions = (count, bal) => {
   let transactions = [];
   let start = new Date(2022, 12, 1);
   let end = new Date(2022, 12, 30);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { year: "numeric", month: "long", day: "numeric" };
 
   for (let i = 0; i < count; i++) {
     let type = Object.keys(TransactionTypeObject)[
@@ -65,8 +65,8 @@ const generateRandomTransactions = (count, bal) => {
       description,
       amount,
       note,
-      date: randomDate(start, end).toLocaleDateString('en-US', options),
-      currency: '$',
+      date: randomDate(start, end).toLocaleDateString("en-US", options),
+      currency: "$",
       balance: balance.toFixed(2),
     };
     transactions.push(transaction);
@@ -76,15 +76,15 @@ const generateRandomTransactions = (count, bal) => {
 };
 
 const generateRandomAccount = (max) => {
-  let accountNumber = 'FR76300060000' + randomString(14, '0123456789');
+  let accountNumber = "FR76300060000" + randomString(14, "0123456789");
   let name =
-    'Argent Bank' +
+    "Argent Bank" +
     balanceTypeArray[getRandomInt(0, balanceTypeArray.length - 1)] +
-    '(x' +
-    randomString(4, '0123456789') +
-    ')';
+    "(x" +
+    randomString(4, "0123456789") +
+    ")";
   let balance = generateRandomPrice(max).toFixed(2);
-  let currency = '$';
+  let currency = "$";
   let description =
     accountTypeArray[Math.floor(Math.random() * balanceTypeArray.length - 1)];
   let transactions = generateRandomTransactions(getRandomInt(3, 11), balance);
@@ -109,25 +109,25 @@ const generateSommeAccounts = (length, arr) => {
 
 const users = [
   {
-    firstName: 'Tony',
-    lastName: 'Stark',
-    email: 'tony@stark.com',
-    password: 'password123',
+    firstName: "Tony",
+    lastName: "Stark",
+    email: "tony@stark.com",
+    password: "password123",
     accounts: generateSommeAccounts(5, [1900, 10980, 39652]),
   },
   {
-    firstName: 'Steve',
-    lastName: 'Rogers',
-    email: 'steve@rogers.com',
-    password: 'password456',
+    firstName: "Steve",
+    lastName: "Rogers",
+    email: "steve@rogers.com",
+    password: "password456",
     accounts: generateSommeAccounts(4, [1570, 10990, 32350]),
   },
 ];
 
 const createUsers = async () => {
   try {
-    await User.deleteMany();
-    console.log('Users removed');
+    // await User.deleteMany();
+    // console.log('Users removed');
 
     users.forEach((user) => {
       axios
@@ -143,7 +143,7 @@ const createUsers = async () => {
 const destroyData = async () => {
   try {
     await User.deleteMany();
-    console.log('Data Destroyed!'.red.inverse);
+    console.log("Data Destroyed!".red.inverse);
     process.exit();
   } catch (error) {
     console.error(`${error}`.red.inverse);
@@ -151,7 +151,7 @@ const destroyData = async () => {
   }
 };
 
-if (process.argv[2] === '-d') {
+if (process.argv[2] === "-d") {
   destroyData();
 } else {
   createUsers();
