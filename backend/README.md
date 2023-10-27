@@ -18,7 +18,7 @@ Please make sure you have the right versions and download both packages. You can
 node --version
 
 # Check Mongo version
-mongo --version
+mongod --version
 ```
 
 ### Instructions
