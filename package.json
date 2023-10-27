@@ -2,11 +2,11 @@
   "name": "bank-api",
   "version": "1.0.0",
   "description": "bank application",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "test",
     "doc": "cd front-end && npm run jsdoc && cd..",
-    "server": " cd backend && npm run dev:server && cd ..",
+    "server": "npm run dev:server --prefix backend",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
