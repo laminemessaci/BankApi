@@ -83,7 +83,7 @@ concurrently --version
 ```bash
 # Install dependencies
 npm install && cd backend && npm install && cd ..
-cd frontend && npm i
+cd frontend && npm i && cd ..
 
 
 # Start local dev server
