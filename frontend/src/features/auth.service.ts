@@ -5,7 +5,7 @@ import { getLocalToken } from '../utils/localDatas'
 // Auth User API
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://bank-api-1lbd.onrender.com//api/v1/user/',
+    baseUrl: 'https://bank-api-1lbd.onrender.com/api/v1/user',
     prepareHeaders: (headers) => {
       // (headers, { getState }) => {
       // By default, if we have a token in the store, let's use that for authenticated requests
