@@ -5,15 +5,20 @@ const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 const swaggerDocs = yaml.load("./swagger.yaml");
 const dbConnection = require("./database/connection");
+const morgan = require("morgan");
+const corsOptions = require("./config/corsOptions");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Connect to the database
-dbConnection();
+const connectToDatabase = async () => {
+  await dbConnection();
+};
 
+connectToDatabase();
 // Handle CORS issues
-app.use(cors());
+app.use(cors(corsOptions));
+app.use(morgan("dev"));
 
 // Request payload middleware
 app.use(express.json());
