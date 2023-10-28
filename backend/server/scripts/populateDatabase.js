@@ -126,7 +126,7 @@ const users = [
 
 const createUsers = async () => {
   try {
-    await User.deleteMany();
+   // await User.deleteMany();
     console.log("Users removed");
 
     users.forEach((user) => {
