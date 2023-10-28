@@ -126,13 +126,15 @@ const users = [
 
 const createUsers = async () => {
   try {
-    // await User.deleteMany();
-    // console.log('Users removed');
+    await User.deleteMany();
+    console.log("Users removed");
 
     users.forEach((user) => {
       axios
         .post(signupApi, user)
-        .then((response) => console.log(response))
+        .then((response) =>
+          console.log("data generated successfully".green.inverse)
+        )
         .catch((error) => console.log(error));
     });
   } catch (error) {
