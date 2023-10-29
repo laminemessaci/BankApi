@@ -30,6 +30,7 @@ Argent Bank is a full-stack banking web application built with the MERN (MongoDB
 - [react-redux](https://react-redux.js.org/): Official React bindings for Redux state management.
 - [react-router-dom](https://reactrouter.com/web/guides/quick-start): DOM bindings for React Router.
 - [redux-persist](https://www.npmjs.com/package/redux-persist): Persist and rehydrate a Redux store to maintain state across sessions.
+- [Formik](https://formik.org/): A popular form management library for React that simplifies form handling, validation, and submission.
 - [yup](https://www.npmjs.com/package/yup): A schema validation library for form validation.
 
 ### Development Dependencies
