@@ -6,6 +6,15 @@ Argent Bank is a full-stack banking web application built with the MERN (MongoDB
 
 - [Live Demo](https://bank-7t70.onrender.com/): Explore a live demo of the site.
 
+![Documentatio-API](https://github.com/laminemessaci/BankApi/assets/60298344/226212bd-281d-45f4-80a4-854333d22618)
+
+
+https://github.com/laminemessaci/BankApi/assets/60298344/2291ac06-7fa3-414c-8514-67bd63e22a6c
+
+
+
+https://github.com/laminemessaci/BankApi/assets/60298344/5a23f6db-fb47-4290-99f1-012e7c930849
+
 
 ## Backend Dependencies
 
