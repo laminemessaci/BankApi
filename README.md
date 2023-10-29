@@ -32,6 +32,14 @@ Argent Bank is a full-stack banking web application built with the MERN (MongoDB
 - [redux-persist](https://www.npmjs.com/package/redux-persist): Persist and rehydrate a Redux store to maintain state across sessions.
 - [Formik](https://formik.org/): A popular form management library for React that simplifies form handling, validation, and submission.
 - [yup](https://www.npmjs.com/package/yup): A schema validation library for form validation.
+- [Axios](https://axios-http.com/): A promise-based HTTP client for making API requests in the browser and Node.js.
+- [Moment](https://momentjs.com/): A JavaScript library for parsing, validating, manipulating, and formatting dates and times.
+- [Lodash](https://lodash.com/): A JavaScript utility library for simplifying common programming tasks.
+- [React Hook Form](https://react-hook-form.com/): A library for managing form state and validation in React applications.
+- [Redux Persist](https://github.com/rt2zz/redux-persist): A library for persisting and rehydrating a Redux store to maintain state across sessions.
+- [TypeScript](https://www.typescriptlang.org/): A strongly typed superset of JavaScript that enhances code quality and tooling support.
+- [React Cookie](https://github.com/reactivestack/cookies): A library for managing cookies in React applications.
+
 
 ### Development Dependencies
 
