@@ -4,6 +4,9 @@
 
 Argent Bank is a full-stack banking web application built with the MERN (MongoDB, Express.js, React, Node.js) stack.
 
+- [Live Demo](https://bank-7t70.onrender.com/): Explore a live demo of the site.
+
+
 ## Backend Dependencies
 
 - [bcrypt](https://www.npmjs.com/package/bcrypt): Used for password hashing and validation.
