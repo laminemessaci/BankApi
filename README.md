@@ -2,7 +2,7 @@
 
 # Argent Bank
 
-Argent Bank is a full-stack banking web application built with the MERN (MongoDB, Express.js, React, Node.js) stack.
+Argent Bank is a full-stack banking web application built with the MERN (MongoDB, Express.js, React, Node.js MERN) stack.
 
 - [Live Demo](https://bank-7t70.onrender.com/): Explore a live demo of the site.
 
