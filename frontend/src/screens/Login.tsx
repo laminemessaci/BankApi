@@ -111,7 +111,13 @@ const Login: React.FC = () => {
             <Link className='text-xs mb-2 flex justify-center' to={'/sign-up'}>
               New account ?<FaChevronCircleRight color='#00BC77' className='mx-1' />
             </Link>
-          </form>
+          </form> 
+          <p className='mt-4 text-xs font-light text-center text-gray-700'>
+            Employee User :
+            <a href='#' className='font-medium text-teal-600 hover:underline'>
+              <span> Email: tony@stark.com --- password: password123</span>
+            </a>
+          </p>
         </section>
       </main>
     </div>
