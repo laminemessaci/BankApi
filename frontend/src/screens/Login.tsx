@@ -59,7 +59,7 @@ const Login: React.FC = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             {isError && <Message variant='danger'>{error['data'].message}</Message>}
-            {isLoading && <Loader type='spin' color='blue' width={20} height={20} />}
+            {/* {isLoading && <Loader type='spin' color='blue' width={20} height={20} />} */}
             <div className='input-wrapper mb-4 flex flex-col'>
               <label htmlFor='username font-bold'>Username</label>
               <input
