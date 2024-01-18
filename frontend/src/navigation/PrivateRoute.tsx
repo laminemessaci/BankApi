@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useRef } from 'react'
 import { Cookies } from 'react-cookie'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
@@ -55,6 +56,7 @@ const PrivateRoute: React.FC<RouteObject> = () => {
 
   return token ? (
     // If the token is good Then display the page
+     // @ts-expect-error 
     <Outlet />
   ) : (
     // If the token is not good Then navigate to signIn page

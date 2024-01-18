@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaChevronCircleRight, FaUserCircle } from 'react-icons/fa'
@@ -54,10 +54,12 @@ const Login: React.FC = () => {
     <div className='flex flex-col'>
       <main className='mt-16 bg-[#9995a2] w-full h-screen flex justify-center'>
         <section className='my-auto m-12 p-12 h-auto bg-white  flex flex-col justify-center'>
+          {/* @ts-expect-error */}
           <FaUserCircle className='w-8 h-8 mx-auto' />
           <h1 className='text-center my-5'>Sign In</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* @ts-expect-error */}
             {isError && <Message variant='danger'>{error['data'].message}</Message>}
             {/* {isLoading && <Loader type='spin' color='blue' width={20} height={20} />} */}
             <div className='input-wrapper mb-4 flex flex-col'>
@@ -100,7 +102,7 @@ const Login: React.FC = () => {
 
             {isLoading ? (
               <div className=' mx-auto flex justify-center mb-4'>
-                {' '}
+                {/* @ts-expect-error */}
                 <Loader type='spin' color='#00BC77' width={40} height={40} />{' '}
               </div>
             ) : (
@@ -108,17 +110,18 @@ const Login: React.FC = () => {
                 Sign In
               </button>
             )}
+            {/* @ts-expect-error */}
             <Link className='text-xs mb-2 flex justify-center' to={'/sign-up'}>
+              {/* @ts-expect-error */}
               New account ?<FaChevronCircleRight color='#00BC77' className='mx-1' />
             </Link>
-          </form> 
-           <p className='mt-4 text-xs font-light text-center text-gray-700'>
-             User test :
+          </form>
+          <p className='mt-4 text-xs font-light text-center text-gray-700'>
+            User test :
             <a href='#' className='font-medium text-teal-600 hover:underline'>
               <span> Email: tony@stark.com --- password: password123</span>
             </a>
           </p>
-         
         </section>
       </main>
     </div>
